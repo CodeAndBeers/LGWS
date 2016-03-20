@@ -6,11 +6,6 @@ const SystemBuilder = require('systemjs-builder');
 const sass = require('gulp-sass');
 const ng2Templates = require('gulp-inline-ng2-template');
 
-const tsProject = typescript.createProject('tsconfig.json', {
-	typescript: require('typescript'),
-	sortOuput: true
-});
-
 const app = 'app';
 const dist = 'dist';
 const node_modules = 'node_modules';
@@ -34,13 +29,20 @@ const paths = {
 
 			node_modules + '/angular2/bundles/angular2-polyfills.js',
 			node_modules + '/rxjs/bundles/Rx.js',
-			node_modules + '/angular2/bundles/angular2.dev.js'
+			node_modules + '/angular2/bundles/angular2.dev.js',
+			node_modules + '/angular2/bundles/router.dev.js'
 		],
 		concat: 'vendor.js',
 		dest: dist + '/js'
 	},
+	templates: {
+		src: app + '/**/*.html'
+	},
 	sass: {
-		src: [ app + '/**/*.scss'],
+		src: [ 
+			'main.scss',
+			app + '/**/*.scss'
+		],
 		concat: 'styles.css',
 		dest: dist + '/css'
 	},
@@ -57,9 +59,14 @@ const paths = {
 };
 
 gulp.task('typescript', function () {
+	const tsProject = typescript.createProject('tsconfig.json', {
+		typescript: require('typescript'),
+		sortOuput: true
+	});
+
 	return gulp.src(paths.scripts.src)
 		.pipe(typescript(tsProject)).js
-		.pipe(ng2Templates({ base: '/app' }))
+		.pipe(ng2Templates({ base: app }))
 		.pipe(gulp.dest(paths.scripts.dest))
 });
 
@@ -101,7 +108,7 @@ gulp.task('misc', [], function () {
 
 gulp.task('watch', [], function () {
 	[
-		gulp.watch([ paths.scripts.src ], [ 'scripts' ]),
+		gulp.watch([ paths.scripts.src, paths.templates.src ], [ 'scripts' ]),
 		gulp.watch([ paths.sass.src ], [ 'styles' ]),
 		// gulp.watch(paths.images, [ 'images' ]),
 		// gulp.watch(paths.fonts, [ 'fonts' ]),
