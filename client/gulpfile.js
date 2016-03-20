@@ -4,6 +4,7 @@ const concat = require('gulp-concat');
 const eventStream = require('event-stream');
 const SystemBuilder = require('systemjs-builder');
 const sass = require('gulp-sass');
+const ng2Templates = require('gulp-inline-ng2-template');
 
 const tsProject = typescript.createProject('tsconfig.json', {
 	typescript: require('typescript'),
@@ -58,7 +59,7 @@ const paths = {
 gulp.task('typescript', function () {
 	return gulp.src(paths.scripts.src)
 		.pipe(typescript(tsProject)).js
-		// .pipe(concat(paths.scripts.concat))
+		.pipe(ng2Templates({ base: '/app' }))
 		.pipe(gulp.dest(paths.scripts.dest))
 });
 

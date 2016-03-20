@@ -6,7 +6,7 @@
     "start": "\"npm run gulp\" ",
     "typings": "typings",
     "postinstall": "typings install"
-  }
+  },
   "license": "ISC",
   "dependencies": {
     "angular2": "2.0.0-beta.11",
@@ -22,8 +22,9 @@
     "event-stream": "^3.3.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
-    "gulp-typescript": "^2.12.1",
+    "gulp-inline-ng2-template": "^1.1.2",
     "gulp-sass": "^2.2.0",
+    "gulp-typescript": "^2.12.1",
     "typescript": "^1.8.9",
     "typings": "^0.7.9"
   }
