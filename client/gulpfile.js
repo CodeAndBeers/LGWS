@@ -3,6 +3,7 @@ const typescript = require('gulp-typescript');
 const concat = require('gulp-concat');
 const eventStream = require('event-stream');
 const SystemBuilder = require('systemjs-builder');
+const sass = require('gulp-sass');
 
 const tsProject = typescript.createProject('tsconfig.json', {
 	typescript: require('typescript'),
@@ -17,7 +18,7 @@ const typings = 'typings';
 const paths = {
 	scripts: {
 		src: [
-			app + '/**.ts',
+			app + '/**/*.ts',
 			typings + '/main/**.ts'
 		],
 		concat: 'app.js',
@@ -36,6 +37,11 @@ const paths = {
 		],
 		concat: 'vendor.js',
 		dest: dist + '/js'
+	},
+	sass: {
+		src: [ app + '/**/*.scss'],
+		concat: 'styles.css',
+		dest: dist + '/css'
 	},
 	misc: [
 		{
@@ -78,6 +84,12 @@ gulp.task('libs', function () {
 		.pipe(gulp.dest(paths.libs.dest))
 });
 
+gulp.task('sass', function () {
+	return gulp.src(paths.sass.src)
+		.pipe(sass().on('error', sass.logError))
+		.pipe(concat(paths.sass.concat))
+		.pipe(gulp.dest(paths.sass.dest));
+});
 
 gulp.task('misc', [], function () {
 	return eventStream.merge.apply(null, paths.misc.map(function (item) {
@@ -87,4 +99,4 @@ gulp.task('misc', [], function () {
 	}));
 });
 
-gulp.task('default', ['libs', 'scripts', 'misc']);
+gulp.task('default', ['libs', 'scripts', 'sass', 'misc']);
