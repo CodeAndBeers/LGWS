@@ -55,7 +55,6 @@ const paths = {
 	]
 };
 
-
 gulp.task('typescript', function () {
 	return gulp.src(paths.scripts.src)
 		.pipe(typescript(tsProject)).js
@@ -84,7 +83,7 @@ gulp.task('libs', function () {
 		.pipe(gulp.dest(paths.libs.dest))
 });
 
-gulp.task('sass', function () {
+gulp.task('styles', function () {
 	return gulp.src(paths.sass.src)
 		.pipe(sass().on('error', sass.logError))
 		.pipe(concat(paths.sass.concat))
@@ -99,4 +98,18 @@ gulp.task('misc', [], function () {
 	}));
 });
 
-gulp.task('default', ['libs', 'scripts', 'sass', 'misc']);
+gulp.task('watch', [], function () {
+	[
+		gulp.watch([ paths.scripts.src ], [ 'scripts' ]),
+		gulp.watch([ paths.sass.src ], [ 'styles' ]),
+		// gulp.watch(paths.images, [ 'images' ]),
+		// gulp.watch(paths.fonts, [ 'fonts' ]),
+		gulp.watch(paths.misc.map((item) => item.src), [ 'misc' ])
+	].forEach(function (watch) {
+		watch.on('change', function (event) {
+			console.log('File %s was %s, running tasks...', event.path, event.type);
+		});
+	});
+});
+
+gulp.task('default', ['libs', 'scripts', 'styles', 'misc']);
