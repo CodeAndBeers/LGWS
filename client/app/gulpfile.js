@@ -6,7 +6,7 @@ const SystemBuilder = require('systemjs-builder');
 const sass = require('gulp-sass');
 const ng2Templates = require('gulp-inline-ng2-template');
 
-const app = 'app';
+const app = 'src';
 const dist = 'dist';
 const node_modules = 'node_modules';
 const typings = 'typings';
