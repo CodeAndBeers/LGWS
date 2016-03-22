@@ -15,7 +15,7 @@ const paths = {
 	scripts: {
 		src: [
 			app + '/**/*.ts',
-			typings + '/main/**.ts'
+			typings + '/browser.d.ts'
 		],
 		concat: 'app.js',
 		dest: dist + '/js'
@@ -27,6 +27,7 @@ const paths = {
 			node_modules + '/systemjs/dist/system-polyfills.js',
 			node_modules + '/angular2/es6/dev/src/testing/shims_for_IE.js',
 
+			node_modules + '/socket.io-client/socket.io.js',
 			node_modules + '/angular2/bundles/angular2-polyfills.js',
 			node_modules + '/rxjs/bundles/Rx.js',
 			node_modules + '/angular2/bundles/angular2.dev.js',
@@ -74,12 +75,17 @@ gulp.task('scripts', ['typescript'], function () {
 	var builder = new SystemBuilder(dist + '/js', {
 		paths: {
 			'*': '*.js'
+			, 'socket.io-client': './' + node_modules + '/socket.io-client/socket.io.js'
+
 		},
 		meta: {
 			'angular2/*': {
 				build: false
 			}
-		}
+		},
+		// map: {
+		// 	'socket.io-client': './' + node_modules + '/socket.io-client/socket.io.js'
+		// }
 	});
 
 	return builder.bundle('main', dist + '/js/app.bundle.js');
