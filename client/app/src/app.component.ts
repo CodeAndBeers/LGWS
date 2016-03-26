@@ -4,10 +4,11 @@ import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router
 
 /*COMPONENTS*/
 import {LoginComponent} from './login/login.component'
+import {GameRouterComponent} from './game/game-router-component';
 
 /*SERVICES*/
 import {SocketService} from './components/socket/sockets-service';
-import {GamesService} from './components/games/games-service';
+import {GamesService} from './game/games-service';
 
 @Component({
 	selector: 'my-app',
@@ -20,9 +21,10 @@ import {GamesService} from './components/games/games-service';
 	]
 })
 @RouteConfig([
-	{ path: '/login', name: 'Login', component: LoginComponent, useAsDefault: true }
+	{ path: '/login', name: 'Login', component: LoginComponent, useAsDefault: true },
+	{ path: '/game/:roomCode', name: 'Game', component: GameRouterComponent }
 ])
-export class AppComponent { 
+export class AppComponent {
 	constructor(private socketService: SocketService) {
 		console.log('AppComponent instantiated');
 
