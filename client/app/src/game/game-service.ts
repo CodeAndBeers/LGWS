@@ -1,13 +1,18 @@
 import {Injectable, Output, EventEmitter} from 'angular2/core';
 import {SocketService} from '../components/socket/sockets-service';
 
-export interface MJ {
-	pseudo:string
+export const Roles = {
+	MJ: "MJ"
+};
+
+export interface BasePlayer {
+	pseudo:string,
+	role: string
 }
 
-export interface Player {
-	pseudo: string,
-	role: string,
+export interface MJ extends BasePlayer { }
+
+export interface Player extends BasePlayer {
 	dead: string,
 	vote: any
 }
@@ -18,6 +23,7 @@ export interface GameState {
 }
 
 export interface GameUpdate {
+	me: BasePlayer,
 	mj: MJ,
 	id: string,
 	turn: number,
@@ -26,7 +32,7 @@ export interface GameUpdate {
 }
 
 @Injectable()
-export class GamesService {
+export class GameService {
 
 	private roomCode: string;
 
@@ -43,6 +49,12 @@ export class GamesService {
 		this.socketService.on('game_update', (data) => this.onGameUpdate(data));
 	}
 	
+	nextState() {
+		if (!this.isCurrentPlayerMJ()) return;
+		
+		this.socketService.emit("next");
+	}
+	
 	getRoomCode() {
 		return this.roomCode;
 	}
@@ -51,6 +63,17 @@ export class GamesService {
 		if (!this.lastGameUpdate) return [];
 		
 		return this.lastGameUpdate.players;
+	}
+
+	getCurrentPlayer(): BasePlayer {
+		if (!this.lastGameUpdate) return null;
+		return this.lastGameUpdate.me;
+	}
+	
+	isCurrentPlayerMJ(): boolean {
+		const player:BasePlayer = this.getCurrentPlayer();
+		if (!player) return false;
+		return player.role === Roles.MJ;
 	}
 	
 	private onGameUpdate(data) {

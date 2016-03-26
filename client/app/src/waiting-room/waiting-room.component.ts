@@ -1,5 +1,5 @@
 import {Component, OnInit} from "angular2/core";
-import {GamesService, GameUpdate, Player, MJ} from '../game/game-service';
+import {GameService, GameUpdate, Player, MJ} from '../game/game-service';
 
 @Component({
 	selector: 'waiting-room',
@@ -10,8 +10,9 @@ class WaitingRoomComponent implements OnInit {
 	players: Player[];
 	roomCode: string;
 	mj: MJ;
+	isMJ: boolean;
 	
-	constructor(private gameService: GamesService) {
+	constructor(private gameService: GameService) {
 		console.log('WaitingRoomComponent instantiated');
 	}
 
@@ -21,10 +22,16 @@ class WaitingRoomComponent implements OnInit {
 			next: (data) => this.onGameUpdate(data)
 		});
 	}
+
+	startGame() {
+		console.log('startGame');
+		this.gameService.nextState();
+	}
 	
 	private onGameUpdate(data: GameUpdate) {
 		this.players = data.players;
 		this.mj = data.mj;
+		this.isMJ = this.gameService.isCurrentPlayerMJ();
 	}
 
 

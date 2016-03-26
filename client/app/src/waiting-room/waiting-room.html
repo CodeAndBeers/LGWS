@@ -7,4 +7,7 @@
 			{{player.pseudo}}
 		</div>
 	</div>
+	<div *ngIf="isMJ">
+		<button (click)="startGame()">Démarrer</button>
+	</div>
 </div>

@@ -12,7 +12,7 @@ export interface CreateGameResult extends ActionOnGameResult { }
 export class GamesService {
 
 	constructor(private socketService: SocketService) {
-		console.log('GamesService instantiated');
+		console.log('GameService instantiated');
 	}
 	
 	joinGame(code: string, pseudo: string): Promise<JoinGameResult> {
