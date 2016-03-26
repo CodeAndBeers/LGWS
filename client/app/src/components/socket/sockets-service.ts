@@ -9,13 +9,13 @@ export class SocketService {
 	constructor() {
 		console.log('SocketService was instantiated');
 
-		this.socket = io(location.origin + '/api/', {
-			path: '/api/socket.io'
-		});
-
-		this.socket.on('connect', (e) => {
-			console.log("hola que tal", e);
-		});
+		// this.socket = io(location.origin + '/api/', {
+		// 	path: '/api/socket.io'
+		// });
+		//
+		// this.socket.on('connect', (e) => {
+		// 	console.log("hola que tal", e);
+		// });
 
 		//
 		// this.socket.on('error', (e) => {
@@ -23,13 +23,13 @@ export class SocketService {
 		// });
 		//
 
-		this.socket.on('news', (e) => {
-			console.log("news event occured", e);
-		});
-
-		this.socket.emit("my other event", { hello : "world" }, function (data) {
-			console.log(data);
-		});
+		// this.socket.on('news', (e) => {
+		// 	console.log("news event occured", e);
+		// });
+		//
+		// this.socket.emit("my other event", { hello : "world" }, function (data) {
+		// 	console.log(data);
+		// });
 	}
 
 	connect(url: string, opts?: SocketIOClient.ConnectOpts, fn?: Function) {
