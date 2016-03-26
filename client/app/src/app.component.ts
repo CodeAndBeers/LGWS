@@ -26,11 +26,12 @@ export class AppComponent {
 	constructor(private socketService: SocketService) {
 		console.log('AppComponent instantiated');
 
-		// socketService
-		// 	.connect(location.origin + '/api/', {
-		// 		path: '/api/socket.io'
-		// 	})
-		// 	.onConnect(() => console.log('websocket connected !'));
+		socketService
+			.connect('/', {
+				path: '/api/socket.io'
+			})
+			.on('connect_error', () => console.log('websocket error connected !'))
+			.onConnect(() => console.log('websocket connected !'));
 
 	}
 }

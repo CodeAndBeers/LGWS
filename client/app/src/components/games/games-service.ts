@@ -9,14 +9,13 @@ export class GamesService {
 	}
 	
 	joinGame(code: string, pseudo: string) {
-		this.socketService.sendp("join_game", {code, pseudo})
+		return this.socketService.emitp("join_game", {code, pseudo})
 			.then(() => console.log('game joined'));
 	}
 	
-	createGame(code: string) {
-		this.socketService.sendp("create_game", code)
+	createGame(pseudo: string) {
+		return this.socketService.emitp("create_game", pseudo)
 			.then(() => console.log('game created'));
-		
 	}
 	
 }
