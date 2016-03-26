@@ -22,7 +22,7 @@ import {GamesService} from './game/games-service';
 })
 @RouteConfig([
 	{ path: '/login', name: 'Login', component: LoginComponent, useAsDefault: true },
-	{ path: '/game/:roomCode', name: 'Game', component: GameRouterComponent }
+	{ path: '/game/:roomCode/...', name: 'Game', component: GameRouterComponent }
 ])
 export class AppComponent {
 	constructor(private socketService: SocketService) {
