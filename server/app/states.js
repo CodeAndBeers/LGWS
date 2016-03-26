@@ -3,7 +3,7 @@ module.exports = {
  DAY_VOTE: require("./states/day_vote.js"),
  DAY_RESULT: require("./states/day_result.js"),
  GAME_OVER: require("./states/game_over.js"),
- NIGHT: require("./states/night.js"),
+ //NIGHT: require("./states/night.js"),
  // DISTRIBUTE_ROLE:
  // HUNTER:{
  //   name: "HUNTER",

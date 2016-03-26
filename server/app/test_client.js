@@ -11,8 +11,9 @@ mj.on('connect', function () {
 
 setTimeout(function () {
   let player1 = require('socket.io-client').connect('http://localhost:3000');
-  player1.on('game_update', function() {
+  player1.on('game_update', function(game) {
     console.log("Player 1 received a game update");
+    console.log(JSON.stringify(game));
   })
   player1.on('connect', function () {
     console.log("Player1 Connected !");
