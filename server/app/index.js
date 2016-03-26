@@ -10,7 +10,7 @@ var id = 0;
 
 class Player {
   constructor(pseudo)  {
-    this.pseudo = "pseudo";
+    this.pseudo = pseudo;
     this.role = "NONE";
     this.dead = "NONE";
     this.vote = null;
@@ -31,8 +31,17 @@ app.get('/', function (req, res) {
 });
 
 function updateAllPlayers(game) {
-    //TODO send view to all players
-    //console.log(game);
+    const game_view = JSON.parse(JSON.stringify(game, function(key, value) {
+      if (key === "socket") {
+        return undefined;
+      } else {
+        return value;
+      }
+    }));
+    game.mj.socket.emit("game_update", game_view);
+    game.players.forEach(function (player) {
+      player.socket.emit("game_update", game_view);
+    });
 }
 
 io.on('connection', function(socket){
@@ -40,7 +49,8 @@ io.on('connection', function(socket){
   socket.on('error', function(err) {
     console.log(" Error");
     console.log(err);
-});
+  });
+
   socket.on('create_game', function (data) {
     let game = {};
     socket.isMJ = true;
