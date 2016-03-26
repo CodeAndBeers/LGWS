@@ -1,6 +1,13 @@
 import {Injectable, Output, EventEmitter} from 'angular2/core';
 import {SocketService} from '../components/socket/sockets-service';
 
+export interface Player {
+	pseudo: string,
+	role: string,
+	dead: string,
+	vote: any
+}
+
 export interface GameState {
 	name: string,
 	actions: any[]
@@ -11,7 +18,7 @@ export interface GameUpdate {
 	id: string,
 	turn: number,
 	state: GameState,
-	players: any[]
+	players: Player[]
 }
 
 @Injectable()
@@ -20,6 +27,7 @@ export class GamesService {
 	private roomCode: string;
 
 	@Output() gameUpdate: EventEmitter<GameUpdate> = new EventEmitter();
+	private lastGameUpdate: GameUpdate;
 
 	constructor(private socketService: SocketService) {
 		console.log('GameService instantiated');
@@ -31,8 +39,19 @@ export class GamesService {
 		this.socketService.on('game_update', (data) => this.onGameUpdate(data));
 	}
 	
+	getRoomCode() {
+		return this.roomCode;
+	}
+
+	getPlayers(): Player[] {
+		if (!this.lastGameUpdate) return [];
+		
+		return this.lastGameUpdate.players;
+	}
+	
 	private onGameUpdate(data) {
 		console.log('game_update', data);
-		this.gameUpdate.emit(null);
+		this.lastGameUpdate = data;
+		this.gameUpdate.emit(data);
 	}
 }

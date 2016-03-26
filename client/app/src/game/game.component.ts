@@ -2,7 +2,9 @@ import {Component, Input, OnInit} from "angular2/core";
 
 @Component({
 	selector: 'game',
-	template: '<div>Game</div>'
+	template: `
+<div></div>
+`
 })
 class GameComponent implements OnInit {
 	

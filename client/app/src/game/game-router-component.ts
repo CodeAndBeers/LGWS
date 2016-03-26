@@ -30,6 +30,7 @@ class GameRouterComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		console.log('GameRouterComponent ngOnInit');
 		this.gameService.initGame(this.roomCode);
 	}
 
