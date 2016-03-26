@@ -1,7 +1,13 @@
+/*ANGULAR*/
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
+
+/*COMPONENTS*/
 import {LoginComponent} from './login/login.component'
+
+/*SERVICES*/
 import {SocketService} from './components/socket/sockets-service';
+import {GamesService} from './components/games/games-service';
 
 @Component({
 	selector: 'my-app',
@@ -9,7 +15,8 @@ import {SocketService} from './components/socket/sockets-service';
 	directives: [ROUTER_DIRECTIVES],
 	providers: [
 		ROUTER_PROVIDERS,
-		SocketService
+		SocketService,
+		GamesService
 	]
 })
 @RouteConfig([
@@ -17,6 +24,14 @@ import {SocketService} from './components/socket/sockets-service';
 ])
 export class AppComponent { 
 	constructor(private socketService: SocketService) {
-		
+		console.log('AppComponent instantiated');
+
+		socketService
+			.connect('/', {
+				path: '/api/socket.io'
+			})
+			.on('connect_error', () => console.log('websocket error connected !'))
+			.onConnect(() => console.log('websocket connected !'));
+
 	}
 }
