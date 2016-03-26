@@ -1,5 +1,6 @@
 import {Component} from 'angular2/core';
-import {GamesService} from '../components/games/games-service';
+import {Router} from 'angular2/router';
+import {GamesService} from '../game/games-service';
 
 interface JoinGameRequest {
 	code?: string,
@@ -19,8 +20,9 @@ export class LoginComponent {
 	create: CreateGameRequest;
 	join: JoinGameRequest;
 	
-	constructor(private gamesService: GamesService) {
+	constructor(private gamesService: GamesService, private router: Router) {
 		console.log('LoginComponent instantiated');
+			
 		this.create = {};
 		this.join = {};
 	}
@@ -28,16 +30,18 @@ export class LoginComponent {
 	joinGame(joinRequest: JoinGameRequest) {
 		console.log('joinGame', joinRequest);
 		this.gamesService.joinGame(joinRequest.code, joinRequest.pseudo)
-			.then(() => {
-				console.log('game joined!!');
+			.then((result) => {
+				console.log('game joined!!', 'code is ', result.roomCode);
+				this.router.navigate(['Game', { roomCode: result.roomCode }]);
 			});
 	}
 
 	createGame(createRequest: CreateGameRequest) {
 		console.log('createGame', createRequest);
 		this.gamesService.createGame(createRequest.pseudo)
-			.then(() => {
-				console.log('game created!!');
+			.then((result) => {
+				console.log('game created!!', 'code is ', result.roomCode);
+				this.router.navigate(['Game', { roomCode: result.roomCode }]);
 			});
 	}
 }
