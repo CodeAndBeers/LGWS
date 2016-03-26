@@ -10,9 +10,9 @@ let state = {
 
 state.actions.push({
   name: "vote",
-  fct:  function(game, player, vote)  {
+  fct:  function(game, player, param)  {
     if (game.state = states.DAY_VOTE && player.vote == null) {
-      player.vote = vote;
+      player.vote = param.vote;
     }
     updatePlayer();
   }

@@ -30,3 +30,7 @@ setTimeout(function () {
     player2.emit("join_game", { pseudo: 'Freedonaab', code: 0});
   });
 }, 2000);
+
+setTimeout(function () {
+  mj.emit("next");
+}, 3000);
