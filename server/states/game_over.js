@@ -1,10 +1,10 @@
-let states = require("./states.js");
 
-exports = {
+let state = {
   name: "GAME_OVER",
   next: function(game) {
-    return states.END_GAME;
-  }
-},
+    return this;
+  },
   actions: []
 }
+
+module.exports = state

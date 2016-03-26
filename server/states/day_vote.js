@@ -1,9 +1,9 @@
-let states = require("./states.js");
+let DAY_RESULT = require("./day_result.js");
 
 let state = {
   name: "DAY_VOTE",
   next: function(game) {
-    return states.DAY_RESULT;
+    return DAY_RESULT;
   },
   actions: []
 }
@@ -18,5 +18,4 @@ state.actions.push({
   }
 })
 
-exports = state;
-states.register(state);
+module.exports = state;

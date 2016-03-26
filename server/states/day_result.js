@@ -1,12 +1,11 @@
-let states = require("./states.js");
+let GAME_OVER = require("./game_over.js");
 
 let state = {
   name: "DAY_RESULT",
   next: function(game) {
-    return states.GAME_OVER;
+    return GAME_OVER;
   },
   actions: []
 }
 
-exports = state;
-states.register(state);
+module.exports = state;
