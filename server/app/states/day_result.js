@@ -1,4 +1,4 @@
-let GAME_OVER = require("./game_over.js");
+const GAME_OVER = require("./game_over.js");
 
 let state = {
   name: "DAY_RESULT",

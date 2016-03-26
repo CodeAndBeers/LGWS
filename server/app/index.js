@@ -1,9 +1,10 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var fjs = require("functional.js");
 const encryption = require("./encryption.js");
 const states = require("./states.js");
+
+require("functional_array.js");
 
 var games = {};
 var id = 0;
@@ -62,6 +63,10 @@ io.on('connection', function(socket){
     game.turn = 0;
     game.state = states.WAITING_PLAYERS;
     game.players = [];
+    game.players.findByName = function (name) {
+      game.players.find(player => player.name === name);
+    };
+    game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
     console.log("Creating game");
     //game.updatePlayers = function () {updatePlayers(this)};
