@@ -1,5 +1,6 @@
 <div>
 	<div>Code de la room: {{roomCode}}</div>
+	<div *ngIf="mj">MJ: {{mj.pseudo}}</div>
 	<div *ngIf="players">
 		<div>{{players.length}} joueurs connectés</div>
 		<div *ngFor="#player of players">

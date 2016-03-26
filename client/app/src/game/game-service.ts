@@ -1,6 +1,10 @@
 import {Injectable, Output, EventEmitter} from 'angular2/core';
 import {SocketService} from '../components/socket/sockets-service';
 
+export interface MJ {
+	pseudo:string
+}
+
 export interface Player {
 	pseudo: string,
 	role: string,
@@ -14,7 +18,7 @@ export interface GameState {
 }
 
 export interface GameUpdate {
-	mj: any,
+	mj: MJ,
 	id: string,
 	turn: number,
 	state: GameState,

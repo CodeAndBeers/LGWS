@@ -24,7 +24,7 @@ export class GamesService {
 	}
 	
 	createGame(pseudo: string): Promise<CreateGameResult> {
-		return this.socketService.emitp("create_game", pseudo)
+		return this.socketService.emitp("create_game", {pseudo})
 			.then((data: any) => {
 				console.log('game created', data);
 				return { roomCode: data.id };
