@@ -1,1 +1,13 @@
+# Common
+
+# Client
+node_modules
+typings
+npm-debug.log
+.idea
+*.iml
+dist
+*~
+
+# Server
 server/node_modules/

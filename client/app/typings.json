@@ -1,0 +1,6 @@
+{
+  "ambientDependencies": {
+    "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd",
+    "socket.io-client": "github:DefinitelyTyped/DefinitelyTyped/socket.io-client/socket.io-client.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd"
+  }
+}

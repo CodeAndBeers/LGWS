@@ -3,17 +3,19 @@
   "version": "1.0.0",
   "scripts": {
     "gulp": "gulp",
-    "start": "\"npm run gulp\" ",
+    "start": "npm run gulp",
     "typings": "typings",
     "postinstall": "typings install"
   },
   "license": "ISC",
   "dependencies": {
-    "angular2": "2.0.0-beta.11",
+    "angular2": "2.0.0-beta.9",
+    "bootstrap-sass": "^3.3.6",
     "es6-promise": "^3.0.2",
     "es6-shim": "^0.35.0",
     "reflect-metadata": "0.1.2",
     "rxjs": "5.0.0-beta.2",
+    "socket.io-client": "^1.4.5",
     "systemjs": "0.19.24",
     "systemjs-builder": "^0.15.13",
     "zone.js": "0.6.4"
@@ -22,6 +24,8 @@
     "event-stream": "^3.3.2",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
+    "gulp-inline-ng2-template": "^1.1.2",
+    "gulp-sass": "^2.2.0",
     "gulp-typescript": "^2.12.1",
     "typescript": "^1.8.9",
     "typings": "^0.7.9"

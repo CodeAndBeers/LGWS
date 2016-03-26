@@ -1,0 +1,14 @@
+@import "components/sass/variables";
+@import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+html {
+
+	body {
+		background-color: #eee;
+
+		h1 {
+			text-align: center;
+		}
+	}
+
+}
