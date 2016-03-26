@@ -50,8 +50,8 @@ io.on('connection', function(socket){
     console.log(" Error");
     console.log(err);
   });
-
-  socket.on('create_game', function (data) {
+  socket.on('create_game', function (data, fn) {
+    console.log("Creating game");
     let game = {};
     socket.isMJ = true;
     socket.game = game;
@@ -63,6 +63,9 @@ io.on('connection', function(socket){
     game.state = states.WAITING_PLAYERS;
     game.players = [];
     games[game.id] = game;
+
+    fn({ result: 'ok' });
+
     console.log("Creating game");
     //game.updatePlayers = function () {updatePlayers(this)};
     socket.on('next', function () {
@@ -70,8 +73,10 @@ io.on('connection', function(socket){
       updateAllPlayers(game);
     });
     updateAllPlayers(game);
+    
   });
-  socket.on('join_game', function(data) {
+  
+  socket.on('join_game', function(data, fn) {
     const id = encryption.decrypt(data.code);
     let game = games[id];
     console.log("Join game id:" + game.id);
@@ -95,6 +100,9 @@ io.on('connection', function(socket){
     } else {
       //TODO Handle reconnection
     }
+
+    fn({ result: 'ok' });
+
     updateAllPlayers(game);
   });
   socket.on('disconnect', function(){
