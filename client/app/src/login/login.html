@@ -1,18 +1,21 @@
 <div>
-	<form class="form form-horizontal">
+	<form class="form form-horizontal" (ngSubmit)="joinGame(join);">
 
 		<div class="form-group">
 			<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 				<label for="join_roomCode">Code de la room</label>
-				<input id="join_roomCode" name="roomCode"
-					   class="col-xs-12 col-sm-6 form-control" type="text" required />
+				<input type="text" id="join_roomCode" name="roomCode"
+					   [(ngModel)]="join.code" ngControl="pseudo"
+					   class="col-xs-12 col-sm-6 form-control" required />
 			</div>
 		</div>
 
 		<div class="form-group">
 			<div class="col-xs-12 col-sm-6 col-sm-offset-3">
 				<label for="join_pseudo">Pseudo</label>
-				<input id="join_pseudo" name="pseudo" class="col-xs-12 col-sm-6 form-control" type="text" required />
+				<input type="text" id="join_pseudo" name="pseudo"
+					   [(ngModel)]="join.pseudo" ngControl="pseudo"
+					   class="col-xs-12 col-sm-6 form-control" required />
 			</div>
 		</div>
 
@@ -24,7 +27,7 @@
 
 	</form>
 
-	<form class="form form-horizontal" (ngSubmit)="createGame(create.pseudo);">
+	<form class="form form-horizontal" (ngSubmit)="createGame(create);">
 
 		<div class="form-group">
 			<div class="col-xs-12 col-sm-6 col-sm-offset-3">

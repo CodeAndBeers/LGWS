@@ -22,19 +22,20 @@ export class LoginComponent {
 	constructor(private gamesService: GamesService) {
 		console.log('LoginComponent instantiated');
 		this.create = {};
+		this.join = {};
 	}
 
-	joinGame(code: string, pseudo: string) {
-		console.log('joinGame', pseudo);
-		this.gamesService.joinGame(code, pseudo)
+	joinGame(joinRequest: JoinGameRequest) {
+		console.log('joinGame', joinRequest);
+		this.gamesService.joinGame(joinRequest.code, joinRequest.pseudo)
 			.then(() => {
-				console.log('game created!!');
+				console.log('game joined!!');
 			});
 	}
 
-	createGame(pseudo: string) {
-		console.log('createGame', pseudo);
-		this.gamesService.createGame(pseudo)
+	createGame(createRequest: CreateGameRequest) {
+		console.log('createGame', createRequest);
+		this.gamesService.createGame(createRequest.pseudo)
 			.then(() => {
 				console.log('game created!!');
 			});
