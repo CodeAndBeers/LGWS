@@ -2,137 +2,74 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+const states = require("states.js");
 
 var games = {};
+var id = 0;\
 
-var roles = {
-  villegeois: {
-    buildView: function(game) {
-      let view = {
-
-      }
-    }
-  },
-  loupgarou:,
-  sorciere:,
-  voyante:,
-  capitaine:,
-  cupidon:,
-  chasseur:,
-};
-
-
-class Game {
-  constructor() {
-    this.mj = "pseudo";
-    this.winner = "";
-    this.turn = 45;
-    this.state = "";
-    this.code = "wxyz";
-    this.players = [];
+class Player {
+  constructor(pseudo)  {
+    this.pseudo = "pseudo";
+    this.role: "NONE",
+    this.dead: "NONE",
+    //this.life_potion: false, //sorcière
+    //this.death_potion: true, //sorcière
+    //this.lover: true,
+    //this.captain: true,
+    this.vote: null,
+    //this.revealed: false; //voyante
   }
-}
-
-new Player() {
-  this.pseudo = "pseudo";
-  this.role: "",
-  this.dead: "REASON",
-  this.life_potion: true,
-  death_potion: true,
-  lover: true,
-  captain: true,
-  vote: player,
-  revealed: false;
-}
-
-const states = {
-  WAITING_PLAYERS:
-  DISTRIBUTE_ROLE:
-  CHASSEUR:
-  DAY_VOTE: {
-    name: "DAY_VOTE",
-    next: function(game) {
-      return states.DAY_RESULT;
-    },
-
-  },
-  DAY_RESULT: {
-    next: function(game) {
-      return states.NIGHT;
-    }
-  },
-  NIGHT: {
-    next: function(game) {
-      if (game.players.turn == 1) {
-        return states.CUPIDON;
-      } else {
-        return states.VOYANTE;
-      }
-    },
-    action: {}
-  },
-  CUPIDON: {
-    next: function(game) {return "VOYANTE"}
-  },
-  VOYANTE: {
-    next: function(game) {return "LOUG_GAROU_VOTE"}
-  },
-  VOYANTE_REVEAL: {
-    next: function(game) {return "LOUG_GAROU_VOTE"}
-  },
-  LOUP_GAROU_VOTE: {
-    next: function(game) {
-      if (game.player.every(player => player.vote)) {
-        return states.LOUP_GAROU_RESULT;
-      } else {
-        return states.LOUP_GAROU_VOTE
-      }
-  },
-  LOUP_GAROU_RESULT:
-  SORCIERE:
 }
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
 
+function updateAllPlayers(game) {
+    //TODO send view to all players
+}
+
 io.on('connection', function(socket){
   console.log('a user connected');
-
   socket.on('create_game', function (pseudo) {
-    let game = new Game();
+    let game = {};
+    socket.isMJ = true;
+    socket.game = game;
+    game.mj = {};
+    game.mj.socket = socket;
+    game.mj.pseudo = "pseudo";
+    game.id = id++;
+    game.turn = 0;
+    game.state = states.WAITTING_PLAYERS;
+    game.players = [];
+    game.updatePlayers = function () {updatePlayers(this)};
+    socket.on('next', function () {
+      socket.game.state = socket.game.state.next();
+      updateAllPlayers(game);
+    });
+    updateAllPlayers(game);
   });
-
-  //WAITING_PLAYERS
-  socket.on('join_game', function(code) {
-    let game = games.first(game => game.code == code);
+  socket.on('join_game', function(pseudo, code) {
+    const id = decrypt(code);
+    let game = games.first(game => game.id == id);
     if (game.state = states.WAITING_PLAYERS) {
-      let player = {};
+      let player = new Player();
       socket.game = game;
       socket.player = player;
-      socket.game.player.push(player);
+      player.socket = socket;
+      game.player.push(player);
+      states.forEach(function (state) {
+        state.actions.forEach(function (action) {
+          socket.on(action.name, function(param){
+            action.fct(socket.game, socket.player, param);
+          });
+        })
+      });
+    } else {
+      //TODO Handle reconnection
     }
-    updateAllPlayers();
+    updateAllPlayers(game);
   });
-
-  //DAY_VOTE
-  socket.on('vote', function(vote)  {
-    if (game.state = states.DAY_VOTE && player.vote == null) {
-      player.vote = vote;
-    }
-    updatePlayer();
-  });
-
-  //DAY_RESULT
-  //NOTHING
-
-
-  //
-  socket.on('next', function () {
-    socket.game.state = socket.game.state.next();
-    updateAllPlayers();
-  });
-
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
