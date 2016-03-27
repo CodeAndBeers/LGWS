@@ -1,13 +1,15 @@
-<div>
-	<div>Code de la room: {{roomCode}}</div>
-	<div *ngIf="mj">MJ: {{mj.pseudo}}</div>
+<div id="waiting-room">
+	<div class="room-code">Code de la room: <span>{{roomCode}}</span></div>
+	<div *ngIf="mj" class="mj">MJ: <span>{{mj.pseudo}}</span></div>
 	<div *ngIf="players">
 		<div>{{players.length}} joueurs connectés</div>
-		<div *ngFor="#player of players">
-			{{player.pseudo}}
+		<div class="players">
+			<div *ngFor="#player of players" class="player">
+				{{player.pseudo}}
+			</div>
 		</div>
 	</div>
 	<div *ngIf="isMJ">
-		<button (click)="startGame()">Démarrer</button>
+		<button (click)="startGame()" class="btn btn-primary">Démarrer</button>
 	</div>
 </div>
