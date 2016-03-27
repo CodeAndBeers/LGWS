@@ -70,8 +70,8 @@ io.on('connection', function(socket){
     game.turn = 0;
     game.state = states.WAITING_PLAYERS;
     game.players = [];
-    game.players.findByName = function (name) {
-      game.players.find(player => player.name === name);
+    game.players.findByPseudo = function (pseudo) {
+      return game.players.find(player => player.pseudo === pseudo);
     };
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
