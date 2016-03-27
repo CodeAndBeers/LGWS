@@ -1,4 +1,5 @@
 let mj = require('socket.io-client').connect('http://localhost:3000');
+let encryption = require('./encryption.js');
 
 mj.on('connect', function () {
   console.log("MJ Connected !");
@@ -17,7 +18,7 @@ setTimeout(function () {
   })
   player1.on('connect', function () {
     console.log("Player1 Connected !");
-    player1.emit("join_game", { pseudo: 'Linkinou', code: 0});
+    player1.emit("join_game", { pseudo: 'Linkinou', code: encryption.encrypt(0)});
   });
 }, 1000);
 
@@ -28,10 +29,14 @@ setTimeout(function () {
   })
   player2.on('connect', function () {
     console.log("Player2 Connected !");
-    player2.emit("join_game", { pseudo: 'Freedonaab', code: 0});
+    player2.emit("join_game", { pseudo: 'Freedonaab', code: encryption.encrypt(0)});
   });
 }, 2000);
 
 setTimeout(function () {
   mj.emit("next");
+}, 3000);
+
+setTimeout(function () {
+  mj.emit("next", { villegeois : 2 } );
 }, 3000);

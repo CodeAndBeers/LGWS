@@ -4,7 +4,7 @@ module.exports = {
  DAY_RESULT: require("./states/day_result.js"),
  GAME_OVER: require("./states/game_over.js"),
  //NIGHT: require("./states/night.js"),
- // DISTRIBUTE_ROLE:
+ DISTRIBUTE_ROLE: require("./states/distribute_role.js"),
  // HUNTER:{
  //   name: "HUNTER",
  //   next: function(game) {
