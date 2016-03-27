@@ -12,9 +12,18 @@ state.actions.push({
   name: "vote",
   fct:  function(game, player, param)  {
     if (game.state.name === state.name && player.vote == null) {
-      player.vote = game.players.findByName(param.player_name);
+      var candidate = game.players.findByPseudo(param.player_pseudo);
+      if (candidate) {
+        if (candidate.vote_count) {
+          candidate.vote_count++;
+        } else {
+          candidate.vote_count = 1;
+        }
+      }
+      player.vote = candidate;
+      console.info(player.pseudo + " voted for " + param.player_pseudo);
+      game.updateAllPlayers();
     }
-    game.updateAllPlayers();
   }
 });
 
