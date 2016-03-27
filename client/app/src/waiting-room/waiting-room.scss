@@ -2,10 +2,6 @@
 
 #waiting-room {
 
-	@include make-xs-column(12);
-	@include make-sm-column(6);
-	@include make-sm-column-offset(3);
-
 	.room-code {
 		font-size: 27px;
 
@@ -14,25 +10,4 @@
 		}
 	}
 
-	.mj {
-		font-size: 17px;
-
-		span {
-			font-weight: bold;
-		}
-	}
-
-	.players {
-		.player {
-			border-radius: 3px;
-			border: 1px solid #ccc;
-			background-color: white;
-			min-height: 40px;
-			vertical-align: middle;
-			padding: 10px;
-			font-size: 17px;
-			margin-bottom: 5px;
-		}
-		margin-bottom: 15px;
-	}
 }

@@ -1,5 +1,8 @@
-@import "components/sass/variables";
-@import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "./components/sass/variables";
+@import "./components/sass/players";
+@import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
+
+
 @import "./login/login";
 @import "./waiting-room/waiting-room";
 
@@ -10,6 +13,16 @@ html {
 
 		h1 {
 			text-align: center;
+		}
+
+		h2 {
+			//text-align: center;
+		}
+
+		.content {
+			@include make-xs-column(12);
+			@include make-sm-column(6);
+			@include make-sm-column-offset(3);
 		}
 	}
 
