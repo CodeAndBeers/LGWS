@@ -8,6 +8,7 @@ import {GameService, GameUpdate, Player} from "../game/game-service";
 class PlayerVoteComponent implements OnInit {
 
 	players: Player[];
+	hasVoted: boolean = false;
 	isMJ: boolean;
 
 	constructor(private gameService: GameService) {
@@ -18,15 +19,18 @@ class PlayerVoteComponent implements OnInit {
 		this.gameService.gameUpdate.subscribe({
 			next: (data) => this.onGameUpdate(data)
 		});
+		
+		const gameUpdate = this.gameService.getLastGameUpdate();
+		if (gameUpdate) this.onGameUpdate(gameUpdate);
 	}
-
-	startGame() {
-		console.log('startGame');
-		this.gameService.nextState();
+	
+	vote(playerName: string) {
+		this.gameService.voteForPlayer(playerName);
+		this.hasVoted = true;
 	}
-
+	
 	private onGameUpdate(data: GameUpdate) {
-		this.players = data.players;
+		this.players = data.players.filter(player => player.pseudo !== this.gameService.getCurrentPlayer().pseudo);
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 	}
 

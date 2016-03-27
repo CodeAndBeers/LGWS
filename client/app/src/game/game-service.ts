@@ -72,6 +72,10 @@ export class GameService {
 		
 		return this.lastGameUpdate.players;
 	}
+	
+	getLastGameUpdate() {
+		return this.lastGameUpdate;
+	}
 
 	getCurrentPlayer(): BasePlayer {
 		if (!this.lastGameUpdate) return null;
@@ -87,6 +91,16 @@ export class GameService {
 	getCurrentTurn(): number {
 		if (!this.lastGameUpdate) return null;
 		return this.lastGameUpdate.turn;
+	}
+
+	getCurrentStep(): string {
+		if (!this.lastGameUpdate) return null;
+		return this.lastGameUpdate.state.name;
+	}
+	
+	voteForPlayer(playerName: string) {
+		if (this.getCurrentStep() !== GameStates.DAY_VOTE) return;
+		this.socketService.emit('vote', { player_name: playerName});
 	}
 
 	private onGameUpdate(data: GameUpdate) {

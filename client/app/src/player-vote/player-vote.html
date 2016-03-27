@@ -1,0 +1,9 @@
+<div>
+	<div *ngIf="players">
+		<div *ngFor="#player of players">
+			<button *ngIf="!hasVoted && !isMJ" (click)="vote(player.pseudo)">Voter</button>
+			<span>{{player.pseudo}}</span>
+			<span *ngIf="player.vote">a voté pour {{player.vote}}</span>
+		</div>
+	</div>
+</div>
