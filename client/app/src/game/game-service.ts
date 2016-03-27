@@ -5,6 +5,12 @@ export const Roles = {
 	MJ: "MJ"
 };
 
+export const GameStates = {
+	WAITING_PLAYERS: "WAITING_PLAYERS",
+	DAY_VOTE: "DAY_VOTE",
+	DAY_RESULT: "DAY_RESULT"
+};
+
 export interface BasePlayer {
 	pseudo:string,
 	role: string
@@ -34,10 +40,12 @@ export interface GameUpdate {
 @Injectable()
 export class GameService {
 
-	private roomCode: string;
-
 	@Output() gameUpdate: EventEmitter<GameUpdate> = new EventEmitter();
+	@Output() gameStateUpdate: EventEmitter<String> = new EventEmitter();
+
+	private roomCode: string;
 	private lastGameUpdate: GameUpdate;
+	private lastGameState: string;
 
 	constructor(private socketService: SocketService) {
 		console.log('GameService instantiated');
@@ -75,10 +83,20 @@ export class GameService {
 		if (!player) return false;
 		return player.role === Roles.MJ;
 	}
-	
-	private onGameUpdate(data) {
+
+	getCurrentTurn(): number {
+		if (!this.lastGameUpdate) return null;
+		return this.lastGameUpdate.turn;
+	}
+
+	private onGameUpdate(data: GameUpdate) {
 		console.log('game_update', data);
 		this.lastGameUpdate = data;
 		this.gameUpdate.emit(data);
+
+		if (data.state.name !== this.lastGameState) {
+			this.lastGameState = data.state.name;
+			this.gameStateUpdate.emit(this.lastGameState);			
+		}
 	}
 }

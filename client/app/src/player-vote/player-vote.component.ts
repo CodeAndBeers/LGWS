@@ -1,23 +1,20 @@
 import {Component, OnInit} from "angular2/core";
-import {GameService, GameUpdate, Player, MJ} from '../game/game-service';
+import {GameService, GameUpdate, Player} from "../game/game-service";
 
 @Component({
-	selector: 'waiting-room',
-	templateUrl: 'waiting-room/waiting-room.html'
+	selector: 'player-vote',
+	templateUrl: 'player-vote/player-vote.html'
 })
-class WaitingRoomComponent implements OnInit {
+class PlayerVoteComponent implements OnInit {
 
 	players: Player[];
-	roomCode: string;
-	mj: MJ;
 	isMJ: boolean;
-	
+
 	constructor(private gameService: GameService) {
-		console.log('WaitingRoomComponent instantiated');
+		console.log('PlayerVoteComponent instantiated');
 	}
 
 	ngOnInit() {
-		this.roomCode = this.gameService.getRoomCode();
 		this.gameService.gameUpdate.subscribe({
 			next: (data) => this.onGameUpdate(data)
 		});
@@ -27,13 +24,12 @@ class WaitingRoomComponent implements OnInit {
 		console.log('startGame');
 		this.gameService.nextState();
 	}
-	
+
 	private onGameUpdate(data: GameUpdate) {
 		this.players = data.players;
-		this.mj = data.mj;
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 	}
-	
+
 }
 
-export {WaitingRoomComponent};
+export {PlayerVoteComponent};
