@@ -75,7 +75,7 @@ io.on('connection', function(socket){
     games[game.id] = game;
 
     if (fn) {
-      fn({ result: 'ok', id: game.id });
+      fn({ result: 'ok', id: encryption.encrypt(game.id) });
     }
 
     console.log("Creating game");
@@ -113,7 +113,7 @@ io.on('connection', function(socket){
       //TODO Handle reconnection
     }
     if (fn) {
-      fn({ result: 'ok', id: game.id });
+      fn({ result: 'ok', id: encryption.encrypt(game.id) });
     }
     updateAllPlayers(game);
   });
