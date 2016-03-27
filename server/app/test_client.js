@@ -1,4 +1,6 @@
-let mj = require('socket.io-client').connect('http://localhost:3000');
+let mj, player1, player2;
+
+mj = require('socket.io-client').connect('http://localhost:3000');
 
 mj.on('connect', function () {
   console.log("MJ Connected !");
@@ -10,19 +12,17 @@ mj.on('connect', function () {
 });
 
 setTimeout(function () {
-  let player1 = require('socket.io-client').connect('http://localhost:3000');
+  player1 = require('socket.io-client').connect('http://localhost:3000');
   player1.on('game_update', function(game) {
     console.log("Player 1 received a game update");
-    console.log(JSON.stringify(game));
   })
   player1.on('connect', function () {
     console.log("Player1 Connected !");
     player1.emit("join_game", { pseudo: 'Linkinou', code: "wl7y"});
   });
 }, 1000);
-
 setTimeout(function () {
-  let player2 = require('socket.io-client').connect('http://localhost:3000');
+  player2 = require('socket.io-client').connect('http://localhost:3000');
   player2.on('game_update', function() {
     console.log("Player 2 received a game update");
   })
@@ -35,3 +35,19 @@ setTimeout(function () {
 setTimeout(function () {
   mj.emit("next");
 }, 3000);
+
+setTimeout(function () {
+  player1.emit("vote", {player_pseudo: 'Linkinou'});
+}, 4000);
+
+setTimeout(function () {
+  player2.emit("vote", {player_pseudo: 'Linkinou'});
+}, 5000);
+
+setTimeout(function () {
+  mj.emit("next");
+}, 6000);
+
+setTimeout(function () {
+  mj.emit("next");
+}, 7000);

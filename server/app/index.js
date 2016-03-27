@@ -17,7 +17,6 @@ class Player {
     //this.life_potion: false, //sorcière
     //this.death_potion: true, //sorcière
     //this.lover: true,
-    //this.captain: true,
   }
 }
 
@@ -35,6 +34,9 @@ function format_game(game) {
       return undefined;
     } else if (key === "id") {
       return encryption.encrypt(value);
+    } else if (key === "vote") {
+      if (value) return value.pseudo;
+      else return value;
     } else {
       return value;
     }
@@ -70,9 +72,10 @@ io.on('connection', function(socket){
     game.turn = 0;
     game.state = states.WAITING_PLAYERS;
     game.players = [];
-    game.players.findByName = function (name) {
-      game.players.find(player => player.name === name);
+    game.players.findByPseudo = function (pseudo) {
+      return game.players.find(player => player.pseudo === pseudo);
     };
+    game.players.getWinners
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
 
@@ -83,7 +86,9 @@ io.on('connection', function(socket){
     console.log("Creating game");
     //game.updatePlayers = function () {updatePlayers(this)};
     socket.on('next', function () {
-      socket.game.state = socket.game.state.next();
+      var prev = socket.game.state
+      socket.game.state = socket.game.state.next(game);
+      console.log("State:" + prev.name + " -> " + game.state.name)
       updateAllPlayers(game);
     });
     updateAllPlayers(game);
