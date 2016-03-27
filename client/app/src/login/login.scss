@@ -1,0 +1,20 @@
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+
+
+#login {
+	.form-group {
+
+		.input-layout {
+			@include make-xs-column(12);
+			@include make-sm-column(6);
+			@include make-sm-column-offset(3);
+		}
+
+		&-submit {
+			@include make-xs-column(12);
+			@include make-sm-column(6);
+			@include make-sm-column-offset(3);
+			text-align: center;
+		}
+	}
+}

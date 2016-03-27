@@ -1,8 +1,8 @@
-<div>
+<div id="login">
 	<form class="form form-horizontal" (ngSubmit)="joinGame(join);">
 
 		<div class="form-group">
-			<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+			<div class="input-layout">
 				<label for="join_roomCode">Code de la room</label>
 				<input type="text" id="join_roomCode" name="roomCode"
 					   [(ngModel)]="join.code" ngControl="pseudo"
@@ -11,7 +11,7 @@
 		</div>
 
 		<div class="form-group">
-			<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+			<div class="input-layout">
 				<label for="join_pseudo">Pseudo</label>
 				<input type="text" id="join_pseudo" name="pseudo"
 					   [(ngModel)]="join.pseudo" ngControl="pseudo"
@@ -19,9 +19,9 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<div class="col-xs-12 text-center">
-				<button>Rejoindre une partie</button>
+		<div class="form-group form-group-submit">
+			<div class="input-layout">
+				<button class="btn btn-primary">Rejoindre une partie</button>
 			</div>
 		</div>
 
@@ -30,7 +30,7 @@
 	<form class="form form-horizontal" (ngSubmit)="createGame(create);">
 
 		<div class="form-group">
-			<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+			<div class="input-layout">
 				<label for="create_pseudo">Pseudo</label>
 				<input type="text"  id="create_pseudo" name="pseudo"
 					   [(ngModel)]="create.pseudo" ngControl="pseudo"
@@ -38,9 +38,9 @@
 			</div>
 		</div>
 
-		<div class="form-group">
-			<div class="col-xs-12 text-center">
-				<button>Créer une partie</button>
+		<div class="form-group form-group-submit">
+			<div class="input-layout">
+				<button class="btn btn-primary">Créer une partie</button>
 			</div>
 		</div>
 
