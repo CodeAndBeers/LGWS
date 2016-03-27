@@ -33,6 +33,8 @@ function format_game(game) {
   return JSON.parse(JSON.stringify(game, function(key, value) {
     if (key === "socket") {
       return undefined;
+    } else if (key === "id") {
+      return encryption.encrypt(value);
     } else {
       return value;
     }
@@ -90,6 +92,7 @@ io.on('connection', function(socket){
 
   socket.on('join_game', function(data, fn) {
     const id = encryption.decrypt(data.code);
+    console.log(id);
     let game = games[id];
     console.log("Join game id:" + game.id);
     if (game.state.name === states.WAITING_PLAYERS.name) {

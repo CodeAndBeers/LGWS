@@ -17,7 +17,7 @@ setTimeout(function () {
   })
   player1.on('connect', function () {
     console.log("Player1 Connected !");
-    player1.emit("join_game", { pseudo: 'Linkinou', code: 0});
+    player1.emit("join_game", { pseudo: 'Linkinou', code: "wl7y"});
   });
 }, 1000);
 
@@ -28,7 +28,7 @@ setTimeout(function () {
   })
   player2.on('connect', function () {
     console.log("Player2 Connected !");
-    player2.emit("join_game", { pseudo: 'Freedonaab', code: 0});
+    player2.emit("join_game", { pseudo: 'Freedonaab', code: "wl7y"});
   });
 }, 2000);
 
