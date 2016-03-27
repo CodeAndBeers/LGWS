@@ -74,7 +74,7 @@ io.on('connection', function(socket){
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
 
-    fn({ result: 'ok' });
+    fn({ result: 'ok', id: game.id });
 
     console.log("Creating game");
     //game.updatePlayers = function () {updatePlayers(this)};
@@ -83,9 +83,9 @@ io.on('connection', function(socket){
       updateAllPlayers(game);
     });
     updateAllPlayers(game);
-    
+
   });
-  
+
   socket.on('join_game', function(data, fn) {
     const id = encryption.decrypt(data.code);
     let game = games[id];
@@ -111,7 +111,7 @@ io.on('connection', function(socket){
       //TODO Handle reconnection
     }
 
-    fn({ result: 'ok' });
+    fn({ result: 'ok', id: game.id });
 
     updateAllPlayers(game);
   });
