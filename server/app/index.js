@@ -74,7 +74,9 @@ io.on('connection', function(socket){
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
 
-    fn({ result: 'ok', id: game.id });
+    if (fn) {
+      fn({ result: 'ok', id: game.id });
+    }
 
     console.log("Creating game");
     //game.updatePlayers = function () {updatePlayers(this)};
@@ -110,9 +112,9 @@ io.on('connection', function(socket){
     } else {
       //TODO Handle reconnection
     }
-
-    fn({ result: 'ok', id: game.id });
-
+    if (fn) {
+      fn({ result: 'ok', id: game.id });
+    }
     updateAllPlayers(game);
   });
   socket.on('disconnect', function(){

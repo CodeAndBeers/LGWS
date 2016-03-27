@@ -11,6 +11,7 @@
   "dependencies": {
     "express": "^4.13.4",
     "functional.js": "^0.7.1",
+    "hashids": "^1.0.2",
     "socket.io": "^1.4.5"
   }
 }
