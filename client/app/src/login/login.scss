@@ -1,0 +1,10 @@
+#login {
+	.form-group {
+
+		@include make-xs-column(12);
+
+		&-submit {
+			text-align: center;
+		}
+	}
+}
