@@ -1,9 +1,20 @@
+server:
+    image: node:5.9
+    volumes:
+        - ./server/app:/usr/local/src/app
+    ports:
+        - 3000:3000
+    working_dir: /usr/local/src/app
+    entrypoint: /usr/local/src/app/entrypoint.sh
+
 nginx:
     image: nginx
     volumes:
         - ./nginx/conf.d/:/etc/nginx/conf.d
         - ./nginx/lgws.access.log:/var/log/nginx/lgws.access.log
         - ./nginx/lgws.error.log:/var/log/nginx/lgws.error.log
+    volumes_from:
+        - data-client
     links:
         - server
     ports:
@@ -17,12 +28,3 @@ data-client:
         - ./nodejs/shared/.npmrc:/root/.npmrc
     working_dir: /usr/share/nginx/html
     entrypoint: /usr/share/nginx/html/entrypoint.sh
-
-server:
-    image: node:5.9
-    volumes:
-        - ./server/app:/usr/local/src/app
-    ports:
-        - 3000:3000
-    working_dir: /usr/local/src/app
-    entrypoint: /usr/local/src/app/entrypoint.sh
