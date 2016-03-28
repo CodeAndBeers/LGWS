@@ -81,6 +81,24 @@ setTimeout(function () {
 }, timing++ * 1000);
 
 setTimeout(function () {
+  //-> LOUP_GAROU_VOTE
+  mj.emit("next");
+}, timing++ * 1000);
+
+setTimeout(function () {
+  player1.emit("loup_garou_vote", {player_pseudo: 'Linkinou'});
+}, timing++ * 1000);
+
+setTimeout(function () {
+  player2.emit("loup_garou_vote", {player_pseudo: 'Linkinou'});
+}, timing++ * 1000);
+
+setTimeout(function () {
+  //-> LOUP_GAROU_RESULT
+  mj.emit("next");
+}, timing++ * 1000);
+
+setTimeout(function () {
   //-> Game over
   mj.emit("next");
 }, timing++ * 1000);

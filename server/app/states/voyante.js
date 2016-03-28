@@ -1,11 +1,10 @@
-//const LOUP_GAROU_VOTE = require("./loup_garou_vote.js");
-const GAME_OVER = require("./game_over.js");
+const LOUP_GAROU_VOTE = require("./loup_garou_vote.js");
 
 let state = {
   name: "VOYANTE",
   next: function(game) {
       delete game.revealed;
-      return GAME_OVER;
+      return LOUP_GAROU_VOTE;
   },
   actions: []
 }
