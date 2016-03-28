@@ -17,15 +17,20 @@ $ pip install docker-compose
 
 ### Installation
 
-Only three steps, yes ma'm:
+Only two steps, yes ma'm:
 
 ```sh
 $ git clone https://github.com/CodeAndBeers/LGWS.git && cd LGWS/
-$ docker-compose up data-client
-$ docker-compose up nginx
+$ docker-compose up -d
 ```
 
-Take a look :
+Now the project is building, you can take a look when it's finished by typing :
+
+```sh
+$ docker-compose logs
+```
+
+Now take a look at :
 
 http://localhost:8080
 
