@@ -41,7 +41,14 @@ setTimeout(function () {
 
 setTimeout(function () {
   //-> DAY_VOTE
-  mj.emit("next", { VILLEGEOIS : 2 } );
+  mj.emit("next", {
+    VILLEGEOIS: 0,
+    LOUP_GAROU:0,
+    WITCH:2,
+    VOYANTE:0,
+    CUPIDON: 0,
+    HUNTER: 0
+  });
 }, timing++ * 1000);
 
 setTimeout(function () {
