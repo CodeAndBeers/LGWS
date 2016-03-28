@@ -11,7 +11,7 @@ let state = {
 state.actions.push({
   name: "loup_garou_vote",
   fct:  function(game, player, param)  {
-    if (game.state.name === state.name && player.vote == null) {
+    if (game.state.name === state.name && !(player.vote)) {
       var candidate = game.players.findByPseudo(param.player_pseudo);
       if (candidate) {
         if (candidate.vote_count) {

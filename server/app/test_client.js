@@ -48,7 +48,7 @@ Promise.all([v1, v2, w, h, v, v, lg1, lg2, lg3]).then(function (values) {
   function p(player, action, param) {
     setTimeout(function () {
       player.emit(action, param);
-    }, timing++ * 5000);
+    }, timing++ * 1000);
   }
 
   p(mj, "next")//-> DISTRIBUTE_ROLE
@@ -72,9 +72,9 @@ Promise.all([v1, v2, w, h, v, v, lg1, lg2, lg3]).then(function (values) {
   p(mj, "next")//-> VOYANTE
   p(v, "reveal", {player_pseudo: 'WITCH'})
   p(mj, "next")//-> LOUP_GAROU_VOTE
-  p(lg1, "vote", {player_pseudo: 'VILLAGEOIS_1'});
-  p(lg2, "vote", {player_pseudo: 'VILLAGEOIS_1'});
-  p(lg3, "vote", {player_pseudo: 'VILLAGEOIS_1'});
+  p(lg1, "loup_garou_vote", {player_pseudo: 'VILLAGEOIS_1'});
+  p(lg2, "loup_garou_vote", {player_pseudo: 'VILLAGEOIS_1'});
+  p(lg3, "loup_garou_vote", {player_pseudo: 'VILLAGEOIS_1'});
   p(mj, "next")//-> LOUP_GAROU_RESULT
   p(mj, "next")//-> WITCH
   p(player2, "use_life_potion", {player_pseudo: 'VILLAGEOIS_1'});
