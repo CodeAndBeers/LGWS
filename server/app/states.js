@@ -8,20 +8,17 @@ module.exports = {
  GAME_OVER: require("./states/game_over.js"),
  LOUP_GAROU_VOTE: require("./states/loup_garou_vote.js"),
  LOUP_GAROU_RESULT: require("./states/loup_garou_result.js"),
+ WITCH: require("./states/witch.js"),
  // DISTRIBUTE_ROLE:
  // HUNTER:{
  //   name: "HUNTER",
  //   next: function(game) {
  //      return states.DAY_VOTE;
  //   }
- // },
- // SORCIERE: {
- //   next: function(game) {
- //     if (/*chasseur est mort cette nuit*/) {
- //       return states.HUNTER;
- //     } else {
- //       return states.DAY_VOTE;
- //     }
- //   }
  // }
 }
+//Death by grief
+//Captain delegation
+//Captain vote * 2
+//Reset on revote
+//Abstract vote system

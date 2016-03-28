@@ -99,6 +99,16 @@ setTimeout(function () {
 }, timing++ * 1000);
 
 setTimeout(function () {
+  //-> WITCH
+  mj.emit("next");
+}, timing++ * 1000);
+
+setTimeout(function () {
+  player1.emit("user_life_potion", {player_pseudo: 'Linkinou'});
+  player1.emit("user_death_potion", {player_pseudo: 'Freedonaab'});
+}, timing++ * 1000);
+
+setTimeout(function () {
   //-> Game over
   mj.emit("next");
 }, timing++ * 1000);

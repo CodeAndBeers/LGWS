@@ -24,7 +24,7 @@ let state = {
     } else {
       winners[0].dead = "LOUP_GAROU_VOTE";
       console.log(winners[0].pseudo + " was savagely eaten by a warewolf!");
-      next_state = states.GAME_OVER;
+      next_state = states.WITCH;
     }
     game.players.forEach(function (player) {
       delete player.vote;
