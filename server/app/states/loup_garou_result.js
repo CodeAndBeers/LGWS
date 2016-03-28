@@ -1,5 +1,5 @@
 let state = {
-  name: "DAY_RESULT",
+  name: "LOUP_GAROU_RESULT",
   next: function(game) {
     const states = require("../states.js");
     var winners = game.players.reduce(function (prev, cur){
@@ -20,22 +20,11 @@ let state = {
     console.log("winners: " + winners.map(w => w.pseudo));
     var next_state;
     if(winners.length > 1) {
-      next_state = states.DAY_VOTE;
+      next_state = states.LOUP_GAROU_VOTE;
     } else {
-      if (game.turn == 0) {
-        winners[0].captain = true;
-        console.log(winners[0].pseudo + " was elected as the new leader !");
-        next_state = states.NIGHT;
-      } else {
-        winners[0].dead = "DAY_VOTE";
-        console.log(winners[0].pseudo + " was designated as the next hanged !");
-        if (winners[0].role.name === "HUNTER") {
-          game.after_hunter_revenge = states.NIGHT;
-          next_state = states.HUNTER_REVENGE;
-        } else {
-          next_state = states.NIGHT;
-        }
-      }
+      winners[0].dead = "LOUP_GAROU_VOTE";
+      console.log(winners[0].pseudo + " was savagely eaten by a warewolf!");
+      next_state = states.WITCH;
     }
     game.players.forEach(function (player) {
       delete player.vote;

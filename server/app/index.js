@@ -3,6 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const encryption = require("./encryption.js");
 const states = require("./states.js");
+const roles = require("./roles.js");
 
 var games = {};
 var id = 0;
@@ -75,7 +76,9 @@ io.on('connection', function(socket){
     game.players.findByPseudo = function (pseudo) {
       return game.players.find(player => player.pseudo === pseudo);
     };
-    game.players.getWinners
+    game.players.getHunter  = function (pseudo) {
+      return game.players.find(player => player.role.name === roles.HUNTER.name);
+    };
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
 
@@ -83,12 +86,10 @@ io.on('connection', function(socket){
       fn({ result: 'ok', id: encryption.encrypt(game.id) });
     }
 
-    console.log("Creating game");
     //game.updatePlayers = function () {updatePlayers(this)};
-    socket.on('next', function () {
-      var prev = socket.game.state
-      socket.game.state = socket.game.state.next(game);
-      console.log("State:" + prev.name + " -> " + game.state.name)
+    socket.on('next', function (param) {
+      console.log("Moving to state '" + JSON.stringify(socket.game.state) + "' with param ["+ JSON.stringify(param) +"]");
+      socket.game.state = socket.game.state.next(game, param);
       updateAllPlayers(game);
     });
     updateAllPlayers(game);
@@ -116,6 +117,13 @@ io.on('connection', function(socket){
             action.fct(socket.game, socket.player, param);
           });
         })
+      }
+      if (data.force_role) {
+        console.log("Force " + player.pseudo + " as " + data.force_role);
+        player.role = roles[data.force_role];
+        if (player.role.init) {
+          player.role.init(player);
+        }
       }
     } else {
       //TODO Handle reconnection

@@ -3,50 +3,17 @@ module.exports = {
  DAY_VOTE: require("./states/day_vote.js"),
  DAY_RESULT: require("./states/day_result.js"),
  NIGHT: require("./states/night.js"),
+ CUPIDON: require("./states/cupidon.js"),
+ VOYANTE: require("./states/voyante.js"),
  GAME_OVER: require("./states/game_over.js"),
- // DISTRIBUTE_ROLE:
- // HUNTER:{
- //   name: "HUNTER",
- //   next: function(game) {
- //      return states.DAY_VOTE;
- //   }
- // },
- // CUPIDON: {
- //   name: "CUPIDON",
- //   next: function(game) {
- //     return states.VOYANTE;
- //   }
- // },
- // VOYANTE: {
- //   next: function(game) {
- //     return states.VOYANTE_REVEAL;
- //   }
- // },
- // VOYANTE_REVEAL: {
- //   next: function(game) {
- //     return states.LOUG_GAROU_VOTE;
- //   }
- // },
- // LOUP_GAROU_VOTE: {
- //   next: function(game) {
- //     if (game.player.every(player => player.vote)) {
- //       return states.LOUP_GAROU_RESULT;
- //     } else {
- //       return states.LOUP_GAROU_VOTE;
- //     }
- // },
- // LOUP_GAROU_RESULT:{
- //   next: function(game) {
- //     return states.SORCIERE;
- //   }
- // },
- // SORCIERE: {
- //   next: function(game) {
- //     if (/*chasseur est mort cette nuit*/) {
- //       return states.HUNTER;
- //     } else {
- //       return states.DAY_VOTE;
- //     }
- //   }
- // }
+ LOUP_GAROU_VOTE: require("./states/loup_garou_vote.js"),
+ LOUP_GAROU_RESULT: require("./states/loup_garou_result.js"),
+ WITCH: require("./states/witch.js"),
+ DISTRIBUTE_ROLE: require("./states/distribute_role.js"),
+ HUNTER_REVENGE: require("./states/hunter_revenge.js")
 }
+//Death by grief
+//Captain delegation
+//Captain vote * 2
+//Reset on revote
+//Abstract vote system

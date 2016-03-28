@@ -1,9 +1,9 @@
-let DAY_VOTE = require("./day_vote.js");
+let DISTRIBUTE_ROLE = require("./distribute_role.js");
 
-let state ={
+let state = {
   name: "WAITING_PLAYERS",
   next: function(game) {
-    return DAY_VOTE;
+    return DISTRIBUTE_ROLE;
   },
   actions: []
 }

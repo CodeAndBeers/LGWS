@@ -1,6 +1,5 @@
 let CUPIDON = require("./cupidon.js");
-//let VOYANTE = require("./voyante.js");
-const GAME_OVER = require("./game_over.js");
+let VOYANTE = require("./voyante.js");
 
 let state = {
   name: "NIGHT",
@@ -8,7 +7,7 @@ let state = {
     if (game.turn == 0) {
       return CUPIDON;
     } else {
-      return GAME_OVER;
+      return VOYANTE;
     }
   },
   actions: []
