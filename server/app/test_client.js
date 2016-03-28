@@ -41,7 +41,7 @@ setTimeout(function () {
 
 setTimeout(function () {
   //-> DAY_VOTE
-  mj.emit("next", { villegeois : 2 } );
+  mj.emit("next", { VILLEGEOIS : 2 } );
 }, timing++ * 1000);
 
 setTimeout(function () {
@@ -110,8 +110,8 @@ setTimeout(function () {
 }, timing++ * 1000);
 
 setTimeout(function () {
-  player1.emit("user_life_potion", {player_pseudo: 'Linkinou'});
-  player1.emit("user_death_potion", {player_pseudo: 'Freedonaab'});
+  player1.emit("use_life_potion", {player_pseudo: 'Linkinou'});
+  player1.emit("use_death_potion", {player_pseudo: 'Freedonaab'});
 }, timing++ * 1000);
 
 setTimeout(function () {

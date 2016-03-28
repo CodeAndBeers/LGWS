@@ -25,11 +25,17 @@ let state = {
       if (game.turn == 0) {
         winners[0].captain = true;
         console.log(winners[0].pseudo + " was elected as the new leader !");
+        next_state = states.NIGHT;
       } else {
         winners[0].dead = "DAY_VOTE";
         console.log(winners[0].pseudo + " was designated as the next hanged !");
+        if (winners[0].role.name === "HUNTER") {
+          game.after_hunter_revenge = states.NIGHT;
+          next_state = states.HUNTER_REVENGE;
+        } else {
+          next_state = states.NIGHT;
+        }
       }
-      next_state = states.NIGHT;
     }
     game.players.forEach(function (player) {
       delete player.vote;

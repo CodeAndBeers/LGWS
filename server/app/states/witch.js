@@ -1,15 +1,21 @@
-const GAME_OVER = require("./game_over.js");
+let DAY_VOTE = require("./day_vote.js");
+let HUNTER_REVENGE = require("./hunter_revenge.js");
 
 let state = {
   name: "WITCH",
   next: function(game) {
-      return GAME_OVER;
+    let hunter = game.players.getHunter();
+      if (hunter && hunter.dead && !hunter.take_revenge) {
+        game.after_hunter_revenge = DAY_VOTE;
+        return HUNTER_REVENGE;
+      }
+      return DAY_VOTE;
   },
   actions: []
 }
 
 state.actions.push({
-  name: "user_death_potion",
+  name: "use_death_potion",
   fct:  function(game, player, param)  {
     if (game.state.name === state.name) {
       player.death_potion = 1;
@@ -26,13 +32,13 @@ state.actions.push({
 });
 
 state.actions.push({
-  name: "user_life_potion",
+  name: "use_life_potion",
   fct:  function(game, player, param)  {
     if (game.state.name === state.name) {
       player.life_potion = 1;
       if (player.life_potion > 0) {
         let player_to_save = game.players.findByPseudo(param.player_pseudo);
-        player_to_save.dead = "ALIVE_BY_WITCH";
+        delete player_to_save.dead;
         console.log(player_to_save.pseudo + " was saved by the witch");
       } else {
         console.log("Witch don't have enough potion to save " + param.player_pseudo);

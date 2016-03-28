@@ -10,12 +10,7 @@ module.exports = {
  LOUP_GAROU_RESULT: require("./states/loup_garou_result.js"),
  WITCH: require("./states/witch.js"),
  DISTRIBUTE_ROLE: require("./states/distribute_role.js"),
- // HUNTER:{
- //   name: "HUNTER",
- //   next: function(game) {
- //      return states.DAY_VOTE;
- //   }
- // }
+ HUNTER_REVENGE: require("./states/hunter_revenge.js")
 }
 //Death by grief
 //Captain delegation

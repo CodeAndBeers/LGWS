@@ -1,18 +1,20 @@
 module.exports = {
-  villegeois: {
-    name: "villegegois",
-    buildView: function(game) {
-      let view = {
-
-      }
-    }
+  VILLEGEOIS: {
+    name: "VILLEGEOIS"
   },
-  //loupgarou: {
-  //  name: "loupgarou"
-  //},
-  // sorciere:,
-  // voyante:,
-  // capitaine:,
-  // cupidon:,
-  // chasseur:,
+  LOUP_GAROU:{
+    name: "LOUP_GAROU"
+  },
+  WITCH:{
+    name: "WITCH"
+  },
+  VOYANTE:{
+    name: "VOYANTE"
+  },
+  CUPIDON: {
+    name: "CUPIDON"
+  },
+  HUNTER: {
+    name: "HUNTER"
+  }
 };

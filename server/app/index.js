@@ -3,6 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 const encryption = require("./encryption.js");
 const states = require("./states.js");
+const roles = require("./roles.js");
 
 var games = {};
 var id = 0;
@@ -75,7 +76,9 @@ io.on('connection', function(socket){
     game.players.findByPseudo = function (pseudo) {
       return game.players.find(player => player.pseudo === pseudo);
     };
-    game.players.getWinners
+    game.players.getHunter  = function (pseudo) {
+      return game.players.find(player => player.role.name === roles.HUNTER.name);
+    };
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
 
