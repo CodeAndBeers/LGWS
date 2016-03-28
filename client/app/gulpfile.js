@@ -41,7 +41,10 @@ const paths = {
 	},
 	sass: {
 		src: [ 
-			'main.scss',
+			app + '/main.scss'
+		],
+		srcWatch:  [
+			app + '/main.scss',
 			app + '/**/*.scss'
 		],
 		concat: 'styles.css',
@@ -99,7 +102,10 @@ gulp.task('libs', function () {
 
 gulp.task('styles', function () {
 	return gulp.src(paths.sass.src)
-		.pipe(sass().on('error', sass.logError))
+		.pipe(sass({
+			includePaths: [app + '/'],
+			errLogToConsole: true
+		}).on('error', sass.logError))
 		.pipe(concat(paths.sass.concat))
 		.pipe(gulp.dest(paths.sass.dest));
 });
@@ -115,7 +121,7 @@ gulp.task('misc', [], function () {
 gulp.task('watch', [], function () {
 	[
 		gulp.watch([ paths.scripts.src, paths.templates.src ], [ 'scripts' ]),
-		gulp.watch([ paths.sass.src ], [ 'styles' ]),
+		gulp.watch([ paths.sass.srcWatch ], [ 'styles' ]),
 		// gulp.watch(paths.images, [ 'images' ]),
 		// gulp.watch(paths.fonts, [ 'fonts' ]),
 		gulp.watch(paths.misc.map((item) => item.src), [ 'misc' ])

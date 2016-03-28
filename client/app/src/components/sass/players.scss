@@ -8,12 +8,17 @@
 
 .players {
 	.player {
+
+		$height: 60px;
+		$padding: 10px;
+
 		border-radius: 3px;
 		border: 1px solid #ccc;
 		background-color: white;
-		min-height: 40px;
+		min-height: $height;
 		vertical-align: middle;
-		padding: 10px;
+		line-height: $height - ($padding * 2);
+		padding: $padding;
 		font-size: 17px;
 		margin-bottom: 5px;
 	}

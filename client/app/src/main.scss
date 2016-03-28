@@ -1,10 +1,13 @@
 @import "./components/sass/variables";
 @import "./components/sass/players";
+
 @import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
 
 
 @import "./login/login";
 @import "./waiting-room/waiting-room";
+@import "./player-vote/player-vote";
+
 
 html {
 

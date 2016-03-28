@@ -20,7 +20,8 @@ export interface MJ extends BasePlayer { }
 
 export interface Player extends BasePlayer {
 	dead: string,
-	vote: any
+	vote: any,
+	vote_count: number
 }
 
 export interface GameState {
@@ -98,9 +99,9 @@ export class GameService {
 		return this.lastGameUpdate.state.name;
 	}
 	
-	voteForPlayer(playerName: string) {
+	voteForPlayer(playerPseudo: string) {
 		if (this.getCurrentStep() !== GameStates.DAY_VOTE) return;
-		this.socketService.emit('vote', { player_name: playerName});
+		this.socketService.emit('vote', { player_pseudo: playerPseudo});
 	}
 
 	private onGameUpdate(data: GameUpdate) {
