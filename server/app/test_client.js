@@ -1,9 +1,9 @@
+let encryption = require('./encryption.js');
+
 let mj, player1, player2;
-
-mj = require('socket.io-client').connect('http://localhost:3000');
-
 let timing = 1;
 
+mj = require('socket.io-client').connect('http://localhost:3000');
 mj.on('connect', function () {
   console.log("MJ Connected !");
   mj.emit("create_game", { pseudo: 'PhiloW' });
@@ -20,7 +20,7 @@ setTimeout(function () {
   })
   player1.on('connect', function () {
     console.log("Player1 Connected !");
-    player1.emit("join_game", { pseudo: 'Linkinou', code: "wl7y"});
+    player1.emit("join_game", { pseudo: 'Linkinou', code: encryption.encrypt(0)});
   });
 }, timing++ * 1000);
 setTimeout(function () {
@@ -30,12 +30,18 @@ setTimeout(function () {
   })
   player2.on('connect', function () {
     console.log("Player2 Connected !");
-    player2.emit("join_game", { pseudo: 'Freedonaab', code: "wl7y"});
+    player2.emit("join_game", { pseudo: 'Freedonaab', code: encryption.encrypt(0)});
   });
 }, timing++ * 1000);
 
 setTimeout(function () {
+  //-> DISTRIBUTE_ROLE
   mj.emit("next");
+}, timing++ * 1000);
+
+setTimeout(function () {
+  //-> DAY_VOTE
+  mj.emit("next", { villegeois : 2 } );
 }, timing++ * 1000);
 
 setTimeout(function () {

@@ -9,7 +9,7 @@ module.exports = {
  LOUP_GAROU_VOTE: require("./states/loup_garou_vote.js"),
  LOUP_GAROU_RESULT: require("./states/loup_garou_result.js"),
  WITCH: require("./states/witch.js"),
- // DISTRIBUTE_ROLE:
+ DISTRIBUTE_ROLE: require("./states/distribute_role.js"),
  // HUNTER:{
  //   name: "HUNTER",
  //   next: function(game) {

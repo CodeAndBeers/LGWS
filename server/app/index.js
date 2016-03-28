@@ -83,12 +83,10 @@ io.on('connection', function(socket){
       fn({ result: 'ok', id: encryption.encrypt(game.id) });
     }
 
-    console.log("Creating game");
     //game.updatePlayers = function () {updatePlayers(this)};
-    socket.on('next', function () {
-      var prev = socket.game.state
-      socket.game.state = socket.game.state.next(game);
-      console.log("State:" + prev.name + " -> " + game.state.name);
+    socket.on('next', function (param) {
+      console.log("Moving to state '" + JSON.stringify(socket.game.state) + "' with param ["+ JSON.stringify(param) +"]");
+      socket.game.state = socket.game.state.next(game, param);
       updateAllPlayers(game);
     });
     updateAllPlayers(game);
