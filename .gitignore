@@ -11,3 +11,6 @@ dist
 
 # Server
 server/node_modules/
+
+# Nginx
+nginx/*.log
