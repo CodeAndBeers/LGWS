@@ -1,6 +1,6 @@
 module.exports = {
-  VILLEGEOIS: {
-    name: "VILLEGEOIS"
+  VILLAGEOIS: {
+    name: "VILLAGEOIS"
   },
   LOUP_GAROU:{
     name: "LOUP_GAROU"
