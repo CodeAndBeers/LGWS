@@ -77,7 +77,7 @@ Promise.all([v1, v2, w, h, v, v, lg1, lg2, lg3]).then(function (values) {
   p(lg3, "loup_garou_vote", {player_pseudo: 'VILLAGEOIS_1'});
   p(mj, "next")//-> LOUP_GAROU_RESULT
   p(mj, "next")//-> WITCH
-  p(player2, "use_life_potion", {player_pseudo: 'VILLAGEOIS_1'});
-  p(player2, "use_death_potion", {player_pseudo: 'LOUP_GAROU_1'});
+  p(w, "use_life_potion", {player_pseudo: 'VILLAGEOIS_1'});
+  p(w, "use_death_potion", {player_pseudo: 'LOUP_GAROU_1'});
   p(mj, "next")//-> NEXT_DAY
 });
