@@ -2,6 +2,8 @@ let mj, player1, player2;
 
 mj = require('socket.io-client').connect('http://localhost:3000');
 
+let timing = 1;
+
 mj.on('connect', function () {
   console.log("MJ Connected !");
   mj.emit("create_game", { pseudo: 'PhiloW' });
@@ -20,7 +22,7 @@ setTimeout(function () {
     console.log("Player1 Connected !");
     player1.emit("join_game", { pseudo: 'Linkinou', code: "wl7y"});
   });
-}, 1000);
+}, timing++ * 1000);
 setTimeout(function () {
   player2 = require('socket.io-client').connect('http://localhost:3000');
   player2.on('game_update', function() {
@@ -30,24 +32,55 @@ setTimeout(function () {
     console.log("Player2 Connected !");
     player2.emit("join_game", { pseudo: 'Freedonaab', code: "wl7y"});
   });
-}, 2000);
+}, timing++ * 1000);
 
 setTimeout(function () {
   mj.emit("next");
-}, 3000);
+}, timing++ * 1000);
 
 setTimeout(function () {
   player1.emit("vote", {player_pseudo: 'Linkinou'});
-}, 4000);
+}, timing++ * 1000);
 
 setTimeout(function () {
   player2.emit("vote", {player_pseudo: 'Linkinou'});
-}, 5000);
+}, timing++ * 1000);
 
 setTimeout(function () {
+  //-> DAY_RESULT
   mj.emit("next");
-}, 6000);
+}, timing++ * 1000);
 
 setTimeout(function () {
+  //-> NIGHT
   mj.emit("next");
-}, 7000);
+}, timing++ * 1000);
+
+setTimeout(function () {
+  //-> Cupidon
+  mj.emit("next");
+}, timing++ * 1000);
+
+setTimeout(function () {
+  player1.emit("vote_cupidon", {player_pseudo: 'Linkinou'});
+  player2.emit("vote_cupidon", {player_pseudo: 'Freedonaab'});
+}, timing++ * 1000);
+
+setTimeout(function () {
+  //-> Voyante
+  mj.emit("next");
+}, timing++ * 1000);
+
+setTimeout(function () {
+  player1.emit("reveal", {player_pseudo: 'Linkinou'});
+}, timing++ * 1000);
+
+setTimeout(function () {
+  //Can't reveal twice in one game
+  player1.emit("reveal", {player_pseudo: 'Freedonaab'});
+}, timing++ * 1000);
+
+setTimeout(function () {
+  //-> Game over
+  mj.emit("next");
+}, timing++ * 1000);

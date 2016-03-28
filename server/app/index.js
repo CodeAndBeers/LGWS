@@ -88,7 +88,7 @@ io.on('connection', function(socket){
     socket.on('next', function () {
       var prev = socket.game.state
       socket.game.state = socket.game.state.next(game);
-      console.log("State:" + prev.name + " -> " + game.state.name)
+      console.log("State:" + prev.name + " -> " + game.state.name);
       updateAllPlayers(game);
     });
     updateAllPlayers(game);

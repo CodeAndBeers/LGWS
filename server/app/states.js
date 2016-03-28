@@ -3,28 +3,14 @@ module.exports = {
  DAY_VOTE: require("./states/day_vote.js"),
  DAY_RESULT: require("./states/day_result.js"),
  NIGHT: require("./states/night.js"),
+ CUPIDON: require("./states/cupidon.js"),
+ VOYANTE: require("./states/voyante.js"),
  GAME_OVER: require("./states/game_over.js"),
  // DISTRIBUTE_ROLE:
  // HUNTER:{
  //   name: "HUNTER",
  //   next: function(game) {
  //      return states.DAY_VOTE;
- //   }
- // },
- // CUPIDON: {
- //   name: "CUPIDON",
- //   next: function(game) {
- //     return states.VOYANTE;
- //   }
- // },
- // VOYANTE: {
- //   next: function(game) {
- //     return states.VOYANTE_REVEAL;
- //   }
- // },
- // VOYANTE_REVEAL: {
- //   next: function(game) {
- //     return states.LOUG_GAROU_VOTE;
  //   }
  // },
  // LOUP_GAROU_VOTE: {
