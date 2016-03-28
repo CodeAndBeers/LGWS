@@ -26,17 +26,19 @@ let state = {
   next: function(game, roleDistributionTable) {
     let roleDistributionTableKeys = Object.keys(roleDistributionTable);
     game.players.forEach(function (player) {
-      // chose a role that still has free slots
-      let randomRole;
-      do {
-        let randomRoleIndex = random(roleDistributionTableKeys.length - 1);
-        let randomRoleName = roleDistributionTableKeys[randomRoleIndex];
-        randomRole = roles[randomRoleName];
-      } while (roleDistributionTable[randomRole.name] == 0);
-      roleDistributionTable[randomRole.name]--;
-      player.role = randomRole;
-      if (randomRole.init) {
-        randomRole.init(player);
+      if (!player.role) {
+        // chose a role that still has free slots
+        let randomRole;
+        do {
+          let randomRoleIndex = random(roleDistributionTableKeys.length - 1);
+          let randomRoleName = roleDistributionTableKeys[randomRoleIndex];
+          randomRole = roles[randomRoleName];
+        } while (roleDistributionTable[randomRole.name] == 0);
+        roleDistributionTable[randomRole.name]--;
+        player.role = randomRole;
+        if (randomRole.init) {
+          randomRole.init(player);
+        }
       }
     });
     game.updateAllPlayers();

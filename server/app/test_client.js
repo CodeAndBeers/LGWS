@@ -20,7 +20,7 @@ setTimeout(function () {
   })
   player1.on('connect', function () {
     console.log("Player1 Connected !");
-    player1.emit("join_game", { pseudo: 'Linkinou', code: encryption.encrypt(0)});
+    player1.emit("join_game", { pseudo: 'Linkinou', code: encryption.encrypt(0), force_role: "WITCH"});
   });
 }, timing++ * 1000);
 setTimeout(function () {
@@ -30,7 +30,7 @@ setTimeout(function () {
   })
   player2.on('connect', function () {
     console.log("Player2 Connected !");
-    player2.emit("join_game", { pseudo: 'Freedonaab', code: encryption.encrypt(0)});
+    player2.emit("join_game", { pseudo: 'Freedonaab', code: encryption.encrypt(0), force_role: "WITCH"});
   });
 }, timing++ * 1000);
 
@@ -42,9 +42,9 @@ setTimeout(function () {
 setTimeout(function () {
   //-> DAY_VOTE
   mj.emit("next", {
-    VILLEGEOIS: 0,
+    VILLEGEOIS: 2,
     LOUP_GAROU:0,
-    WITCH:2,
+    WITCH:0,
     VOYANTE:0,
     CUPIDON: 0,
     HUNTER: 0

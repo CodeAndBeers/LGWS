@@ -118,6 +118,13 @@ io.on('connection', function(socket){
           });
         })
       }
+      if (data.force_role) {
+        console.log("Force " + player.pseudo + " as " + data.force_role);
+        player.role = roles[data.force_role];
+        if (player.role.init) {
+          player.role.init(player);
+        }
+      }
     } else {
       //TODO Handle reconnection
     }
