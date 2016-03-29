@@ -8,7 +8,8 @@ export const Roles = {
 export const GameStates = {
 	WAITING_PLAYERS: "WAITING_PLAYERS",
 	DAY_VOTE: "DAY_VOTE",
-	DAY_RESULT: "DAY_RESULT"
+	DAY_RESULT: "DAY_RESULT",
+	DISTRIBUTE_ROLE: "DISTRIBUTE_ROLE"
 };
 
 export interface BasePlayer {
@@ -57,23 +58,23 @@ export class GameService {
 
 		this.socketService.on('game_update', (data) => this.onGameUpdate(data));
 	}
-	
+
 	nextState() {
 		if (!this.isCurrentPlayerMJ()) return;
-		
+
 		this.socketService.emit("next");
 	}
-	
+
 	getRoomCode() {
 		return this.roomCode;
 	}
 
 	getPlayers(): Player[] {
 		if (!this.lastGameUpdate) return [];
-		
+
 		return this.lastGameUpdate.players;
 	}
-	
+
 	getLastGameUpdate() {
 		return this.lastGameUpdate;
 	}
@@ -82,7 +83,7 @@ export class GameService {
 		if (!this.lastGameUpdate) return null;
 		return this.lastGameUpdate.me;
 	}
-	
+
 	isCurrentPlayerMJ(): boolean {
 		const player:BasePlayer = this.getCurrentPlayer();
 		if (!player) return false;
@@ -98,7 +99,7 @@ export class GameService {
 		if (!this.lastGameUpdate) return null;
 		return this.lastGameUpdate.state.name;
 	}
-	
+
 	voteForPlayer(playerPseudo: string) {
 		if (this.getCurrentStep() !== GameStates.DAY_VOTE) return;
 		this.socketService.emit('vote', { player_pseudo: playerPseudo});
@@ -111,7 +112,7 @@ export class GameService {
 
 		if (data.state.name !== this.lastGameState) {
 			this.lastGameState = data.state.name;
-			this.gameStateUpdate.emit(this.lastGameState);			
+			this.gameStateUpdate.emit(this.lastGameState);
 		}
 	}
 }
