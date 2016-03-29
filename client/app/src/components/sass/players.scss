@@ -1,0 +1,26 @@
+.mj {
+	font-size: 17px;
+
+	span {
+		font-weight: bold;
+	}
+}
+
+.players {
+	.player {
+
+		$height: 60px;
+		$padding: 10px;
+
+		border-radius: 3px;
+		border: 1px solid #ccc;
+		background-color: white;
+		min-height: $height;
+		vertical-align: middle;
+		line-height: $height - ($padding * 2);
+		padding: $padding;
+		font-size: 17px;
+		margin-bottom: 5px;
+	}
+	margin-bottom: 15px;
+}

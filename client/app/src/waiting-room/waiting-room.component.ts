@@ -33,8 +33,7 @@ class WaitingRoomComponent implements OnInit {
 		this.mj = data.mj;
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 	}
-
-
+	
 }
 
 export {WaitingRoomComponent};
