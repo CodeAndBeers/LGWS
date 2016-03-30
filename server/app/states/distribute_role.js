@@ -24,19 +24,21 @@ function getRoleFieldById(roleDistributionTable, id) {
 let state = {
   name: "DISTRIBUTE_ROLE",
   next: function(game, roleDistributionTable) {
+    console.log("DISTRIBUTE_ROLE", roleDistributionTable);
     roleDistributionTable = roleDistributionTable || {};
     let roleDistributionTableKeys = Object.keys(roleDistributionTable);
     game.players.forEach(function (player) {
-      if (!player.role) {
+      if (!player.role || player.role === "NONE") {
         // chose a role that still has free slots
         let randomRole;
         do {
-          let randomRoleIndex = random(roleDistributionTableKeys.length - 1);
+          let randomRoleIndex = random(roleDistributionTableKeys.length);
           let randomRoleName = roleDistributionTableKeys[randomRoleIndex];
           randomRole = roles[randomRoleName];
         } while (roleDistributionTable[randomRole.name] == 0);
         roleDistributionTable[randomRole.name]--;
-        player.role = randomRole;
+        player.role = randomRole.name;
+        console.log("DISTRIBUTE_ROLE assigning role "+randomRole.name+" to "+player.pseudo);
         if (randomRole.init) {
           randomRole.init(player);
         }
