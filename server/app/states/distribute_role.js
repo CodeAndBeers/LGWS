@@ -24,6 +24,7 @@ function getRoleFieldById(roleDistributionTable, id) {
 let state = {
   name: "DISTRIBUTE_ROLE",
   next: function(game, roleDistributionTable) {
+    roleDistributionTable = roleDistributionTable || {};
     let roleDistributionTableKeys = Object.keys(roleDistributionTable);
     game.players.forEach(function (player) {
       if (!player.role) {
