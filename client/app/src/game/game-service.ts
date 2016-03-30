@@ -72,6 +72,24 @@ export class GameService {
 		this.socketService.emit("next");
 	}
 
+	distributeRole() {
+		if (!this.isCurrentPlayerMJ()) return;
+
+		const distributionTable = {};
+		const playersCount = this.lastGameUpdate.players.length;
+		let rolesCount = 0;
+		//dummy role distribution generation; enough for now
+		Object.keys(Roles).reverse().forEach((role) => {
+			if (role === Roles.MJ) return;
+			if (rolesCount >= playersCount) return;
+
+			distributionTable[role] = 1;
+			rolesCount++;
+		});
+		
+		this.socketService.emit("next", distributionTable);
+	}
+
 	getRoomCode() {
 		return this.roomCode;
 	}
