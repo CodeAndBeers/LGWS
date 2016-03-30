@@ -9,6 +9,10 @@ class CupidonVoteComponent implements OnInit {
 
 	isMJ: boolean;
 	isCupidon: boolean;
+	players: Player[];
+	hasVoted: boolean = false;
+	lover1: string;
+	lover2: string;
 
 	constructor(private gameService: GameService) {
 		console.log('CupidonVoteComponent instantiated');
@@ -17,8 +21,17 @@ class CupidonVoteComponent implements OnInit {
 	ngOnInit() {
 		this.onGameUpdate(this.gameService.getLastGameUpdate());
 		this.gameService.gameUpdate.subscribe({
-			next: (data) => this.onGameUpdate(data)
+			next: data => this.onGameUpdate(data)
 		});
+		this.gameService.newLover.subscribe({
+			next: newLover => this.onNewLover(newLover)
+		})
+	}
+
+	vote(pseudo: string) {
+		if (!this.isCupidon) return;
+		console.log('vote');
+		this.gameService.cupidonVoteForPlayer(pseudo);
 	}
 
 	next() {
@@ -29,6 +42,15 @@ class CupidonVoteComponent implements OnInit {
 	private onGameUpdate(data: GameUpdate) {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isCupidon = this.gameService.isCurrentPlayerCupidon();
+		this.players = data.players;
+	}
+	
+	private onNewLover(newLover: string) {
+		if (!this.lover1) this.lover1 = newLover;
+		else if (!this.lover2) {
+			this.lover2 = newLover;
+			this.hasVoted = true;
+		}
 	}
 
 }

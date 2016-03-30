@@ -3,4 +3,18 @@
 	<div *ngIf="isMJ">
 		<button (click)="next()" class="btn btn-primary">Continuer</button>
 	</div>
+
+	<div *ngIf="isCupidon">
+		<div *ngIf="players" class="players">
+			<div *ngFor="#player of players" class="player">
+				<button *ngIf="!hasVoted && !isMJ" (click)="vote(player.pseudo)"
+						class="btn btn-primary pull-left btn-vote">
+					Chosir
+				</button>
+				<span class="pull-left">{{player.pseudo}}</span>
+			</div>
+		</div>
+	</div>
+
+
 </div>
