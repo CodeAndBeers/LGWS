@@ -2,7 +2,13 @@ import {Injectable, Output, EventEmitter} from 'angular2/core';
 import {SocketService} from '../components/socket/sockets-service';
 
 export const Roles = {
-	MJ: "MJ"
+	MJ: "MJ",
+	VILLAGEOIS: "VILLAGEOIS",
+	LOUP_GAROU: "LOUP_GAROU",
+	WITCH: "WITCH",
+	VOYANTE: "VOYANTE",
+	CUPIDON: "CUPIDON",
+	HUNTER: "HUNTER"
 };
 
 export const GameStates = {
@@ -83,11 +89,19 @@ export class GameService {
 		if (!this.lastGameUpdate) return null;
 		return this.lastGameUpdate.me;
 	}
-
-	isCurrentPlayerMJ(): boolean {
+	
+	isCurrentPlayer(role: string) {
 		const player:BasePlayer = this.getCurrentPlayer();
 		if (!player) return false;
-		return player.role === Roles.MJ;
+		return player.role === role;
+	}
+
+	isCurrentPlayerCupidon():boolean {
+		return this.isCurrentPlayer(Roles.CUPIDON);
+	}
+
+	isCurrentPlayerMJ(): boolean {
+		return this.isCurrentPlayer(Roles.MJ);
 	}
 
 	getCurrentTurn(): number {
