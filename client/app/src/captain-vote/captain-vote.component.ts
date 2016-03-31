@@ -20,6 +20,12 @@ class CaptainVoteComponent implements OnInit {
 		this.gameService.gameUpdate.subscribe({
 			next: (data) => this.onGameUpdate(data)
 		});
+		this.onGameUpdate(this.gameService.getLastGameUpdate());
+	}
+
+	next() {
+		console.log('next');
+		this.gameService.nextState();
 	}
 
 	private onGameUpdate(data: GameUpdate) {

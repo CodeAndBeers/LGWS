@@ -18,15 +18,15 @@ class DistributeRoleComponent implements OnInit {
 
 	ngOnInit() {
 		this.roomCode = this.gameService.getRoomCode();
-    this.onGameUpdate(this.gameService.getLastGameUpdate());
+		this.onGameUpdate(this.gameService.getLastGameUpdate());
 		this.gameService.gameUpdate.subscribe({
 			next: (data) => this.onGameUpdate(data)
 		});
 	}
 
 	next() {
-		console.log('startGame');
-		this.gameService.nextState();
+		console.log('nextState');
+		this.gameService.distributeRole();
 	}
 
 	private onGameUpdate(data: GameUpdate) {
