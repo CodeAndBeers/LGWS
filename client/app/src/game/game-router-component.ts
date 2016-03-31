@@ -48,31 +48,32 @@ class GameRouterComponent implements OnInit {
 
 	private onGameStateUpdate(newState: string) {
 		console.log('onGameStateUpdate', newState);
+		var route;
 		switch (newState) {
 			case GameStates.WAITING_PLAYERS:
-				var route = ['./WaitingRoom'];
+				route = ['./WaitingRoom'];
 				break;
 			case GameStates.DAY_VOTE:
 				if (this.gameService.getCurrentTurn() === 0) {
-					var route = ['./CaptainVote'];
+					route = ['./CaptainVote'];
 				}
 			break;
 			case GameStates.DAY_RESULT:
 				if (this.gameService.getCurrentTurn() === 0) {
-					var route = ['./CaptainResult'];
+					route = ['./CaptainResult'];
 				}
 				break;
 			case GameStates.DISTRIBUTE_ROLE:
-				var route = ['./DistributeRole'];
+				route = ['./DistributeRole'];
 				break;
 			case GameStates.CUPIDON:
-				this.router.navigate(['./CupidonVote']);
+				route = ['./CupidonVote'];
 				break;
 			default:
 				console.warn(`No route found corresponding to state ${newState}`);
 				console.warn(`[TMP] going to distribute role instead`);
 				//tmp
-				this.router.navigate(['./DistributeRole']);
+				route = ['./DistributeRole'];
 				break;
 		}
 		console.log("route to ", route);

@@ -19,6 +19,7 @@ class CaptainResultComponent implements OnInit {
 		this.gameService.gameUpdate.subscribe({
 			next: (data) => this.onGameUpdate(data)
 		});
+		this.onGameUpdate(this.gameService.getLastGameUpdate());
 	}
 
 	isWinner(player) {
@@ -26,6 +27,7 @@ class CaptainResultComponent implements OnInit {
 	}
 
 	private onGameUpdate(data: GameUpdate) {
+		console.log("toto");
 		this.players = data.players;
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.winners = this.players.map(p => [p]).reduce(function (prev, cur){
