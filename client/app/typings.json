@@ -1,6 +1,6 @@
 {
   "ambientDependencies": {
-    "es6-polyfill": "file:./cutom-typings/es6-polyfill.d.ts",
+    "es6-polyfill": "file:./custom-typings/es6-polyfill.d.ts",
     "jasmine": "github:DefinitelyTyped/DefinitelyTyped/jasmine/jasmine.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd",
     "socket.io-client": "github:DefinitelyTyped/DefinitelyTyped/socket.io-client/socket.io-client.d.ts#7de6c3dd94feaeb21f20054b9f30d5dabc5efabd"
   }
