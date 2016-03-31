@@ -142,7 +142,7 @@ export class GameService {
 
 	cupidonVoteForPlayer(playerPseudo: string) {
 		if (this.getCurrentStep() !== GameStates.CUPIDON) return;
-		if (this.isCurrentPlayerCupidon()) return;
+		if (!this.isCurrentPlayerCupidon()) return;
 		this.socketService.emit('vote_cupidon', { player_pseudo: playerPseudo});
 	}
 
@@ -156,7 +156,7 @@ export class GameService {
 		}
 
 		if (this.lastGameUpdate && this.lastGameUpdate.players) {
-			this.lastGameUpdate.players.forEach(player => {
+			data.players.forEach(player => {
 				const oldPlayer = this.lastGameUpdate.players.find(oldPlayer => oldPlayer.pseudo === player.pseudo);
 				if (!oldPlayer) return;
 				if (!oldPlayer.lover && player.lover) {

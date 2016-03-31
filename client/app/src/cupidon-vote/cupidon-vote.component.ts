@@ -46,11 +46,13 @@ class CupidonVoteComponent implements OnInit {
 	}
 	
 	private onNewLover(newLover: string) {
+		console.log('onNewLover', newLover);
 		if (!this.lover1) this.lover1 = newLover;
 		else if (!this.lover2) {
 			this.lover2 = newLover;
 			this.hasVoted = true;
 		}
+		console.log('onNewLover', this.lover1, this.lover2);
 	}
 
 }

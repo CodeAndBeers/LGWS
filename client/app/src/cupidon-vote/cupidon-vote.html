@@ -1,17 +1,24 @@
 <div id="cupidon-vote" class="content">
 	<h2>Cupidon choisi ses lovers</h2>
 	<div *ngIf="isMJ">
+
+		<div ng-if="lover1">Lover 1: {{lover1}}</div>
+		<div ng-if="lover2">Lover 2: {{lover2}}</div>
+
 		<button (click)="next()" class="btn btn-primary">Continuer</button>
 	</div>
 
 	<div *ngIf="isCupidon">
 		<div *ngIf="players" class="players">
 			<div *ngFor="#player of players" class="player">
-				<button *ngIf="!hasVoted && !isMJ" (click)="vote(player.pseudo)"
+				<button *ngIf="!hasVoted && player.pseudo !== lover1 && player.pseudo !== lover2"
+						(click)="vote(player.pseudo)"
 						class="btn btn-primary pull-left btn-vote">
-					Chosir
+					Choisir
 				</button>
-				<span class="pull-left">{{player.pseudo}}</span>
+				<span *ngIf="player.pseudo === lover1">lover1</span>
+				<span *ngIf="player.pseudo === lover2">lover2</span>
+				<span class="pull-left">&nbsp;({{player.pseudo}})</span>
 			</div>
 		</div>
 	</div>
