@@ -45,6 +45,7 @@ function format_game(game) {
 }
 
 function updateAllPlayers(game) {
+    console.log('updateAllPlayers');
     game.me = game.mj;
     game.mj.socket.emit("game_update", format_game(game));
     game.players.forEach(function (player) {

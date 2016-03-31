@@ -2,4 +2,9 @@
 	<h2>Election du capitaine</h2>
 
 	<player-vote></player-vote>
+
+	<div *ngIf="isMJ">
+		<button (click)="next()" class="btn btn-primary">Continuer</button>
+	</div>
+
 </div>
