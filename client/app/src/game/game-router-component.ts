@@ -5,6 +5,7 @@ import {RouteParams, RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/rout
 import {GameComponent} from './game.component';
 import {WaitingRoomComponent} from '../waiting-room/waiting-room.component';
 import {CaptainVoteComponent} from "../captain-vote/captain-vote.component";
+import {CaptainResultComponent} from "../captain-result/captain-result.component";
 import {DistributeRoleComponent} from "../distribute-role/distribute-role.component";
 
 /*SERVICES*/
@@ -22,7 +23,8 @@ import {GameService, GameStates} from './game-service';
 @RouteConfig([
 	{ path: '/waiting', name: 'WaitingRoom', component: WaitingRoomComponent, useAsDefault: true },
 	{ path: '/vote/captain', name: 'CaptainVote', component: CaptainVoteComponent },
-	{ path: '/roles', name: 'DistributeRole', component: DistributeRoleComponent }
+	{ path: '/roles', name: 'DistributeRole', component: DistributeRoleComponent },
+	{ path: '/result/captain', name: 'CaptainResult', component: CaptainResultComponent }
 ])
 class GameRouterComponent implements OnInit {
 
@@ -46,17 +48,24 @@ class GameRouterComponent implements OnInit {
 		console.log('onGameStateUpdate', newState);
 		switch (newState) {
 			case GameStates.WAITING_PLAYERS:
-				this.router.navigate(['./WaitingRoom']);
+				var route = ['./WaitingRoom'];
 				break;
 			case GameStates.DAY_VOTE:
 				if (this.gameService.getCurrentTurn() === 0) {
-					this.router.navigate(['./CaptainVote']);
+					var route = ['./CaptainVote'];
+				}
+			break;
+			case GameStates.DAY_RESULT:
+				if (this.gameService.getCurrentTurn() === 0) {
+					var route = ['./CaptainResult'];
 				}
 				break;
 			case GameStates.DISTRIBUTE_ROLE:
-				 this.router.navigate(['./DistributeRole']);
+				var route = ['./DistributeRole'];
 				break;
 		}
+		console.log("route to ", route);
+		this.router.navigate(route);
 	}
 
 }
