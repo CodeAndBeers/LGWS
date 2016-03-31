@@ -10,6 +10,7 @@ import {DistributeRoleComponent} from "../distribute-role/distribute-role.compon
 
 /*SERVICES*/
 import {GameService, GameStates} from './game-service';
+import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
 
 @Component({
 	selector: 'game',
@@ -24,7 +25,8 @@ import {GameService, GameStates} from './game-service';
 	{ path: '/waiting', name: 'WaitingRoom', component: WaitingRoomComponent, useAsDefault: true },
 	{ path: '/vote/captain', name: 'CaptainVote', component: CaptainVoteComponent },
 	{ path: '/roles', name: 'DistributeRole', component: DistributeRoleComponent },
-	{ path: '/result/captain', name: 'CaptainResult', component: CaptainResultComponent }
+	{ path: '/result/captain', name: 'CaptainResult', component: CaptainResultComponent },
+	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent }
 ])
 class GameRouterComponent implements OnInit {
 
@@ -62,6 +64,15 @@ class GameRouterComponent implements OnInit {
 				break;
 			case GameStates.DISTRIBUTE_ROLE:
 				var route = ['./DistributeRole'];
+				break;
+			case GameStates.CUPIDON:
+				this.router.navigate(['./CupidonVote']);
+				break;
+			default:
+				console.warn(`No route found corresponding to state ${newState}`);
+				console.warn(`[TMP] going to distribute role instead`);
+				//tmp
+				this.router.navigate(['./DistributeRole']);
 				break;
 		}
 		console.log("route to ", route);
