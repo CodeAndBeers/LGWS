@@ -22,12 +22,16 @@ class CaptainResultComponent implements OnInit {
 		this.onGameUpdate(this.gameService.getLastGameUpdate());
 	}
 
+	next() {
+		console.log('next');
+		this.gameService.nextState();
+	}
+
 	isWinner(player) {
-		return this.winners.map(w => w.pseudo).find(player.pseudo);
+		return this.winners.map(w => w.pseudo).find(p => p === player.pseudo);
 	}
 
 	private onGameUpdate(data: GameUpdate) {
-		console.log("toto");
 		this.players = data.players;
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.winners = this.players.map(p => [p]).reduce(function (prev, cur){
