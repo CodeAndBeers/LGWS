@@ -1,0 +1,23 @@
+<div id="captain-result" class="content">
+	<h2>Résultat du jugement dernier !</h2>
+
+	<div *ngIf="winners" class="players">
+		<div *ngIf="winners.length > 1">
+			This is a draw !
+		</div>
+		<div *ngIf="winners.length == 1">
+			The winner is {{winners[0].pseudo}}
+		</div>
+		<div *ngIf="winners.length < 1">
+			Oops something went wrong
+		</div>
+		<div *ngFor="#player of players" class="player">
+			<span class="pull-left">{{player.pseudo}}</span>
+			<span *ngIf="player.vote" class="pull-left"> a voté pour {{player.vote}}</span>
+			<span class="pull-right">nombre de votes: {{player.vote_count || 0}} <span *ngIf="isWinner(player)">*Looser*</span></span>
+		</div>
+		<div *ngIf="isMJ">
+			<button (click)="next()" class="btn btn-primary">Continuer</button>
+		</div>
+	</div>
+</div>
