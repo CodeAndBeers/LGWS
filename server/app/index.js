@@ -109,13 +109,17 @@ io.on('connection', function(socket){
       socket.player = player;
       player.socket = socket;
       game.players.push(player);
-      for (var state_name in states) {
-        var state = states[state_name];
+      for (let state_name in states) {
+        let state = states[state_name];
         console.log("Register state: " + state.name);
         state.actions.forEach(function (action) {
           console.log("Register action: " + action.name);
-          socket.on(action.name, function(param){
-            action.fct(socket.game, socket.player, param);
+          socket.on(action.name, function(param) {
+            if (game.state.name === state.name) {
+              action.fct(socket.game, socket.player, param);
+            } else {
+              console.log("Trying to do action '"+action.name+"' on state '"+state.name+"' while game state is '"+game.state.name+"'");
+            }
           });
         })
       }
