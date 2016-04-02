@@ -1,7 +1,7 @@
 
 module.exports.vote = function (game, player, param) {
   if (!(player.vote)) {
-    var candidate = game.players.findByPseudo(param.player_pseudo);
+    let candidate = game.players.findByPseudo(param.player_pseudo);
     if (candidate) {
       if (candidate.vote_count) {
         candidate.vote_count++;
@@ -16,12 +16,12 @@ module.exports.vote = function (game, player, param) {
 };
 
 module.exports.validate_vote = function (game, onVoteSuccess, onVoteFail) {
-  var winners = game.players.reduce(function (prev, cur) {
+  let winners = game.players.reduce(function (prev, cur) {
     if (!Array.isArray(prev)) {
       prev = [prev];
     }
-    var prev_count = prev[0].vote_count || 0;
-    var cur_count = cur.vote_count || 0;
+    let prev_count = prev[0].vote_count || 0;
+    let cur_count = cur.vote_count || 0;
     if (prev_count < cur_count) {
       return [cur];
     } else if (prev_count > cur_count){
