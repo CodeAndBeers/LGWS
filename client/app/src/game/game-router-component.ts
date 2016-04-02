@@ -7,10 +7,11 @@ import {WaitingRoomComponent} from '../waiting-room/waiting-room.component';
 import {CaptainVoteComponent} from "../captain-vote/captain-vote.component";
 import {CaptainResultComponent} from "../captain-result/captain-result.component";
 import {DistributeRoleComponent} from "../distribute-role/distribute-role.component";
+import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
+import {VoyanteComponent} from "../voyante/voyante.component";
 
 /*SERVICES*/
 import {GameService, GameStates} from './game-service';
-import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
 
 @Component({
 	selector: 'game',
@@ -26,7 +27,8 @@ import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
 	{ path: '/vote/captain', name: 'CaptainVote', component: CaptainVoteComponent },
 	{ path: '/roles', name: 'DistributeRole', component: DistributeRoleComponent },
 	{ path: '/result/captain', name: 'CaptainResult', component: CaptainResultComponent },
-	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent }
+	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
+	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent }
 ])
 class GameRouterComponent implements OnInit {
 
@@ -69,6 +71,9 @@ class GameRouterComponent implements OnInit {
 			case GameStates.CUPIDON:
 				route = ['./CupidonVote'];
 				break;
+			case GameStates.VOYANTE:
+					route = ['./Voyante'];
+					break;
 			default:
 				console.warn(`No route found corresponding to state ${newState}`);
 				console.warn(`[TMP] going to distribute role instead`);
