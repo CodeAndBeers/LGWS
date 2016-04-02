@@ -29,8 +29,7 @@ import {GameService, GameStates} from './game-service';
 	{ path: '/roles', name: 'DistributeRole', component: DistributeRoleComponent },
 	{ path: '/result/captain', name: 'CaptainResult', component: CaptainResultComponent },
 	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
-	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent }
-	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
+	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent },
 	{ path: '/witch', name: 'WitchVote', component: WitchVoteComponent }
 ])
 class GameRouterComponent implements OnInit {
@@ -75,8 +74,8 @@ class GameRouterComponent implements OnInit {
 				route = ['./CupidonVote'];
 				break;
 			case GameStates.VOYANTE:
-					route = ['./Voyante'];
-					break;
+				route = ['./Voyante'];
+				break;
 			case GameStates.WITCH:
 				route =['./WitchVote'];
 				break;

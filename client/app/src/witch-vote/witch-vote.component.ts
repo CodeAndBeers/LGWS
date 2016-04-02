@@ -3,8 +3,8 @@ import {GameService, GameUpdate, Player, Roles} from "../game/game-service";
 import {GameAwareComponent} from "../game/game-aware.component";
 
 @Component({
-	selector: 'cupidon-vote',
-	templateUrl: 'cupidon-vote/cupidon-vote.html'
+	selector: 'witch-vote',
+	templateUrl: 'witch-vote/witch-vote.html'
 })
 class WitchVoteComponent extends GameAwareComponent implements OnInit {
 
@@ -24,12 +24,12 @@ class WitchVoteComponent extends GameAwareComponent implements OnInit {
 	}
 	
 	useDeathPotion(player: string) {
-		console.log('useDeathPotion');
+		console.log('useDeathPotion', player);
 		this.gameService.useDeathPotion(player);
 	}
 
 	useLifePotion(player: string) {
-		console.log('useLifePotion');
+		console.log('useLifePotion', player);
 		this.gameService.useLifePotion(player);
 	}
 
