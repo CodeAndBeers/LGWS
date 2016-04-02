@@ -7,12 +7,12 @@
 	<div *ngIf="isWitch">
 		<div *ngIf="players" class="players">
 			<div *ngFor="#player of players" class="player">
-				<button *ngIf="canUseDeathPotion()"
+				<button *ngIf="canUseDeathPotion(player)"
 						(click)="useDeathPotion(player.pseudo)"
 						class="btn btn-primary pull-left btn-vote">
 					Tuer
 				</button>
-				<button *ngIf="canUseLifePotion()"
+				<button *ngIf="canUseLifePotion(player)"
 						(click)="useLifePotion(player.pseudo)"
 						class="btn btn-primary pull-left btn-vote">
 					Faire vivre

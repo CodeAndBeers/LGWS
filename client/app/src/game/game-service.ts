@@ -22,6 +22,11 @@ export const GameStates = {
 	WITCH: "WITCH"
 };
 
+export const DeathReasons = {
+	NONE: "NONE",
+	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE"
+};
+
 export interface BasePlayer {
 	pseudo:string,
 	role: string

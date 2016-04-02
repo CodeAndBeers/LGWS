@@ -1,5 +1,5 @@
 import {Component, OnInit} from "angular2/core";
-import {GameService, GameUpdate, Player, Roles} from "../game/game-service";
+import {GameService, GameUpdate, Player, Roles, DeathReasons} from "../game/game-service";
 import {GameAwareComponent} from "../game/game-aware.component";
 
 @Component({
@@ -33,13 +33,14 @@ class WitchVoteComponent extends GameAwareComponent implements OnInit {
 		this.gameService.useLifePotion(player);
 	}
 
-	canUseDeathPotion(): boolean {
-		return this.me && this.me.death_potion > 0;
+	canUseDeathPotion(player: Player): boolean {
+		return this.me && this.me.death_potion > 0 && player.dead === DeathReasons.NONE;
 	}
 
-	canUseLifePotion(): boolean {
-		return this.me && this.me.life_potion > 0;
+	canUseLifePotion(player: Player): boolean {
+		return this.me && this.me.life_potion > 0 && player.dead === DeathReasons.LOUP_GAROU_VOTE;
 	}
+	
 	protected onGameUpdate(data: GameUpdate) {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isWitch = this.gameService.isCurrentPlayer(Roles.WITCH);
