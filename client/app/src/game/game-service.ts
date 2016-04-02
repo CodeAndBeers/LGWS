@@ -1,5 +1,6 @@
 import {Injectable, Output, EventEmitter} from 'angular2/core';
 import {SocketService} from '../components/socket/sockets-service';
+import {BehaviorSubject} from "rxjs/Rx";
 
 export const Roles = {
 	MJ: "MJ",
@@ -55,6 +56,8 @@ export class GameService {
 	@Output() gameUpdate: EventEmitter<GameUpdate> = new EventEmitter();
 	@Output() gameStateUpdate: EventEmitter<String> = new EventEmitter();
 	@Output() newLover: EventEmitter<String> = new EventEmitter();
+
+	gameUpdateSub: BehaviorSubject<GameUpdate> = new BehaviorSubject(null);
 
 	private roomCode: string;
 	private lastGameUpdate: GameUpdate;
@@ -163,6 +166,8 @@ export class GameService {
 	}
 
 	private onGameUpdate(data: GameUpdate) {
+
+		this.gameUpdateSub.next(data);
 		console.log('game_update', data);
 		this.gameUpdate.emit(data);
 

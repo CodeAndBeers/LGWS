@@ -1,27 +1,26 @@
 import {Component, OnInit} from "angular2/core";
 import {GameService, GameUpdate, Player, MJ} from '../game/game-service';
+import {GameAwareComponent} from "../game/game-aware.component";
 
 @Component({
 	selector: 'distribute-role',
 	templateUrl: 'distribute-role/distribute-role.html'
 })
-class DistributeRoleComponent implements OnInit {
+class DistributeRoleComponent extends GameAwareComponent implements OnInit {
 
 	players: Player[];
 	roomCode: string;
 	mj: MJ;
 	isMJ: boolean;
 
-	constructor(private gameService: GameService) {
+	constructor(gameService: GameService) {
+		super(gameService);
 		console.log('DistributeRoleComponent instantiated');
 	}
 
 	ngOnInit() {
+		super.ngOnInit();
 		this.roomCode = this.gameService.getRoomCode();
-		this.onGameUpdate(this.gameService.getLastGameUpdate());
-		this.gameService.gameUpdate.subscribe({
-			next: (data) => this.onGameUpdate(data)
-		});
 	}
 
 	next() {
@@ -29,7 +28,8 @@ class DistributeRoleComponent implements OnInit {
 		this.gameService.distributeRole();
 	}
 
-	private onGameUpdate(data: GameUpdate) {
+	onGameUpdate(data: GameUpdate) {
+		console.log('DistributeRoleComponent.onGameUpdate', data);
 		this.players = data.players;
 		this.mj = data.mj;
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
