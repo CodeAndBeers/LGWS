@@ -1,6 +1,6 @@
 
 module.exports.vote = function (game, player, param) {
-  if (game.state.name === state.name && !(player.vote)) {
+  if (!(player.vote)) {
     var candidate = game.players.findByPseudo(param.player_pseudo);
     if (candidate) {
       if (candidate.vote_count) {
