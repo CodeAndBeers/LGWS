@@ -19,6 +19,7 @@ export const GameStates = {
 	CUPIDON: "CUPIDON",
 	VOYANTE: "VOYANTE",
 	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
+	LOUP_GAROU_RESULT: "LOUP_GAROU_RESULT",
 };
 
 export interface BasePlayer {
@@ -164,7 +165,7 @@ export class GameService {
 	loupGarouVoteForPlayer(playerPseudo: string) {
 		if (this.getCurrentStep() !== GameStates.LOUP_GAROU_VOTE) return;
 		if (!this.isCurrentPlayerLoupGarou()) return;
-		this.socketService.emit('vote_loup_garou', { player_pseudo: playerPseudo});
+		this.socketService.emit('loup_garou_vote', { player_pseudo: playerPseudo});
 	}
 
 	voyanteRevealPlayer(playerPseudo: string) {

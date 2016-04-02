@@ -1,4 +1,4 @@
-let DAY_VOTE = require("./loup_garou_vote.js");
+let DAY_VOTE = require("./day_vote.js");
 let roles = require("../roles.js");
 
 function random(maxValue) {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from "angular2/core";
+import {Component, OnInit, Input} from "angular2/core";
 import {GameService, GameUpdate, Player} from "../game/game-service";
 
 @Component({
@@ -10,6 +10,7 @@ class PlayerVoteComponent implements OnInit {
 	players: Player[];
 	hasVoted: boolean = false;
 	isMJ: boolean;
+	@Input('voteFn') voteFn: (playerName:string) => any;
 
 	constructor(private gameService: GameService) {
 		console.log('PlayerVoteComponent instantiated');
@@ -25,7 +26,12 @@ class PlayerVoteComponent implements OnInit {
 	}
 	
 	vote(playerName: string) {
-		this.gameService.voteForPlayer(playerName);
+		console.log(this.voteFn);
+		if (this.voteFn) {
+			this.voteFn(playerName);
+		} else {
+			this.gameService.voteForPlayer(playerName);
+		}
 		this.hasVoted = true;
 	}
 	

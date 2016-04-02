@@ -2,17 +2,17 @@ import {Component, OnInit} from "angular2/core";
 import {GameService, GameUpdate, Player} from "../game/game-service";
 
 @Component({
-	selector: 'captain-result',
-	templateUrl: 'captain-result/captain-result.html'
+	selector: 'loup-garou-result',
+	templateUrl: 'loup-garou-result/loup-garou-result.html'
 })
-class CaptainResultComponent implements OnInit {
+class LoupGarouResultComponent implements OnInit {
 
 	players:Player[];
 	winners:Player[];
 	isMJ:boolean;
 
 	constructor(private gameService:GameService) {
-		console.log('CaptainResultComponent instantiated');
+		console.log('LoupGarouResultComponent instantiated');
 	}
 
 	ngOnInit() {
@@ -49,4 +49,4 @@ class CaptainResultComponent implements OnInit {
 	}
 }
 
-export {CaptainResultComponent};
+export {LoupGarouResultComponent};
