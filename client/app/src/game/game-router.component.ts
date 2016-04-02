@@ -9,6 +9,7 @@ import {CaptainResultComponent} from "../captain-result/captain-result.component
 import {DistributeRoleComponent} from "../distribute-role/distribute-role.component";
 import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
 import {VoyanteComponent} from "../voyante/voyante.component";
+import {WitchVoteComponent} from "../witch-vote/witch-vote.component";
 
 /*SERVICES*/
 import {GameService, GameStates} from './game-service';
@@ -29,6 +30,8 @@ import {GameService, GameStates} from './game-service';
 	{ path: '/result/captain', name: 'CaptainResult', component: CaptainResultComponent },
 	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
 	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent }
+	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
+	{ path: '/witch', name: 'WitchVote', component: WitchVoteComponent }
 ])
 class GameRouterComponent implements OnInit {
 
@@ -74,6 +77,9 @@ class GameRouterComponent implements OnInit {
 			case GameStates.VOYANTE:
 					route = ['./Voyante'];
 					break;
+			case GameStates.WITCH:
+				route =['./WitchVote'];
+				break;
 			default:
 				console.warn(`No route found corresponding to state ${newState}`);
 				console.warn(`[TMP] going to distribute role instead`);

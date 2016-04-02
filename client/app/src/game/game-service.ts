@@ -8,7 +8,7 @@ export const Roles = {
 	LOUP_GAROU: "LOUP_GAROU",
 	WITCH: "WITCH",
 	CUPIDON: "CUPIDON",
-	HUNTER: "HUNTER"
+	HUNTER: "HUNTER",
 	VOYANTE: "VOYANTE",
 };
 
@@ -18,7 +18,8 @@ export const GameStates = {
 	DAY_RESULT: "DAY_RESULT",
 	DISTRIBUTE_ROLE: "DISTRIBUTE_ROLE",
 	CUPIDON: "CUPIDON",
-	VOYANTE: "VOYANTE"
+	VOYANTE: "VOYANTE",
+	WITCH: "WITCH"
 };
 
 export interface BasePlayer {
@@ -29,10 +30,13 @@ export interface BasePlayer {
 export interface MJ extends BasePlayer { }
 
 export interface Player extends BasePlayer {
-	dead: string,
-	vote: any,
-	vote_count: number,
-	lover: boolean
+	dead?: string,
+	vote?: any,
+	vote_count?: number,
+	lover?: boolean,
+	death_potion?: number,
+	life_potion?: number,
+	last_dead?: boolean
 }
 
 export interface GameState {
@@ -130,6 +134,10 @@ export class GameService {
 		return this.isCurrentPlayer(Roles.VOYANTE);
 	}
 
+	isCurrentPlayerWitch():boolean {
+		return this.isCurrentPlayer(Roles.WITCH);
+	}
+
 	isCurrentPlayerMJ(): boolean {
 		return this.isCurrentPlayer(Roles.MJ);
 	}
@@ -162,7 +170,21 @@ export class GameService {
 	voyanteRevealPlayer(playerPseudo: string) {
 		if (this.getCurrentStep() !== GameStates.VOYANTE) return;
 		if (!this.isCurrentPlayerVoyante()) return;
-		this.socketService.emit('reveal', { player_pseudo: playerPseudo});
+		this.socketService.emit('reveal', {player_pseudo: playerPseudo});
+	}
+	
+	useDeathPotion(playerPseudo: string) {
+		if (this.getCurrentStep() !== GameStates.WITCH) return;
+		if (!this.isCurrentPlayerWitch()) return;
+
+		this.socketService.emit('use_death_potion', { player_pseudo: playerPseudo});
+	}
+
+	useLifePotion(playerPseudo: string) {
+		if (this.getCurrentStep() !== GameStates.WITCH) return;
+		if (!this.isCurrentPlayerWitch()) return;
+
+		this.socketService.emit('use_life_potion', { player_pseudo: playerPseudo});
 	}
 
 	private onGameUpdate(data: GameUpdate) {
@@ -177,11 +199,14 @@ export class GameService {
 		}
 
 		if (this.lastGameUpdate && this.lastGameUpdate.players) {
-			data.players.forEach(player => {
+			data.players.forEach((player: Player) => {
 				const oldPlayer = this.lastGameUpdate.players.find(oldPlayer => oldPlayer.pseudo === player.pseudo);
 				if (!oldPlayer) return;
 				if (!oldPlayer.lover && player.lover) {
 					this.newLover.emit(player.pseudo);
+				}
+				if (!oldPlayer.dead && player.dead) {
+					player.last_dead = true;
 				}
 			});
 		}
