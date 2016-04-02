@@ -1,0 +1,16 @@
+<div class="loup-garou-vote">
+	Hello patate
+	<div *ngIf="isLoupGarou" class="players">
+		<div *ngIf="players" class="players">
+			<div *ngFor="#player of players" class="player">
+				<button *ngIf="!hasVoted" (click)="vote(player.pseudo)"
+						class="btn btn-primary pull-left btn-vote">
+					Voter
+				</button>
+				<span class="pull-left">{{player.pseudo}}</span>
+				<span *ngIf="player.vote" class="pull-left"> (a voté pour {{player.vote}})</span>
+				<span class="pull-right">nombre de votes: {{player.vote_count || 0}}</span>
+			</div>
+		</div>
+	</div>
+</div>
