@@ -6,9 +6,9 @@ export const Roles = {
 	VILLAGEOIS: "VILLAGEOIS",
 	LOUP_GAROU: "LOUP_GAROU",
 	WITCH: "WITCH",
-	VOYANTE: "VOYANTE",
 	CUPIDON: "CUPIDON",
 	HUNTER: "HUNTER"
+	VOYANTE: "VOYANTE",
 };
 
 export const GameStates = {
@@ -16,7 +16,8 @@ export const GameStates = {
 	DAY_VOTE: "DAY_VOTE",
 	DAY_RESULT: "DAY_RESULT",
 	DISTRIBUTE_ROLE: "DISTRIBUTE_ROLE",
-	CUPIDON: "CUPIDON"
+	CUPIDON: "CUPIDON",
+	VOYANTE: "VOYANTE"
 };
 
 export interface BasePlayer {
@@ -44,6 +45,7 @@ export interface GameUpdate {
 	id: string,
 	turn: number,
 	state: GameState,
+	revealed?: boolean,
 	players: Player[]
 }
 
@@ -88,7 +90,7 @@ export class GameService {
 			distributionTable[role] = 1;
 			rolesCount++;
 		});
-		
+
 		this.socketService.emit("next", distributionTable);
 	}
 
@@ -110,7 +112,7 @@ export class GameService {
 		if (!this.lastGameUpdate) return null;
 		return this.lastGameUpdate.me;
 	}
-	
+
 	isCurrentPlayer(role: string) {
 		const player:BasePlayer = this.getCurrentPlayer();
 		if (!player) return false;
@@ -121,8 +123,16 @@ export class GameService {
 		return this.isCurrentPlayer(Roles.CUPIDON);
 	}
 
+	isCurrentPlayerVoyante():boolean {
+		return this.isCurrentPlayer(Roles.VOYANTE);
+	}
+
 	isCurrentPlayerMJ(): boolean {
 		return this.isCurrentPlayer(Roles.MJ);
+	}
+
+	alreadyUseRevealThisTurn()  {
+		return this.lastGameUpdate.revealed;
 	}
 
 	getCurrentTurn(): number {
@@ -144,6 +154,12 @@ export class GameService {
 		if (this.getCurrentStep() !== GameStates.CUPIDON) return;
 		if (!this.isCurrentPlayerCupidon()) return;
 		this.socketService.emit('vote_cupidon', { player_pseudo: playerPseudo});
+	}
+
+	voyanteRevealPlayer(playerPseudo: string) {
+		if (this.getCurrentStep() !== GameStates.VOYANTE) return;
+		if (!this.isCurrentPlayerVoyante()) return;
+		this.socketService.emit('reveal', { player_pseudo: playerPseudo});
 	}
 
 	private onGameUpdate(data: GameUpdate) {

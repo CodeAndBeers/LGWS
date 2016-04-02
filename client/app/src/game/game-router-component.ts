@@ -5,11 +5,13 @@ import {RouteParams, RouteConfig, ROUTER_DIRECTIVES, Router} from 'angular2/rout
 import {GameComponent} from './game.component';
 import {WaitingRoomComponent} from '../waiting-room/waiting-room.component';
 import {CaptainVoteComponent} from "../captain-vote/captain-vote.component";
+import {CaptainResultComponent} from "../captain-result/captain-result.component";
 import {DistributeRoleComponent} from "../distribute-role/distribute-role.component";
+import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
+import {VoyanteComponent} from "../voyante/voyante.component";
 
 /*SERVICES*/
 import {GameService, GameStates} from './game-service';
-import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
 
 @Component({
 	selector: 'game',
@@ -24,7 +26,9 @@ import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
 	{ path: '/waiting', name: 'WaitingRoom', component: WaitingRoomComponent, useAsDefault: true },
 	{ path: '/vote/captain', name: 'CaptainVote', component: CaptainVoteComponent },
 	{ path: '/roles', name: 'DistributeRole', component: DistributeRoleComponent },
-	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent }
+	{ path: '/result/captain', name: 'CaptainResult', component: CaptainResultComponent },
+	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
+	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent }
 ])
 class GameRouterComponent implements OnInit {
 
@@ -46,28 +50,39 @@ class GameRouterComponent implements OnInit {
 
 	private onGameStateUpdate(newState: string) {
 		console.log('onGameStateUpdate', newState);
+		var route;
 		switch (newState) {
 			case GameStates.WAITING_PLAYERS:
-				this.router.navigate(['./WaitingRoom']);
+				route = ['./WaitingRoom'];
 				break;
 			case GameStates.DAY_VOTE:
 				if (this.gameService.getCurrentTurn() === 0) {
-					this.router.navigate(['./CaptainVote']);
+					route = ['./CaptainVote'];
+				}
+			break;
+			case GameStates.DAY_RESULT:
+				if (this.gameService.getCurrentTurn() === 0) {
+					route = ['./CaptainResult'];
 				}
 				break;
 			case GameStates.DISTRIBUTE_ROLE:
-				 this.router.navigate(['./DistributeRole']);
+				route = ['./DistributeRole'];
 				break;
 			case GameStates.CUPIDON:
-				this.router.navigate(['./CupidonVote']);
+				route = ['./CupidonVote'];
 				break;
+			case GameStates.VOYANTE:
+					route = ['./Voyante'];
+					break;
 			default:
 				console.warn(`No route found corresponding to state ${newState}`);
 				console.warn(`[TMP] going to distribute role instead`);
 				//tmp
-				this.router.navigate(['./DistributeRole']);
+				route = ['./DistributeRole'];
 				break;
 		}
+		console.log("route to ", route);
+		this.router.navigate(route);
 	}
 
 }
