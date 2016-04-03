@@ -10,7 +10,7 @@ let state = {
 }
 
 state.actions.push({
-  name: "vote",
+  name: "loup_garou_vote",
   fct: abstract_vote.vote
 });
 

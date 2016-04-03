@@ -1,7 +1,7 @@
 let state = {
   name: "HUNTER_REVENGE",
   next: function(game) {
-    var next = game.after_hunter_revenge;
+    let next = game.after_hunter_revenge;
     delete game.after_hunter_revenge;
     return next;
   },
