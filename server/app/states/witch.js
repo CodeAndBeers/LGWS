@@ -5,6 +5,8 @@ let state = {
   name: "WITCH",
   next: function(game) {
     let hunter = game.players.getHunter();
+    var last_dead = game.players.find(p => p.last_dead);
+    delete last_dead.last_dead;
     game.turn++;
       if (hunter && hunter.dead && !hunter.take_revenge) {
         game.after_hunter_revenge = DAY_VOTE;
