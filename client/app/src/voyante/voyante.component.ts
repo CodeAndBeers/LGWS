@@ -39,7 +39,7 @@ class VoyanteComponent extends GameAwareComponent implements OnInit {
 		this.revealed = this.gameService.alreadyUseRevealThisTurn();
 		this.playersWithoutMe = data.players
 			.filter(player => player.pseudo !== this.gameService.getCurrentPlayer().pseudo)
-			.filter(player => player.dead !== DeathReasons.NONE);
+			.filter(player => player.dead === DeathReasons.NONE);
 	}
 
 }

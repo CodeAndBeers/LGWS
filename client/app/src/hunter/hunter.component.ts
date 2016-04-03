@@ -41,7 +41,7 @@ class HunterComponent implements OnInit {
 		this.players = data.players;
 		this.playersWithoutMe = data.players
 			.filter(player => player.pseudo !== this.gameService.getCurrentPlayer().pseudo)
-			.filter(player => player.dead !== DeathReasons.NONE);
+			.filter(player => player.dead === DeathReasons.NONE);
 		this.me = data.me;
 	}
 
