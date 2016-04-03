@@ -9,7 +9,6 @@ export const Roles = {
 	HUNTER: "HUNTER",
 	WITCH: "WITCH",
 	CUPIDON: "CUPIDON",
-	HUNTER: "HUNTER",
 	VOYANTE: "VOYANTE"
 };
 
