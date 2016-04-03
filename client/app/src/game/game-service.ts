@@ -21,7 +21,8 @@ export const GameStates = {
 	VOYANTE: "VOYANTE",
 	WITCH: "WITCH",
 	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
-	LOUP_GAROU_RESULT: "LOUP_GAROU_RESULT"
+	LOUP_GAROU_RESULT: "LOUP_GAROU_RESULT",
+	HUNTER_REVENGE: "HUNTER_REVENGE"
 };
 
 export const DeathReasons = {
@@ -170,11 +171,7 @@ export class GameService {
 	isCurrentPlayerLoupGarou(): boolean {
 		return this.isCurrentPlayer(Roles.LOUP_GAROU);
 	}
-
-	alreadyUseRevealThisTurn()  {
-		return this.lastGameUpdate.revealed;
-	}
-
+	
 	getCurrentTurn(): number {
 		if (!this.lastGameUpdate) return null;
 		return this.lastGameUpdate.turn;

@@ -1,5 +1,5 @@
 import {Component, OnInit} from "angular2/core";
-import {GameService, GameUpdate, Player, MJ} from '../game/game-service';
+import {GameService, GameUpdate, Player, MJ, DeathReasons} from '../game/game-service';
 
 @Component({
 	selector: 'hunter',
@@ -39,7 +39,9 @@ class HunterComponent implements OnInit {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isHunter = this.gameService.isCurrentPlayerHunter();
 		this.players = data.players;
-		this.playersWithoutMe = data.players.filter(p => p.pseudo !== data.me.pseudo);
+		this.playersWithoutMe = data.players
+			.filter(player => player.pseudo !== this.gameService.getCurrentPlayer().pseudo)
+			.filter(player => player.dead === DeathReasons.NONE);
 		this.me = data.me;
 	}
 

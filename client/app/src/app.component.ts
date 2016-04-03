@@ -30,7 +30,7 @@ export class AppComponent {
 
 		socketService
 			.connect('/', {
-				path: '/socket.io'
+				path: '/api/socket.io'
 			})
 			.on('connect_error', () => console.log('websocket error connected !'))
 			.onConnect(() => console.log('websocket connected !'));
