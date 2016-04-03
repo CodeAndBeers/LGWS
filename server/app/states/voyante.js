@@ -2,6 +2,13 @@ const LOUP_GAROU_VOTE = require("./loup_garou_vote.js");
 
 let state = {
   name: "VOYANTE",
+  init: function(game) {
+    let voyante = game.players.getVoyante();
+    if (!voyante || !voyante.isAlive()) {
+      //Skip state
+      return next();
+    }
+  },
   next: function(game) {
       delete game.revealed;
       return LOUP_GAROU_VOTE;

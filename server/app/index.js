@@ -18,6 +18,7 @@ class Player {
     //this.life_potion: false, //sorcière
     //this.death_potion: true, //sorcière
     //this.lover: true,
+    this.isAlive = () => this.dead === "NONE";
   }
 }
 
@@ -77,8 +78,14 @@ io.on('connection', function(socket){
     game.players.findByPseudo = function (pseudo) {
       return game.players.find(player => player.pseudo === pseudo);
     };
-    game.players.getHunter  = function (pseudo) {
+    game.players.getHunter = function () {
       return game.players.find(player => player.role === roles.HUNTER.name);
+    };
+    game.players.getVoyante = function () {
+      return game.players.find(player => player.role === roles.VOYANTE.name);
+    };
+    game.players.getWitch = function () {
+      return game.players.find(player => player.role === roles.WITCH.name);
     };
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;

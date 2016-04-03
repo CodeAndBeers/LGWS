@@ -2,6 +2,13 @@ let DAY_VOTE = require("./day_vote.js");
 
 let state = {
   name: "WITCH",
+  init: function(game) {
+    let witch = game.players.getWitch();
+    if (!witch || !witch.isAlive()) {
+      //Skip state
+      return next();
+    }
+  },
   next: function(game) {
     return DAY_VOTE;
   },
