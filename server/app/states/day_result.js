@@ -6,7 +6,7 @@ let state = {
     const states = require("../states.js");
     return abstract_vote.validate_vote(game,
       (game) => states.DAY_VOTE,
-      (game, result) => {
+      (game, winner) => {
         if (game.turn == 0) {
           winner.captain = true;
           console.log(winner.pseudo + " was elected as the new leader !");
