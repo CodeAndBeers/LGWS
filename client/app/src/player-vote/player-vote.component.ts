@@ -1,28 +1,21 @@
 import {Component, OnInit, Input} from "angular2/core";
-import {GameService, GameUpdate, Player} from "../game/game-service";
+import {GameService, GameUpdate, Player, DeathReasons} from "../game/game-service";
+import {GameAwareComponent} from "../game/game-aware.component";
 
 @Component({
 	selector: 'player-vote',
 	templateUrl: 'player-vote/player-vote.html'
 })
-class PlayerVoteComponent implements OnInit {
+class PlayerVoteComponent extends GameAwareComponent implements OnInit {
 
 	players: Player[];
 	hasVoted: boolean = false;
 	isMJ: boolean;
 	@Input('voteFn') voteFn: (playerName:string) => any;
 
-	constructor(private gameService: GameService) {
+	constructor(gameService: GameService) {
+		super(gameService);
 		console.log('PlayerVoteComponent instantiated');
-	}
-
-	ngOnInit() {
-		this.gameService.gameUpdate.subscribe({
-			next: (data) => this.onGameUpdate(data)
-		});
-		
-		const gameUpdate = this.gameService.getLastGameUpdate();
-		if (gameUpdate) this.onGameUpdate(gameUpdate);
 	}
 	
 	vote(playerName: string) {
@@ -35,8 +28,10 @@ class PlayerVoteComponent implements OnInit {
 		this.hasVoted = true;
 	}
 	
-	private onGameUpdate(data: GameUpdate) {
-		this.players = data.players.filter(player => player.pseudo !== this.gameService.getCurrentPlayer().pseudo);
+	onGameUpdate(data: GameUpdate) {
+		this.players = data.players
+			.filter(player => player.pseudo !== this.gameService.getCurrentPlayer().pseudo)
+			.filter(player => player.dead !== DeathReasons.NONE);
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 	}
 

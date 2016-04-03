@@ -165,11 +165,7 @@ export class GameService {
 	isCurrentPlayerLoupGarou(): boolean {
 		return this.isCurrentPlayer(Roles.LOUP_GAROU);
 	}
-
-	alreadyUseRevealThisTurn()  {
-		return this.lastGameUpdate.revealed;
-	}
-
+	
 	getCurrentTurn(): number {
 		if (!this.lastGameUpdate) return null;
 		return this.lastGameUpdate.turn;

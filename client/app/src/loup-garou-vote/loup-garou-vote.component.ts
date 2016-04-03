@@ -1,27 +1,21 @@
 import {Component, OnInit} from "angular2/core";
-import {GameService, GameUpdate, Player} from "../game/game-service";
+import {GameService, GameUpdate} from "../game/game-service";
 import {PlayerVoteComponent} from "../player-vote/player-vote.component";
+import {GameAwareComponent} from "../game/game-aware.component";
 
 @Component({
 	selector: 'loup-garou-vote',
 	templateUrl: 'loup-garou-vote/loup-garou-vote.html',
 	directives: [PlayerVoteComponent]
 })
-class LoupGarouVoteComponent implements OnInit {
+class LoupGarouVoteComponent extends GameAwareComponent implements OnInit {
 
-	players: Player[];
 	isLoupGarou: boolean;
 	isMJ: boolean;
 
-	constructor(private gameService: GameService) {
+	constructor(gameService: GameService) {
+		super(gameService);
 		console.log('LoupGarouVoteComponent instantiated');
-	}
-
-	ngOnInit() {
-		this.gameService.gameUpdate.subscribe({
-			next: (data) => this.onGameUpdate(data)
-		});
-		this.onGameUpdate(this.gameService.getLastGameUpdate());
 	}
 
 	next() {
@@ -34,8 +28,7 @@ class LoupGarouVoteComponent implements OnInit {
 		this.gameService.loupGarouVoteForPlayer(playerPseudo);
 	}
 
-	private onGameUpdate(data: GameUpdate) {
-		this.players = data.players;
+	onGameUpdate(data: GameUpdate) {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isLoupGarou = this.gameService.isCurrentPlayerLoupGarou();
 	}
