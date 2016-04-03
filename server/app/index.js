@@ -101,6 +101,13 @@ io.on('connection', function(socket){
     const id = encryption.decrypt(data.code);
     console.log(id);
     let game = games[id];
+    // check that user name doesn't exist
+    for (let name in game.players) {
+      if (name === data.pseudo) {
+        console.log("Couldn't add player, name already exist");
+        fn({ result: 'ko', message: "Player name was already taken" });
+      }
+    }
     console.log("Join game id:" + game.id);
     if (game.state.name === states.WAITING_PLAYERS.name) {
       console.log("Add player");
