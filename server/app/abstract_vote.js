@@ -15,7 +15,7 @@ module.exports.vote = function (game, player, param) {
   }
 };
 
-module.exports.validate_vote = function (game, onVoteSuccess, onVoteFail) {
+module.exports.validate_vote = function (game, onVoteFail, onVoteSuccess) {
   let winners = game.players.reduce(function (prev, cur) {
     if (!Array.isArray(prev)) {
       prev = [prev];
@@ -37,7 +37,7 @@ module.exports.validate_vote = function (game, onVoteSuccess, onVoteFail) {
   })
   if(winners.length > 1) {
     console.log("winners: " + winners.map(w => w.pseudo));
-    return onVoteSuccess(game, winners[0]);
+    return onVoteFail(game);
   }
-  return onVoteFail(game);
+  return onVoteSuccess(game, winners[0]);
 }
