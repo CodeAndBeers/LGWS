@@ -34,13 +34,12 @@ import {GameService, GameStates} from './game-service';
 	{ path: '/vote/loup-garou', name: 'LoupGarouVote', component: LoupGarouVoteComponent},
 	{ path: '/result/loup-garou', name: 'LoupGarouResult', component: LoupGarouResultComponent },
 	{ path: '/roles', name: 'DistributeRole', component: DistributeRoleComponent },
-	{ path: '/vote/captain', name: 'CaptainVote', component: CaptainVoteComponent },
 	{ path: '/result/captain', name: 'CaptainResult', component: CaptainResultComponent },
 	{ path: '/vote/hang', name: 'HangVote', component: HangVoteComponent },
 	{ path: '/result/hang', name: 'HangResult', component: HangResultComponent },
 	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
 	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent },
-	{ path: '/hunter_revenge', name: 'HunterRevenge', component: HunterComponent }
+	{ path: '/hunter_revenge', name: 'HunterRevenge', component: HunterComponent },
 	{ path: '/witch', name: 'WitchVote', component: WitchVoteComponent }
 ])
 class GameRouterComponent implements OnInit {
