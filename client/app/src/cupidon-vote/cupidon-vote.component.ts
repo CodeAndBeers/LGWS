@@ -1,11 +1,12 @@
 import {Component, OnInit} from "angular2/core";
-import {GameService, GameUpdate, Player, MJ} from '../game/game-service';
+import {GameService, GameUpdate, Player} from "../game/game-service";
+import {GameAwareComponent} from "../game/game-aware.component";
 
 @Component({
 	selector: 'cupidon-vote',
 	templateUrl: 'cupidon-vote/cupidon-vote.html'
 })
-class CupidonVoteComponent implements OnInit {
+class CupidonVoteComponent extends GameAwareComponent implements OnInit {
 
 	isMJ: boolean;
 	isCupidon: boolean;
@@ -14,15 +15,13 @@ class CupidonVoteComponent implements OnInit {
 	lover1: string;
 	lover2: string;
 
-	constructor(private gameService: GameService) {
+	constructor(gameService: GameService) {
+		super(gameService);
 		console.log('CupidonVoteComponent instantiated');
 	}
 
 	ngOnInit() {
-		this.onGameUpdate(this.gameService.getLastGameUpdate());
-		this.gameService.gameUpdate.subscribe({
-			next: data => this.onGameUpdate(data)
-		});
+		super.ngOnInit();
 		this.gameService.newLover.subscribe({
 			next: newLover => this.onNewLover(newLover)
 		})
@@ -39,7 +38,7 @@ class CupidonVoteComponent implements OnInit {
 		this.gameService.nextState();
 	}
 
-	private onGameUpdate(data: GameUpdate) {
+	onGameUpdate(data: GameUpdate) {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isCupidon = this.gameService.isCurrentPlayerCupidon();
 		this.players = data.players;

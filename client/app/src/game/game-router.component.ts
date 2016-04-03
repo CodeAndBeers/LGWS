@@ -14,6 +14,7 @@ import {DistributeRoleComponent} from "../distribute-role/distribute-role.compon
 import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
 import {VoyanteComponent} from "../voyante/voyante.component";
 import {HunterComponent} from "../hunter/hunter.component";
+import {WitchVoteComponent} from "../witch-vote/witch-vote.component";
 
 /*SERVICES*/
 import {GameService, GameStates} from './game-service';
@@ -40,6 +41,7 @@ import {GameService, GameStates} from './game-service';
 	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
 	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent },
 	{ path: '/hunter_revenge', name: 'HunterRevenge', component: HunterComponent }
+	{ path: '/witch', name: 'WitchVote', component: WitchVoteComponent }
 ])
 class GameRouterComponent implements OnInit {
 
@@ -97,6 +99,9 @@ class GameRouterComponent implements OnInit {
 				break;
 			case GameStates.HUNTER_REVENGE:
 				route = ['./HunterRevenge'];
+				break;
+			case GameStates.WITCH:
+				route =['./WitchVote'];
 				break;
 			default:
 				console.warn(`No route found corresponding to state ${newState}`);

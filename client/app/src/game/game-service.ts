@@ -1,5 +1,6 @@
 import {Injectable, Output, EventEmitter} from 'angular2/core';
 import {SocketService} from '../components/socket/sockets-service';
+import {BehaviorSubject} from "rxjs/Rx";
 
 export const Roles = {
 	MJ: "MJ",
@@ -8,7 +9,6 @@ export const Roles = {
 	HUNTER: "HUNTER",
 	WITCH: "WITCH",
 	CUPIDON: "CUPIDON",
-	HUNTER: "HUNTER",
 	VOYANTE: "VOYANTE"
 };
 
@@ -19,8 +19,17 @@ export const GameStates = {
 	DISTRIBUTE_ROLE: "DISTRIBUTE_ROLE",
 	CUPIDON: "CUPIDON",
 	VOYANTE: "VOYANTE",
+	WITCH: "WITCH",
+	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
+	LOUP_GAROU_RESULT: "LOUP_GAROU_RESULT"
+};
+
+export const DeathReasons = {
+	NONE: "NONE",
+	DAY_VOTE: "DAY_VOTE",
 	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
 	LOUP_GAROU_RESULT: "LOUP_GAROU_RESULT",
+	DEATH_BY_WITCH: "DEATH_BY_WITCH",
 	HUNTER_REVENGE: "HUNTER_REVENGE"
 };
 
@@ -32,10 +41,13 @@ export interface BasePlayer {
 export interface MJ extends BasePlayer { }
 
 export interface Player extends BasePlayer {
-	dead: string,
-	vote: any,
-	vote_count: number,
-	lover: boolean
+	dead?: string,
+	vote?: any,
+	vote_count?: number,
+	lover?: boolean,
+	death_potion?: number,
+	life_potion?: number,
+	last_dead?: boolean
 }
 
 export interface GameState {
@@ -59,6 +71,8 @@ export class GameService {
 	@Output() gameUpdate: EventEmitter<GameUpdate> = new EventEmitter();
 	@Output() gameStateUpdate: EventEmitter<String> = new EventEmitter();
 	@Output() newLover: EventEmitter<String> = new EventEmitter();
+
+	gameUpdateSub: BehaviorSubject<GameUpdate> = new BehaviorSubject(null);
 
 	private roomCode: string;
 	private lastGameUpdate: GameUpdate;
@@ -135,8 +149,22 @@ export class GameService {
 		return this.isCurrentPlayer(Roles.HUNTER);
 	}
 
+	isCurrentPlayerWitch():boolean {
+		return this.isCurrentPlayer(Roles.WITCH);
+	}
+
 	isCurrentPlayerMJ(): boolean {
 		return this.isCurrentPlayer(Roles.MJ);
+	}
+
+	isCurrentPlayerDead(): boolean {
+		const player = this.getCurrentPlayer();
+		if (!player || player.role === Roles.MJ) return false;
+		return (<Player>player).dead !== DeathReasons.NONE;
+	}
+
+	alreadyUseRevealThisTurn() {
+		return this.lastGameUpdate && this.lastGameUpdate.revealed;
 	}
 
 	isCurrentPlayerLoupGarou(): boolean {
@@ -177,7 +205,21 @@ export class GameService {
 	voyanteRevealPlayer(playerPseudo: string) {
 		if (this.getCurrentStep() !== GameStates.VOYANTE) return;
 		if (!this.isCurrentPlayerVoyante()) return;
-		this.socketService.emit('reveal', { player_pseudo: playerPseudo});
+		this.socketService.emit('reveal', {player_pseudo: playerPseudo});
+	}
+
+	useDeathPotion(playerPseudo: string) {
+		if (this.getCurrentStep() !== GameStates.WITCH) return;
+		if (!this.isCurrentPlayerWitch()) return;
+
+		this.socketService.emit('use_death_potion', { player_pseudo: playerPseudo});
+	}
+
+	useLifePotion(playerPseudo: string) {
+		if (this.getCurrentStep() !== GameStates.WITCH) return;
+		if (!this.isCurrentPlayerWitch()) return;
+
+		this.socketService.emit('use_life_potion', { player_pseudo: playerPseudo});
 	}
 
 	hunterRevengePlayer(playerPseudo: string) {
@@ -187,6 +229,8 @@ export class GameService {
 	}
 
 	private onGameUpdate(data: GameUpdate) {
+
+		this.gameUpdateSub.next(data);
 		console.log('game_update', data);
 		this.gameUpdate.emit(data);
 
@@ -196,11 +240,14 @@ export class GameService {
 		}
 
 		if (this.lastGameUpdate && this.lastGameUpdate.players) {
-			data.players.forEach(player => {
+			data.players.forEach((player: Player) => {
 				const oldPlayer = this.lastGameUpdate.players.find(oldPlayer => oldPlayer.pseudo === player.pseudo);
 				if (!oldPlayer) return;
 				if (!oldPlayer.lover && player.lover) {
 					this.newLover.emit(player.pseudo);
+				}
+				if (!oldPlayer.dead && player.dead) {
+					player.last_dead = true;
 				}
 			});
 		}

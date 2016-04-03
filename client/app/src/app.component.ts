@@ -4,7 +4,7 @@ import {RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router
 
 /*COMPONENTS*/
 import {LoginComponent} from './login/login.component'
-import {GameRouterComponent} from './game/game-router-component';
+import {GameRouterComponent} from './game/game-router.component';
 
 /*SERVICES*/
 import {SocketService} from './components/socket/sockets-service';
