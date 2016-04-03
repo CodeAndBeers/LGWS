@@ -8,6 +8,7 @@ let state = {
       (game) => states.LOUP_GAROU_VOTE,
       (game, winner) => {
         winner.dead = "LOUP_GAROU_VOTE";
+        game.last_dead = winner;
         console.log(winner.pseudo + " was savagely eaten by a warewolf!");
         return states.WITCH;
       }

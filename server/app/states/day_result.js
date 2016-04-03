@@ -13,6 +13,7 @@ let state = {
           return states.NIGHT;
         }
         winner.dead = "DAY_VOTE";
+        game.last_dead = winner;
         console.log(winner.pseudo + " was designated as the next hanged !");
         if (winner.role.name === "HUNTER") {
           game.after_hunter_revenge = states.NIGHT;
