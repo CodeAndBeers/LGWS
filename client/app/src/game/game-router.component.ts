@@ -13,6 +13,7 @@ import {LoupGarouVoteComponent} from "../loup-garou-vote/loup-garou-vote.compone
 import {DistributeRoleComponent} from "../distribute-role/distribute-role.component";
 import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
 import {VoyanteComponent} from "../voyante/voyante.component";
+import {HunterComponent} from "../hunter/hunter.component";
 import {WitchVoteComponent} from "../witch-vote/witch-vote.component";
 
 /*SERVICES*/
@@ -39,6 +40,7 @@ import {GameService, GameStates} from './game-service';
 	{ path: '/result/hang', name: 'HangResult', component: HangResultComponent },
 	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
 	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent },
+	{ path: '/hunter_revenge', name: 'HunterRevenge', component: HunterComponent }
 	{ path: '/witch', name: 'WitchVote', component: WitchVoteComponent }
 ])
 class GameRouterComponent implements OnInit {
@@ -94,6 +96,9 @@ class GameRouterComponent implements OnInit {
 				break;
 			case GameStates.VOYANTE:
 				route = ['./Voyante'];
+				break;
+			case GameStates.HUNTER_REVENGE:
+				route = ['./HunterRevenge'];
 				break;
 			case GameStates.WITCH:
 				route =['./WitchVote'];

@@ -28,6 +28,7 @@ export const DeathReasons = {
 	NONE: "NONE",
 	DAY_VOTE: "DAY_VOTE",
 	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
+	LOUP_GAROU_RESULT: "LOUP_GAROU_RESULT",
 	DEATH_BY_WITCH: "DEATH_BY_WITCH",
 	HUNTER_REVENGE: "HUNTER_REVENGE"
 };
@@ -55,7 +56,7 @@ export interface GameState {
 }
 
 export interface GameUpdate {
-	me: BasePlayer,
+	me: Player,
 	mj: MJ,
 	id: string,
 	turn: number,
@@ -144,6 +145,10 @@ export class GameService {
 		return this.isCurrentPlayer(Roles.VOYANTE);
 	}
 
+	isCurrentPlayerHunter():boolean {
+		return this.isCurrentPlayer(Roles.HUNTER);
+	}
+
 	isCurrentPlayerWitch():boolean {
 		return this.isCurrentPlayer(Roles.WITCH);
 	}
@@ -151,7 +156,7 @@ export class GameService {
 	isCurrentPlayerMJ(): boolean {
 		return this.isCurrentPlayer(Roles.MJ);
 	}
-	
+
 	isCurrentPlayerDead(): boolean {
 		const player = this.getCurrentPlayer();
 		if (!player || player.role === Roles.MJ) return false;
@@ -198,7 +203,7 @@ export class GameService {
 		if (!this.isCurrentPlayerVoyante()) return;
 		this.socketService.emit('reveal', {player_pseudo: playerPseudo});
 	}
-	
+
 	useDeathPotion(playerPseudo: string) {
 		if (this.getCurrentStep() !== GameStates.WITCH) return;
 		if (!this.isCurrentPlayerWitch()) return;
@@ -211,6 +216,12 @@ export class GameService {
 		if (!this.isCurrentPlayerWitch()) return;
 
 		this.socketService.emit('use_life_potion', { player_pseudo: playerPseudo});
+	}
+
+	hunterRevengePlayer(playerPseudo: string) {
+		if (this.getCurrentStep() !== GameStates.HUNTER_REVENGE) return;
+		if (!this.isCurrentPlayerHunter()) return;
+		this.socketService.emit('revenge', { player_pseudo: playerPseudo});
 	}
 
 	private onGameUpdate(data: GameUpdate) {

@@ -15,4 +15,3 @@ module.exports = {
 //Death by grief
 //Captain delegation
 //Captain vote * 2
-//Reset on revote

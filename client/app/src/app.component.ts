@@ -29,7 +29,7 @@ export class AppComponent {
 		console.log('AppComponent instantiated');
 
 		socketService
-			.connect('localhost:3000/', {
+			.connect('/', {
 				path: '/socket.io'
 			})
 			.on('connect_error', () => console.log('websocket error connected !'))

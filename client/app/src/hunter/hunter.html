@@ -1,0 +1,19 @@
+<div id="hunter" class="content">
+	<h2>This is REVENGE TIIIIIME.</h2>
+	<div *ngIf="isMJ">
+		<button (click)="next()" class="btn btn-primary">Continuer</button>
+	</div>
+	<div *ngIf="isHunter || isMJ">
+		<div *ngIf="players" class="players">
+			<div *ngFor="#player of playersWithoutMe" class="player">
+				{{player.pseudo}}
+				<span *ngIf="player.dead === 'HUNTER_REVENGE'">*Killed by hunter*</span>
+				<button *ngIf="!isMJ && !me.take_revenge"
+						(click)="revenge(player.pseudo)"
+						class="btn btn-primary pull-left btn-vote">
+					Take your revenge
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
