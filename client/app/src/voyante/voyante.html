@@ -6,7 +6,7 @@
 		</div>
 		<button (click)="next()" class="btn btn-primary">Continuer</button>
 	</div>
-	<div *ngIf="isVoyante || isMJ">
+	<div *ngIf="(isVoyante && !isVoyanteDead) || isMJ">
 		<div *ngIf="players" class="players">
 			<div *ngFor="#player of players" class="player">
 				{{player.pseudo}}

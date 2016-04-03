@@ -10,6 +10,7 @@ class WitchVoteComponent extends GameAwareComponent implements OnInit {
 
 	isMJ: boolean = false;
 	isWitch: boolean = false;
+	isWitchDead = false;
 	players: Player[];
 	me: Player;
 
@@ -38,12 +39,13 @@ class WitchVoteComponent extends GameAwareComponent implements OnInit {
 	}
 
 	canUseLifePotion(player: Player): boolean {
-		return this.me && this.me.life_potion > 0 && player.dead === DeathReasons.LOUP_GAROU_VOTE;
+		return this.me && this.me.life_potion > 0 && player.dead === DeathReasons.LOUP_GAROU_VOTE && player.last_dead;
 	}
-	
+
 	protected onGameUpdate(data: GameUpdate) {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isWitch = this.gameService.isCurrentPlayer(Roles.WITCH);
+		this.isWitchDead = this.isWitch && this.gameService.isCurrentPlayerDead();
 		this.players = data.players;
 		this.me = <Player>data.me;
 	}

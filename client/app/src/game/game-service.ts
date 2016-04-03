@@ -24,7 +24,10 @@ export const GameStates = {
 
 export const DeathReasons = {
 	NONE: "NONE",
-	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE"
+	DAY_VOTE: "DAY_VOTE",
+	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
+	DEATH_BY_WITCH: "DEATH_BY_WITCH",
+	HUNTER_REVENGE: "HUNTER_REVENGE"
 };
 
 export interface BasePlayer {
@@ -146,9 +149,15 @@ export class GameService {
 	isCurrentPlayerMJ(): boolean {
 		return this.isCurrentPlayer(Roles.MJ);
 	}
+	
+	isCurrentPlayerDead(): boolean {
+		const player = this.getCurrentPlayer();
+		if (!player || player.role === Roles.MJ) return false;
+		return (<Player>player).dead !== DeathReasons.NONE;
+	}
 
-	alreadyUseRevealThisTurn()  {
-		return this.lastGameUpdate.revealed;
+	alreadyUseRevealThisTurn() {
+		return this.lastGameUpdate && this.lastGameUpdate.revealed;
 	}
 
 	getCurrentTurn(): number {
