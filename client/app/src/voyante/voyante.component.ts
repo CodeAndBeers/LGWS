@@ -11,6 +11,7 @@ class VoyanteComponent implements OnInit {
 	isVoyante: boolean;
 	players: Player[];
 	revealed: boolean;
+	playersWithoutMe: Player[];
 
 	constructor(private gameService: GameService) {
 		console.log('VoyanteComponent instantiated');
@@ -39,6 +40,7 @@ class VoyanteComponent implements OnInit {
 		this.isVoyante = this.gameService.isCurrentPlayerVoyante();
 		this.players = data.players;
 		this.revealed = this.gameService.alreadyUseRevealThisTurn()
+		this.playersWithoutMe = data.players.filter(p => p.pseudo !== data.me.pseudo);
 	}
 
 }

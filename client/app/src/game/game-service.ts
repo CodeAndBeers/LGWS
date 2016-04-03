@@ -5,10 +5,11 @@ export const Roles = {
 	MJ: "MJ",
 	VILLAGEOIS: "VILLAGEOIS",
 	LOUP_GAROU: "LOUP_GAROU",
+	HUNTER: "HUNTER",
 	WITCH: "WITCH",
 	CUPIDON: "CUPIDON",
 	HUNTER: "HUNTER",
-	VOYANTE: "VOYANTE",
+	VOYANTE: "VOYANTE"
 };
 
 export const GameStates = {
