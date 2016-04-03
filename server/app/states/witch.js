@@ -4,15 +4,15 @@ let HUNTER_REVENGE = require("./hunter_revenge.js");
 let state = {
   name: "WITCH",
   next: function(game) {
-    let hunter = game.players.getHunter();
     var last_dead = game.players.find(p => p.last_dead);
     delete last_dead.last_dead;
     game.turn++;
-      if (hunter && hunter.dead && !hunter.take_revenge) {
-        game.after_hunter_revenge = DAY_VOTE;
-        return HUNTER_REVENGE;
-      }
-      return DAY_VOTE;
+    let hunter = game.players.getHunter();
+    if (hunter && hunter.dead && hunter.dead !== "NONE" && !hunter.take_revenge) {
+      game.after_hunter_revenge = DAY_VOTE;
+      return HUNTER_REVENGE;
+    }
+    return DAY_VOTE;
   },
   actions: []
 }

@@ -78,7 +78,7 @@ io.on('connection', function(socket){
       return game.players.find(player => player.pseudo === pseudo);
     };
     game.players.getHunter  = function (pseudo) {
-      return game.players.find(player => player.role.name === roles.HUNTER.name);
+      return game.players.find(player => player.role === roles.HUNTER.name);
     };
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
