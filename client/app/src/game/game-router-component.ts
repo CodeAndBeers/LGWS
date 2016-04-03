@@ -13,6 +13,7 @@ import {LoupGarouVoteComponent} from "../loup-garou-vote/loup-garou-vote.compone
 import {DistributeRoleComponent} from "../distribute-role/distribute-role.component";
 import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
 import {VoyanteComponent} from "../voyante/voyante.component";
+import {HunterComponent} from "../hunter/hunter.component";
 
 /*SERVICES*/
 import {GameService, GameStates} from './game-service';
@@ -37,7 +38,8 @@ import {GameService, GameStates} from './game-service';
 	{ path: '/vote/hang', name: 'HangVote', component: HangVoteComponent },
 	{ path: '/result/hang', name: 'HangResult', component: HangResultComponent },
 	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
-	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent }
+	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent },
+	{ path: '/hunter_revenge', name: 'HunterRevenge', component: HunterComponent }
 ])
 class GameRouterComponent implements OnInit {
 
@@ -91,8 +93,11 @@ class GameRouterComponent implements OnInit {
 				route = ['./LoupGarouResult'];
 				break;
 			case GameStates.VOYANTE:
-					route = ['./Voyante'];
-					break;
+				route = ['./Voyante'];
+				break;
+			case GameStates.HUNTER_REVENGE:
+				route = ['./HunterRevenge'];
+				break;
 			default:
 				console.warn(`No route found corresponding to state ${newState}`);
 				console.warn(`[TMP] going to distribute role instead`);

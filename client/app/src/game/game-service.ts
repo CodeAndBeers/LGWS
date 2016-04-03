@@ -21,6 +21,7 @@ export const GameStates = {
 	VOYANTE: "VOYANTE",
 	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
 	LOUP_GAROU_RESULT: "LOUP_GAROU_RESULT",
+	HUNTER_REVENGE: "HUNTER_REVENGE"
 };
 
 export interface BasePlayer {
@@ -43,7 +44,7 @@ export interface GameState {
 }
 
 export interface GameUpdate {
-	me: BasePlayer,
+	me: Player,
 	mj: MJ,
 	id: string,
 	turn: number,
@@ -130,6 +131,10 @@ export class GameService {
 		return this.isCurrentPlayer(Roles.VOYANTE);
 	}
 
+	isCurrentPlayerHunter():boolean {
+		return this.isCurrentPlayer(Roles.HUNTER);
+	}
+
 	isCurrentPlayerMJ(): boolean {
 		return this.isCurrentPlayer(Roles.MJ);
 	}
@@ -173,6 +178,12 @@ export class GameService {
 		if (this.getCurrentStep() !== GameStates.VOYANTE) return;
 		if (!this.isCurrentPlayerVoyante()) return;
 		this.socketService.emit('reveal', { player_pseudo: playerPseudo});
+	}
+
+	hunterRevengePlayer(playerPseudo: string) {
+		if (this.getCurrentStep() !== GameStates.HUNTER_REVENGE) return;
+		if (!this.isCurrentPlayerHunter()) return;
+		this.socketService.emit('revenge', { player_pseudo: playerPseudo});
 	}
 
 	private onGameUpdate(data: GameUpdate) {
