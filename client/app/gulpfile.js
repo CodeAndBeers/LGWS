@@ -77,18 +77,18 @@ gulp.task('typescript', function () {
 gulp.task('scripts', ['typescript'], function () {
 	var builder = new SystemBuilder(dist + '/js', {
 		paths: {
-			'*': '*.js'
-			, 'socket.io-client': './' + node_modules + '/socket.io-client/socket.io.js'
+			'*': '*.js',
+			'socket.io-client': './' + node_modules + '/socket.io-client/socket.io.js'
 
 		},
 		meta: {
 			'angular2/*': {
 				build: false
+			},
+			'rxjs/*': {
+				build: false
 			}
-		},
-		// map: {
-		// 	'socket.io-client': './' + node_modules + '/socket.io-client/socket.io.js'
-		// }
+		}
 	});
 
 	return builder.bundle('main', dist + '/js/app.bundle.js');
