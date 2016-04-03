@@ -7,8 +7,9 @@ export const Roles = {
 	LOUP_GAROU: "LOUP_GAROU",
 	HUNTER: "HUNTER",
 	WITCH: "WITCH",
-	VOYANTE: "VOYANTE",
-	CUPIDON: "CUPIDON"
+	CUPIDON: "CUPIDON",
+	HUNTER: "HUNTER",
+	VOYANTE: "VOYANTE"
 };
 
 export const GameStates = {
@@ -17,7 +18,9 @@ export const GameStates = {
 	DAY_RESULT: "DAY_RESULT",
 	DISTRIBUTE_ROLE: "DISTRIBUTE_ROLE",
 	CUPIDON: "CUPIDON",
-	VOYANTE: "VOYANTE"
+	VOYANTE: "VOYANTE",
+	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
+	LOUP_GAROU_RESULT: "LOUP_GAROU_RESULT",
 };
 
 export interface BasePlayer {
@@ -131,6 +134,10 @@ export class GameService {
 		return this.isCurrentPlayer(Roles.MJ);
 	}
 
+	isCurrentPlayerLoupGarou(): boolean {
+		return this.isCurrentPlayer(Roles.LOUP_GAROU);
+	}
+
 	alreadyUseRevealThisTurn()  {
 		return this.lastGameUpdate.revealed;
 	}
@@ -154,6 +161,12 @@ export class GameService {
 		if (this.getCurrentStep() !== GameStates.CUPIDON) return;
 		if (!this.isCurrentPlayerCupidon()) return;
 		this.socketService.emit('vote_cupidon', { player_pseudo: playerPseudo});
+	}
+
+	loupGarouVoteForPlayer(playerPseudo: string) {
+		if (this.getCurrentStep() !== GameStates.LOUP_GAROU_VOTE) return;
+		if (!this.isCurrentPlayerLoupGarou()) return;
+		this.socketService.emit('loup_garou_vote', { player_pseudo: playerPseudo});
 	}
 
 	voyanteRevealPlayer(playerPseudo: string) {

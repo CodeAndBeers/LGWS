@@ -8,6 +8,8 @@ import {CaptainVoteComponent} from "../captain-vote/captain-vote.component";
 import {CaptainResultComponent} from "../captain-result/captain-result.component";
 import {HangVoteComponent} from "../hang-vote/hang-vote.component";
 import {HangResultComponent} from "../hang-result/hang-result.component";
+import {LoupGarouResultComponent} from "../loup-garou-result/loup-garou-result.component";
+import {LoupGarouVoteComponent} from "../loup-garou-vote/loup-garou-vote.component";
 import {DistributeRoleComponent} from "../distribute-role/distribute-role.component";
 import {CupidonVoteComponent} from "../cupidon-vote/cupidon-vote.component";
 import {VoyanteComponent} from "../voyante/voyante.component";
@@ -26,6 +28,9 @@ import {GameService, GameStates} from './game-service';
 })
 @RouteConfig([
 	{ path: '/waiting', name: 'WaitingRoom', component: WaitingRoomComponent, useAsDefault: true },
+	{ path: '/vote/captain', name: 'CaptainVote', component: CaptainVoteComponent },
+	{ path: '/vote/loup-garou', name: 'LoupGarouVote', component: LoupGarouVoteComponent},
+	{ path: '/result/loup-garou', name: 'LoupGarouResult', component: LoupGarouResultComponent },
 	{ path: '/roles', name: 'DistributeRole', component: DistributeRoleComponent },
 	{ path: '/vote/captain', name: 'CaptainVote', component: CaptainVoteComponent },
 	{ path: '/result/captain', name: 'CaptainResult', component: CaptainResultComponent },
@@ -78,6 +83,12 @@ class GameRouterComponent implements OnInit {
 				break;
 			case GameStates.CUPIDON:
 				route = ['./CupidonVote'];
+				break;
+			case GameStates.LOUP_GAROU_VOTE:
+				route = ['./LoupGarouVote'];
+				break;
+			case GameStates.LOUP_GAROU_RESULT:
+				route = ['./LoupGarouResult'];
 				break;
 			case GameStates.VOYANTE:
 					route = ['./Voyante'];

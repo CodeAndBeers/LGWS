@@ -16,4 +16,3 @@ module.exports = {
 //Captain delegation
 //Captain vote * 2
 //Reset on revote
-//Abstract vote system
