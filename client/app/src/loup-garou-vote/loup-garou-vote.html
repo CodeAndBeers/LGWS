@@ -1,9 +1,10 @@
 <div class="loup-garou-vote">
 
-	<player-vote [voteFn]="vote"></player-vote>
+	<div *ngIf="isMJ || isLoupGarou">
+		<player-vote [voteFn]="vote"></player-vote>
 
-	<div *ngIf="isMJ">
-		<button (click)="next()" class="btn btn-primary">Continuer</button>
+		<div *ngIf="isMJ">
+			<button (click)="next()" class="btn btn-primary">Continuer</button>
+		</div>
 	</div>
-
 </div>
