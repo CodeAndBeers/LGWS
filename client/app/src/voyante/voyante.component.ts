@@ -13,6 +13,7 @@ class VoyanteComponent extends GameAwareComponent implements OnInit {
 	players: Player[];
 	revealed: boolean;
 	isVoyanteDead: boolean;
+	playersWithoutMe: Player[];
 
 	constructor(gameService: GameService) {
 		super(gameService);
@@ -36,6 +37,7 @@ class VoyanteComponent extends GameAwareComponent implements OnInit {
 		this.isVoyanteDead = this.isVoyante && this.gameService.isCurrentPlayerDead();
 		this.players = data.players;
 		this.revealed = this.gameService.alreadyUseRevealThisTurn()
+		this.playersWithoutMe = data.players.filter(p => p.pseudo !== data.me.pseudo);
 	}
 
 }

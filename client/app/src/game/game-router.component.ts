@@ -6,6 +6,8 @@ import {GameComponent} from './game.component';
 import {WaitingRoomComponent} from '../waiting-room/waiting-room.component';
 import {CaptainVoteComponent} from "../captain-vote/captain-vote.component";
 import {CaptainResultComponent} from "../captain-result/captain-result.component";
+import {HangVoteComponent} from "../hang-vote/hang-vote.component";
+import {HangResultComponent} from "../hang-result/hang-result.component";
 import {LoupGarouResultComponent} from "../loup-garou-result/loup-garou-result.component";
 import {LoupGarouVoteComponent} from "../loup-garou-vote/loup-garou-vote.component";
 import {DistributeRoleComponent} from "../distribute-role/distribute-role.component";
@@ -31,7 +33,10 @@ import {GameService, GameStates} from './game-service';
 	{ path: '/vote/loup-garou', name: 'LoupGarouVote', component: LoupGarouVoteComponent},
 	{ path: '/result/loup-garou', name: 'LoupGarouResult', component: LoupGarouResultComponent },
 	{ path: '/roles', name: 'DistributeRole', component: DistributeRoleComponent },
+	{ path: '/vote/captain', name: 'CaptainVote', component: CaptainVoteComponent },
 	{ path: '/result/captain', name: 'CaptainResult', component: CaptainResultComponent },
+	{ path: '/vote/hang', name: 'HangVote', component: HangVoteComponent },
+	{ path: '/result/hang', name: 'HangResult', component: HangResultComponent },
 	{ path: '/cupidon', name: 'CupidonVote', component: CupidonVoteComponent },
 	{ path: '/voyante', name: 'Voyante', component: VoyanteComponent },
 	{ path: '/witch', name: 'WitchVote', component: WitchVoteComponent }
@@ -64,11 +69,15 @@ class GameRouterComponent implements OnInit {
 			case GameStates.DAY_VOTE:
 				if (this.gameService.getCurrentTurn() === 0) {
 					route = ['./CaptainVote'];
+				} else {
+					route = ['./HangVote'];
 				}
 			break;
 			case GameStates.DAY_RESULT:
 				if (this.gameService.getCurrentTurn() === 0) {
 					route = ['./CaptainResult'];
+				} else {
+					route = ['./HangResult'];
 				}
 				break;
 			case GameStates.DISTRIBUTE_ROLE:

@@ -29,8 +29,8 @@ export class AppComponent {
 		console.log('AppComponent instantiated');
 
 		socketService
-			.connect('/', {
-				path: '/api/socket.io'
+			.connect('localhost:3000/', {
+				path: '/socket.io'
 			})
 			.on('connect_error', () => console.log('websocket error connected !'))
 			.onConnect(() => console.log('websocket connected !'));

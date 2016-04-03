@@ -6,10 +6,11 @@ export const Roles = {
 	MJ: "MJ",
 	VILLAGEOIS: "VILLAGEOIS",
 	LOUP_GAROU: "LOUP_GAROU",
+	HUNTER: "HUNTER",
 	WITCH: "WITCH",
 	CUPIDON: "CUPIDON",
 	HUNTER: "HUNTER",
-	VOYANTE: "VOYANTE",
+	VOYANTE: "VOYANTE"
 };
 
 export const GameStates = {
@@ -19,8 +20,9 @@ export const GameStates = {
 	DISTRIBUTE_ROLE: "DISTRIBUTE_ROLE",
 	CUPIDON: "CUPIDON",
 	VOYANTE: "VOYANTE",
-<<<<<<< HEAD
-	WITCH: "WITCH"
+	WITCH: "WITCH",
+	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
+	LOUP_GAROU_RESULT: "LOUP_GAROU_RESULT"
 };
 
 export const DeathReasons = {
@@ -29,8 +31,6 @@ export const DeathReasons = {
 	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
 	DEATH_BY_WITCH: "DEATH_BY_WITCH",
 	HUNTER_REVENGE: "HUNTER_REVENGE"
-	LOUP_GAROU_VOTE: "LOUP_GAROU_VOTE",
-	LOUP_GAROU_RESULT: "LOUP_GAROU_RESULT"
 };
 
 export interface BasePlayer {
