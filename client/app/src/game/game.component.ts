@@ -4,14 +4,16 @@ import {GameService, GameUpdate} from "./game-service";
 @Component({
 	selector: 'game',
 	template: `
-<div>{{gameUpdate | json}}</div>
+<button (click)="displayDebug = !displayDebug"></button>
+<div *ngIf="displayDebug" class="well">{{gameUpdate | json}}</div>
 `
 })
 class GameComponent implements OnInit {
-	
+
 	@Input() roomCode: string;
 
 	gameUpdate: GameUpdate;
+	displayDebug= false;
 
 	constructor(private gameService: GameService) {
 		console.log('GameComponent');
