@@ -37,3 +37,9 @@ export class AppComponent {
 
 	}
 }
+/**
+ * ng.probe(document.querySelector("body > my-app > div > game")).componentInstance.gameService.onGameUpdate
+ *
+ * ng.probe(document.querySelector("body > my-app > div > game")).injector._depProvider.componentView.changeDetector.detectChanges()
+ *
+ */

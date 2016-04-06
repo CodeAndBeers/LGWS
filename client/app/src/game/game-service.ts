@@ -159,9 +159,7 @@ export class GameService {
 	}
 
 	isCurrentPlayerDead(): boolean {
-		const player = this.getCurrentPlayer();
-		if (!player || player.role === Roles.MJ) return false;
-		return (<Player>player).dead !== DeathReasons.NONE;
+		return GameService.isCurrentPlayerDead(this.lastGameUpdate);
 	}
 
 	alreadyUseRevealThisTurn() {
@@ -224,6 +222,25 @@ export class GameService {
 		if (!this.isCurrentPlayerHunter()) return;
 		this.socketService.emit('revenge', { player_pseudo: playerPseudo});
 	}
+	
+	static isCurrentPlayerDead(gameUpdate: GameUpdate) {
+		const player = gameUpdate.me;
+		if (!player || player.role === Roles.MJ) return false;
+		return (<Player>player).dead !== DeathReasons.NONE;
+	}
+
+	static getAllAlivePlayersButMe(gameUpdate: GameUpdate) : Player[] {
+		return gameUpdate.players
+			.filter(player => player.pseudo !== gameUpdate.me.pseudo)
+			.filter(player => player.dead === DeathReasons.NONE);
+	}
+
+	static getAllPlayersSorted(gameUpdate: GameUpdate) : Player[] {
+		return gameUpdate.players
+			.filter(player => player.pseudo !== gameUpdate.me.pseudo)
+			.sort((p1, p2) => p1.dead === DeathReasons.NONE ? -1 : 1);
+	}
+
 
 	private onGameUpdate(data: GameUpdate) {
 

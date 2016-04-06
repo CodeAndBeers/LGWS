@@ -39,9 +39,7 @@ class HunterComponent implements OnInit {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isHunter = this.gameService.isCurrentPlayerHunter();
 		this.players = data.players;
-		this.playersWithoutMe = data.players
-			.filter(player => player.pseudo !== this.gameService.getCurrentPlayer().pseudo)
-			.filter(player => player.dead === DeathReasons.NONE);
+		this.playersWithoutMe = GameService.getAllAlivePlayersButMe(data);
 		this.me = data.me;
 	}
 

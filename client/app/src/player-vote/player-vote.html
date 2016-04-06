@@ -1,8 +1,9 @@
 <div class="player-vote">
 	<div *ngIf="players" class="players">
-		<div *ngFor="#player of players" class="player">
-			<button *ngIf="!hasVoted && !isMJ" (click)="vote(player.pseudo)"
-			class="btn btn-primary pull-left btn-vote">
+		<div *ngFor="#player of players" class="player" [class.dead]="isPlayerDead(player)">
+			<button *ngIf="!hasVoted && !isMJ && !isPlayerDead(player)"
+					(click)="vote(player.pseudo)"
+					class="btn btn-primary pull-left btn-vote">
 				Voter
 			</button>
 			<span class="pull-left">{{player.pseudo}}</span>
