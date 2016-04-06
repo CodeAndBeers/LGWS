@@ -9,6 +9,7 @@
 .players {
 	.player {
 
+		@include make-row();
 		$height: 60px;
 		$padding: 10px;
 
@@ -22,8 +23,8 @@
 		font-size: 17px;
 		margin-bottom: 5px;
 
-		span {
-			padding-right: 5px;
+		&-name, &-result {
+			@include make-xs-column(12);
 		}
 
 	}

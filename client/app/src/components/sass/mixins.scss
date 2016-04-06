@@ -1,0 +1,43 @@
+@mixin xs-text-right() {
+	text-align: right;
+}
+
+@mixin sm-text-right() {
+	@media (min-width: $screen-sm-min) {
+		text-align: right;
+	}
+}
+
+@mixin md-text-right() {
+	@media (min-width: $screen-md-min) {
+		text-align: right;
+	}
+}
+
+@mixin lg-text-right() {
+	@media (min-width: $screen-lg-min) {
+		text-align: right;
+	}
+}
+
+@mixin xs-text-left() {
+	text-align: left;
+}
+
+@mixin sm-text-left() {
+	@media (min-width: $screen-sm-min) {
+		text-align: left;
+	}
+}
+
+@mixin md-text-right() {
+	@media (min-width: $screen-md-min) {
+		text-align: left;
+	}
+}
+
+@mixin lg-text-right() {
+	@media (min-width: $screen-lg-min) {
+		text-align: left;
+	}
+}
