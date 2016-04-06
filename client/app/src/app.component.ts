@@ -9,11 +9,12 @@ import {GameRouterComponent} from './game/game-router.component';
 /*SERVICES*/
 import {SocketService} from './components/socket/sockets-service';
 import {GamesService} from './game/games-service';
+import {SocketStatusComponent} from "./components/socket-status/socket-status.component";
 
 @Component({
 	selector: 'my-app',
 	templateUrl: 'app.html',
-	directives: [ROUTER_DIRECTIVES],
+	directives: [ROUTER_DIRECTIVES, SocketStatusComponent],
 	providers: [
 		ROUTER_PROVIDERS,
 		SocketService,
