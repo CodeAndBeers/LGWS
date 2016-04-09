@@ -12,6 +12,7 @@ class LoupGarouVoteComponent extends GameAwareComponent implements OnInit {
 
 	isLoupGarou: boolean;
 	isMJ: boolean;
+	isCurrentPlayerDead: boolean;
 
 	constructor(gameService: GameService) {
 		super(gameService);
@@ -29,6 +30,7 @@ class LoupGarouVoteComponent extends GameAwareComponent implements OnInit {
 	}
 
 	onGameUpdate(data: GameUpdate) {
+		this.isCurrentPlayerDead = this.gameService.isCurrentPlayerDead();
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isLoupGarou = this.gameService.isCurrentPlayerLoupGarou();
 	}

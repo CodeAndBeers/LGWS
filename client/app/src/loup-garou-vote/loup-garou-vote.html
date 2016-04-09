@@ -1,10 +1,10 @@
 <div class="loup-garou-vote">
 
-	<div *ngIf="isMJ && !isPlayerDead()">
+	<div *ngIf="!isMJ && !isCurrentPlayerDead && isLoupGarou">
 		<player-vote [voteFn]="vote"></player-vote>
 	</div>
 
-	<div *ngIf="isMJ && isPlayerDead()">
+	<div *ngIf="!isMJ && isCurrentPlayerDead && isLoupGarou">
 		Vous êtes mort veuillez patientez
 	</div>
 
