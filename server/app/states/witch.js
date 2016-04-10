@@ -1,4 +1,4 @@
-let DAY_VOTE = require("./day_vote.js");
+let MORNING = require("./morning.js");
 
 let state = {
   name: "WITCH",
@@ -6,11 +6,11 @@ let state = {
     let witch = game.players.getWitch();
     if (!witch || !witch.isAlive()) {
       //Skip state
-      return next();
+      return this.next();
     }
   },
   next: function(game) {
-    return DAY_VOTE;
+    return MORNING;
   },
   actions: []
 }
