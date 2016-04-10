@@ -6,7 +6,7 @@
 
 	<div *ngIf="isWitch && !isWitchDead">
 		<div *ngIf="players" class="players">
-			<div *ngFor="#player of players" class="player">
+			<div *ngFor="#player of playersWithoutMe" class="player">
 				<button *ngIf="canUseDeathPotion(player)"
 						(click)="useDeathPotion(player.pseudo)"
 						class="btn btn-primary pull-left btn-vote">

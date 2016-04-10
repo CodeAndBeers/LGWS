@@ -1,16 +1,16 @@
 let DAY_VOTE = require("./day_vote.js");
-let HUNTER_REVENGE = require("./hunter_revenge.js");
 
 let state = {
   name: "WITCH",
+  init: function(game) {
+    let witch = game.players.getWitch();
+    if (!witch || !witch.isAlive()) {
+      //Skip state
+      return next();
+    }
+  },
   next: function(game) {
-    let hunter = game.players.getHunter();
-    game.turn++;
-      if (hunter && hunter.dead && !hunter.take_revenge) {
-        game.after_hunter_revenge = DAY_VOTE;
-        return HUNTER_REVENGE;
-      }
-      return DAY_VOTE;
+    return DAY_VOTE;
   },
   actions: []
 }

@@ -18,6 +18,7 @@ class Player {
     //this.life_potion: false, //sorcière
     //this.death_potion: true, //sorcière
     //this.lover: true,
+    this.isAlive = () => this.dead === "NONE";
   }
 }
 
@@ -71,14 +72,20 @@ io.on('connection', function(socket){
     game.mj.pseudo = data.pseudo;
     game.mj.role = "MJ";
     game.id = id++;
-    game.turn = 0;
+    game.turn = -1;
     game.state = states.WAITING_PLAYERS;
     game.players = [];
     game.players.findByPseudo = function (pseudo) {
       return game.players.find(player => player.pseudo === pseudo);
     };
-    game.players.getHunter  = function (pseudo) {
-      return game.players.find(player => player.role.name === roles.HUNTER.name);
+    game.players.getHunter = function () {
+      return game.players.find(player => player.role === roles.HUNTER.name);
+    };
+    game.players.getVoyante = function () {
+      return game.players.find(player => player.role === roles.VOYANTE.name);
+    };
+    game.players.getWitch = function () {
+      return game.players.find(player => player.role === roles.WITCH.name);
     };
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
@@ -89,12 +96,19 @@ io.on('connection', function(socket){
 
     //game.updatePlayers = function () {updatePlayers(this)};
     socket.on('next', function (param) {
-      console.log("Moving to state '" + JSON.stringify(socket.game.state) + "' with param ["+ JSON.stringify(param) +"]");
       socket.game.state = socket.game.state.next(game, param);
+      console.log("Moving to state '" + JSON.stringify(socket.game.state) + "' with param ["+ JSON.stringify(param) +"]");
+      let tmp_next = socket.game.state;
+      while (tmp_next && tmp_next.init) {
+        tmp_next = tmp_next.init(game);
+        if (tmp_next) {
+          socket.game.state = tmp_next;
+        }
+      }
+      console.log("Finally moved to state '", JSON.stringify(socket.game.state));
       updateAllPlayers(game);
     });
     updateAllPlayers(game);
-
   });
 
   socket.on('join_game', function(data, fn) {
@@ -132,7 +146,7 @@ io.on('connection', function(socket){
       }
       if (data.force_role) {
         console.log("Force " + player.pseudo + " as " + data.force_role);
-        player.role = roles[data.force_role];
+        player.role = roles[data.force_role].name;
         if (player.role.init) {
           player.role.init(player);
         }

@@ -12,18 +12,19 @@ class WitchVoteComponent extends GameAwareComponent implements OnInit {
 	isWitch: boolean = false;
 	isWitchDead = false;
 	players: Player[];
+	playersWithoutMe: Player[];
 	me: Player;
 
 	constructor(gameService: GameService) {
 		super(gameService);
 		console.log('WitchVoteComponent instantiated');
 	}
-	
+
 	next() {
 		console.log('next');
 		this.gameService.nextState();
 	}
-	
+
 	useDeathPotion(player: string) {
 		console.log('useDeathPotion', player);
 		this.gameService.useDeathPotion(player);
@@ -47,6 +48,9 @@ class WitchVoteComponent extends GameAwareComponent implements OnInit {
 		this.isWitch = this.gameService.isCurrentPlayer(Roles.WITCH);
 		this.isWitchDead = this.isWitch && this.gameService.isCurrentPlayerDead();
 		this.players = data.players;
+		this.playersWithoutMe = data.players
+			.filter(player => player.pseudo !== this.gameService.getCurrentPlayer().pseudo)
+			.filter(player => player.dead === DeathReasons.NONE);
 		this.me = <Player>data.me;
 	}
 

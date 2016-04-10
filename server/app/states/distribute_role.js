@@ -44,7 +44,6 @@ let state = {
         }
       }
     });
-    game.updateAllPlayers();
     return DAY_VOTE;
   },
   actions: []
