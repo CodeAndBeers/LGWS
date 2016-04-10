@@ -34,7 +34,7 @@ class PlayerVoteComponent extends GameAwareComponent implements OnInit {
 	}
 	
 	onGameUpdate(data: GameUpdate) {
-		this.players = GameService.getAllPlayersSorted(data);
+		this.players = this.gameService.getAllPlayersSorted();
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isCurrentPlayerDead = this.gameService.isCurrentPlayerDead();
 	}

@@ -1,6 +1,6 @@
-<div class="loup-garou-vote">
+<div id="loup-garou-vote" class="content">
 
-	<div *ngIf="!isMJ && !isCurrentPlayerDead && isLoupGarou">
+	<div *ngIf="canSeeVoteResult()">
 		<player-vote [voteFn]="vote"></player-vote>
 	</div>
 

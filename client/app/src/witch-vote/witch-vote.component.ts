@@ -48,7 +48,7 @@ class WitchVoteComponent extends GameAwareComponent implements OnInit {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isWitch = this.gameService.isCurrentPlayer(Roles.WITCH);
 		this.isWitchDead = this.isWitch && this.gameService.isCurrentPlayerDead();
-		this.players = GameService.getAllPlayersSorted(data);
+		this.players = this.gameService.getAllPlayersSorted();
 		this.me = <Player>data.me;
 	}
 

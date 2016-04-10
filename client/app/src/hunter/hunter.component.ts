@@ -10,7 +10,6 @@ class HunterComponent implements OnInit {
 	isMJ: boolean;
 	isHunter: boolean;
 	players: Player[];
-	playersWithoutMe: Player[];
 	me : Player;
 
 	constructor(private gameService: GameService) {
@@ -38,8 +37,7 @@ class HunterComponent implements OnInit {
 	private onGameUpdate(data: GameUpdate) {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isHunter = this.gameService.isCurrentPlayerHunter();
-		this.players = data.players;
-		this.playersWithoutMe = GameService.getAllAlivePlayersButMe(data);
+		this.players = this.gameService.getAllPlayersSorted();
 		this.me = data.me;
 	}
 

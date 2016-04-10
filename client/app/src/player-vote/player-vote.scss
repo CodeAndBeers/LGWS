@@ -2,10 +2,6 @@
 	.players {
 		.player  {
 
-			&.dead {
-				background-color: #ccc;
-			}
-
 			.btn-vote, .btn  {
 				margin-right: 10px;
 			}

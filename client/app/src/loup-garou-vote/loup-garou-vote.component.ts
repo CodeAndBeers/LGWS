@@ -23,6 +23,10 @@ class LoupGarouVoteComponent extends GameAwareComponent implements OnInit {
 		console.log('next');
 		this.gameService.nextState();
 	}
+	
+	canSeeVoteResult(): boolean {
+		return this.isMJ || (!this.isCurrentPlayerDead && this.isLoupGarou);
+	}
 
 	vote(playerPseudo: string) {
 		console.log('Loup Garou vote for ' + playerPseudo);

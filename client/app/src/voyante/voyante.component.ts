@@ -1,5 +1,5 @@
 import {Component, OnInit} from "angular2/core";
-import {GameService, GameUpdate, Player, DeathReasons} from "../game/game-service";
+import {GameService, GameUpdate, Player} from "../game/game-service";
 import {GameAwareComponent} from "../game/game-aware.component";
 
 @Component({
@@ -13,13 +13,16 @@ class VoyanteComponent extends GameAwareComponent implements OnInit {
 	players: Player[];
 	revealed: boolean;
 	isVoyanteDead: boolean;
-	playersWithoutMe: Player[];
 
 	constructor(gameService: GameService) {
 		super(gameService);
 		console.log('VoyanteComponent instantiated');
 	}
-	
+
+	canReveal(player: Player): boolean {
+		return !this.revealed && !player.revealed && !this.isMJ;
+	}
+
 	reveal(pseudo: string) {
 		if (!this.isVoyante) return;
 		console.log('reveal', pseudo);
@@ -35,9 +38,8 @@ class VoyanteComponent extends GameAwareComponent implements OnInit {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isVoyante = this.gameService.isCurrentPlayerVoyante();
 		this.isVoyanteDead = this.isVoyante && this.gameService.isCurrentPlayerDead();
-		this.players = data.players;
 		this.revealed = this.gameService.alreadyUseRevealThisTurn();
-		this.playersWithoutMe = this.players = GameService.getAllPlayersSorted(data);
+		this.players = this.gameService.getAllPlayersSorted();
 	}
 
 }

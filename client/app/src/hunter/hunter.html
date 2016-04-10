@@ -5,7 +5,7 @@
 	</div>
 	<div *ngIf="isHunter || isMJ">
 		<div *ngIf="players" class="players">
-			<div *ngFor="#player of playersWithoutMe" class="player">
+			<div *ngFor="#player of players" class="player">
 				{{player.pseudo}}
 				<span *ngIf="player.dead === 'HUNTER_REVENGE'">*Killed by hunter*</span>
 				<button *ngIf="!isMJ && !me.take_revenge"

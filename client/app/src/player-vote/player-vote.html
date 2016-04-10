@@ -9,7 +9,9 @@
 			<span class="pull-left">{{player.pseudo}}</span>
 			<div *ngIf="isMJ">
 				<span *ngIf="player.vote" class="pull-left"> (a voté pour {{player.vote}})</span>
-				<span class="pull-right">nombre de votes: {{player.vote_count || 0}}</span>
+				<span class="pull-right" *ngIf="!isPlayerDead(player)">
+					nombre de votes: {{player.vote_count || 0}}
+				</span>
 			</div>
 		</div>
 	</div>
