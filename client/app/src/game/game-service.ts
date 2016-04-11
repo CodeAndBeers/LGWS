@@ -140,6 +140,12 @@ export class GameService {
 	getCurrentPlayerPseudo(): string {
 		return this.getCurrentPlayer().pseudo;
 	}
+
+	getCurrentPlayerRole(): string {
+		const player:BasePlayer = this.getCurrentPlayer();
+		if (!player) return null;
+		return player.role;
+	}
 	
 	isCurrentPlayer(role: string) {
 		const player:BasePlayer = this.getCurrentPlayer();
@@ -185,6 +191,12 @@ export class GameService {
 	getCurrentTurn(): number {
 		if (!this.currentGameUpdate) return null;
 		return this.currentGameUpdate.turn;
+	}
+
+	getPlayerRole(): string {
+		const player:BasePlayer = this.getCurrentPlayer();
+		if (!player) return null;
+		return player.role;
 	}
 
 	getCurrentStep(): string {
