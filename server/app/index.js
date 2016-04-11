@@ -87,6 +87,21 @@ io.on('connection', function(socket){
     game.players.getWitch = function () {
       return game.players.find(player => player.role === roles.WITCH.name);
     };
+    game.players.getPlayerAlive = function() {
+      return game.players.filter(p => p.death === "NONE");
+    }
+    game.getWinners = function() {
+      var playerAlive = game.getPlayerAlive();
+      if (playerAlive.length == 2 && playerAlive[0].lover && playerAlive[1].lover) {
+          return "LOVERS";
+      }
+      if (playerAlive.filter(player => player.role === roles.LOUP_GAROU.name).length == 0) {
+        return "VILLAGEOIS";
+      }
+      if (playerAlive.filter(player => player.role === roles.VILLAGEOIS.name).length <= 1) {
+        return "LOUP_GAROU";
+      }
+    };
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
 
