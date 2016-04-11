@@ -20,7 +20,7 @@ let state = {
           };
           return states.HUNTER_REVENGE;
         }
-        return states.NIGHT;
+        return game.gameOver() || states.NIGHT;
       }
     );
   },

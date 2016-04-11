@@ -12,7 +12,7 @@ let state = {
       return HUNTER_REVENGE;
     }
     //Nothing to do in morning
-    return this.next();
+    return game.gameOver() || this.next();
   },
   next: function(game) {
       return DAY_VOTE;

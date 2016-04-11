@@ -102,6 +102,14 @@ io.on('connection', function(socket){
         return "LOUP_GAROU";
       }
     };
+    game.gameOver = function () {
+      var winners = game.getWinners();
+      if (winners) {
+        game.winners = winners;
+        return states.GAME_OVER;
+      }
+    };
+
     game.updateAllPlayers = function() {updateAllPlayers(game)};
     games[game.id] = game;
 
