@@ -8,7 +8,7 @@ let state = {
     game.turn++;
     let hunter = game.players.getHunter();
     if (hunter && hunter.dead && hunter.dead !== "NONE" && !hunter.take_revenge) {
-      game.after_hunter_revenge = next();
+      game.after_hunter_revenge = next;
       return HUNTER_REVENGE;
     }
     //Nothing to do in morning
