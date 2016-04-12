@@ -41,7 +41,7 @@ class CupidonVoteComponent extends GameAwareComponent implements OnInit {
 	onGameUpdate(data: GameUpdate) {
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isCupidon = this.gameService.isCurrentPlayerCupidon();
-		this.players = data.players;
+		this.players = this.gameService.getAllPlayersSorted();
 	}
 	
 	private onNewLover(newLover: string) {

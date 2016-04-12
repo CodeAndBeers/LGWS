@@ -1,0 +1,22 @@
+#socket-status {
+	position: fixed;
+	background-color: #6d6d6d;
+	width: 40px;
+	height: 40px;
+	left: 0;
+	border-radius: 40px;
+	transition: background-color 1s ease-in;
+	box-shadow: 1px 2px 2px black;
+
+	&.ok {
+		background-color: #00c200;
+	}
+
+	&.pending {
+		background-color: #e2df23;
+	}
+
+	&.error {
+		background-color: #e63719;
+	}
+}

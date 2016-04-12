@@ -1,7 +1,12 @@
-<div class="loup-garou-vote">
+<div id="loup-garou-vote" class="content">
 
-	<div *ngIf="isMJ || isLoupGarou">
+	<div *ngIf="canSeeVoteResult()">
 		<player-vote [voteFn]="vote"></player-vote>
+	</div>
+
+	<div *ngIf="!isMJ && isCurrentPlayerDead && isLoupGarou">
+		Vous êtes mort veuillez patientez
+	</div>
 
 		<div *ngIf="isMJ">
 			<button (click)="next()" class="btn btn-primary">Continuer</button>

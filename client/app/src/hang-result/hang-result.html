@@ -11,10 +11,12 @@
 		<div *ngIf="winners.length < 1">
 			Oops something went wrong
 		</div>
-		<div *ngFor="#player of players" class="player">
+		<div *ngFor="#player of players" class="player" [class.dead]="isPlayerDead(player)">
 			<span class="pull-left">{{player.pseudo}}</span>
 			<span *ngIf="player.vote" class="pull-left"> a voté pour {{player.vote}}</span>
-			<span class="pull-right">nombre de votes: {{player.vote_count || 0}} <span *ngIf="isWinner(player)">*Looser*</span></span>
+			<span class="pull-right" *ngIf="!isPlayerDead(player)">
+				nombre de votes: {{player.vote_count || 0}} <span *ngIf="isWinner(player)">*Looser*</span>
+			</span>
 		</div>
 		<div *ngIf="isMJ">
 			<button (click)="next()" class="btn btn-primary">Continuer</button>
