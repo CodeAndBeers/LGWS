@@ -1,27 +1,22 @@
 import {Component, OnInit} from "angular2/core";
 import {GameService, GameUpdate, Player} from "../game/game-service";
+import {GameAwareComponent} from "../game/game-aware.component";
 
 @Component({
 	selector: 'captain-result',
 	templateUrl: 'captain-result/captain-result.html'
 })
-class CaptainResultComponent implements OnInit {
+class CaptainResultComponent extends GameAwareComponent implements OnInit {
 
 	players:Player[];
 	winners:Player[];
 	isMJ:boolean;
 
-	constructor(private gameService:GameService) {
+	constructor(gameService:GameService) {
+		super(gameService);
 		console.log('CaptainResultComponent instantiated');
 	}
-
-	ngOnInit() {
-		this.gameService.gameUpdate.subscribe({
-			next: (data) => this.onGameUpdate(data)
-		});
-		this.onGameUpdate(this.gameService.getLastGameUpdate());
-	}
-
+	
 	next() {
 		console.log('next');
 		this.gameService.nextState();
@@ -31,7 +26,7 @@ class CaptainResultComponent implements OnInit {
 		return this.winners.map(w => w.pseudo).find(p => p === player.pseudo);
 	}
 
-	private onGameUpdate(data:GameUpdate) {
+	onGameUpdate(data:GameUpdate) {
 		this.players = data.players;
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.winners = this.players.map(p => [p]).reduce(function (prev, cur) {

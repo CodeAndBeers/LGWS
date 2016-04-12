@@ -48,7 +48,8 @@ export interface Player extends BasePlayer {
 	lover?: boolean,
 	death_potion?: number,
 	life_potion?: number,
-	last_dead?: boolean
+	last_dead?: boolean,
+	revealed?: boolean
 }
 
 export interface GameState {
@@ -76,8 +77,12 @@ export class GameService {
 	gameUpdateSub: BehaviorSubject<GameUpdate> = new BehaviorSubject(null);
 
 	private roomCode: string;
+
 	private lastGameUpdate: GameUpdate;
 	private lastGameState: string;
+
+	private currentGameUpdate: GameUpdate;
+	private currentGameState: string;
 
 	constructor(private socketService: SocketService) {
 		console.log('GameService instantiated');
@@ -99,7 +104,7 @@ export class GameService {
 		if (!this.isCurrentPlayerMJ()) return;
 
 		const distributionTable = {};
-		const playersCount = this.lastGameUpdate.players.length;
+		const playersCount = this.currentGameUpdate.players.length;
 		let rolesCount = 0;
 		//dummy role distribution generation; enough for now
 		Object.keys(Roles).reverse().forEach((role) => {
@@ -118,20 +123,24 @@ export class GameService {
 	}
 
 	getPlayers(): Player[] {
-		if (!this.lastGameUpdate) return [];
+		if (!this.currentGameUpdate) return [];
 
-		return this.lastGameUpdate.players;
+		return this.currentGameUpdate.players;
 	}
 
 	getLastGameUpdate() {
-		return this.lastGameUpdate;
+		return this.currentGameUpdate;
 	}
 
 	getCurrentPlayer(): BasePlayer {
-		if (!this.lastGameUpdate) return null;
-		return this.lastGameUpdate.me;
+		if (!this.currentGameUpdate) return null;
+		return this.currentGameUpdate.me;
 	}
 
+	getCurrentPlayerPseudo(): string {
+		return this.getCurrentPlayer().pseudo;
+	}
+	
 	isCurrentPlayer(role: string) {
 		const player:BasePlayer = this.getCurrentPlayer();
 		if (!player) return false;
@@ -160,12 +169,13 @@ export class GameService {
 
 	isCurrentPlayerDead(): boolean {
 		const player = this.getCurrentPlayer();
+		if (!player) return false;
 		if (!player || player.role === Roles.MJ) return false;
 		return (<Player>player).dead !== DeathReasons.NONE;
 	}
 
 	alreadyUseRevealThisTurn() {
-		return this.lastGameUpdate && this.lastGameUpdate.revealed;
+		return this.currentGameUpdate && this.currentGameUpdate.revealed;
 	}
 
 	isCurrentPlayerLoupGarou(): boolean {
@@ -173,13 +183,13 @@ export class GameService {
 	}
 	
 	getCurrentTurn(): number {
-		if (!this.lastGameUpdate) return null;
-		return this.lastGameUpdate.turn;
+		if (!this.currentGameUpdate) return null;
+		return this.currentGameUpdate.turn;
 	}
 
 	getCurrentStep(): string {
-		if (!this.lastGameUpdate) return null;
-		return this.lastGameUpdate.state.name;
+		if (!this.currentGameUpdate) return null;
+		return this.currentGameUpdate.state.name;
 	}
 
 	voteForPlayer(playerPseudo: string) {
@@ -225,18 +235,30 @@ export class GameService {
 		this.socketService.emit('revenge', { player_pseudo: playerPseudo});
 	}
 
+	public getAllPlayersSorted() : Player[] {
+		if (!this.currentGameUpdate) return [];
+		return this.currentGameUpdate.players
+			.filter(player => player.pseudo !== this.getCurrentPlayerPseudo())
+			.sort((p1, p2) => p1.dead === DeathReasons.NONE ? -1 : 1);
+ 	}
+	
 	private onGameUpdate(data: GameUpdate) {
+		console.log('game_update', data);
+
+		this.lastGameState = this.currentGameState;
+		this.lastGameUpdate = this.currentGameUpdate;
+		
+		this.currentGameUpdate = data;
+		this.currentGameState = data.state.name;
 
 		this.gameUpdateSub.next(data);
-		console.log('game_update', data);
 		this.gameUpdate.emit(data);
 
-		if (data.state.name !== this.lastGameState) {
-			this.gameStateUpdate.emit(data.state.name);
-			this.lastGameState = data.state.name;
+		if (this.currentGameState !== this.lastGameState) {
+			this.gameStateUpdate.emit(this.currentGameState);
 		}
 
-		if (this.lastGameUpdate && this.lastGameUpdate.players) {
+		if (this.currentGameUpdate && this.currentGameUpdate.players) {
 			data.players.forEach((player: Player) => {
 				const oldPlayer = this.lastGameUpdate.players.find(oldPlayer => oldPlayer.pseudo === player.pseudo);
 				if (!oldPlayer) return;
@@ -248,6 +270,5 @@ export class GameService {
 				}
 			});
 		}
-		this.lastGameUpdate = data;
 	}
 }

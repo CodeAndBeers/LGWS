@@ -1,26 +1,27 @@
 <div id="voyante" class="content">
 	<h2>La voyante choisi qui révélé</h2>
 	<div *ngIf="isMJ">
-		<div *ngIf="revealed">
+		<div *ngIf="!revealed">
 			En attente du choix de la voyante.
 		</div>
-		<button (click)="next()" class="btn btn-primary">Continuer</button>
 	</div>
 	<div *ngIf="(isVoyante && !isVoyanteDead) || isMJ">
 		<div *ngIf="players" class="players">
-			<div *ngFor="#player of playersWithoutMe" class="player">
+			<div *ngFor="#player of players" class="player">
 				{{player.pseudo}}
 				<span *ngIf="player.revealed">
 					: {{player.role}}
 				</span>
-				<button *ngIf="!revealed && !player.revealed && !isMJ"
+				<button *ngIf="canReveal(player)"
 						(click)="reveal(player.pseudo)"
 						class="btn btn-primary pull-left btn-vote">
-					Révéler l'identitée
+					Révéler l'identité
 				</button>
 			</div>
 		</div>
 	</div>
-
+	<div *ngIf="isMJ">
+		<button (click)="next()" class="btn btn-primary">Continuer</button>
+	</div>
 
 </div>

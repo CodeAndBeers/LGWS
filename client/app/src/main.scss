@@ -1,9 +1,10 @@
 @import "./components/sass/variables";
-@import "./components/sass/players";
 
 @import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "./components/sass/mixins";
 
-
+@import "./components/sass/players";
+@import "./components/socket-status/socket-status";
 @import "./login/login";
 @import "./waiting-room/waiting-room";
 @import "./player-vote/player-vote";
@@ -24,8 +25,10 @@ html {
 
 		.content {
 			@include make-xs-column(12);
-			@include make-sm-column(6);
-			@include make-sm-column-offset(3);
+			@include make-sm-column(8);
+			@include make-sm-column-offset(2);
+			@include make-md-column(6);
+			@include make-md-column-offset(3);
 		}
 	}
 
