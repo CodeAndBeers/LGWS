@@ -3,7 +3,7 @@ let state = {
   next: function(game) {
     let next = game.after_hunter_revenge;
     delete game.after_hunter_revenge;
-    return game.gameOver() || next();
+    return game.gameOver() || this.next();
   },
   actions: []
 }

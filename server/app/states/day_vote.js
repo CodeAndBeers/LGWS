@@ -1,5 +1,4 @@
 const DAY_RESULT = require("./day_result.js");
-const HUNTER_REVENGE = require("./hunter_revenge.js");
 const abstract_vote = require("../abstract_vote.js")
 
 let state = {
