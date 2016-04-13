@@ -14,5 +14,7 @@ server/node_modules/
 
 # Nginx
 nginx/*.log
+
+#Typescript atom plugin generated file
 client/app/src/**/*.js
 client/app/src/**/*.js.map
