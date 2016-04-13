@@ -128,6 +128,12 @@ export class GameService {
 		return this.getCurrentPlayer().pseudo;
 	}
 
+	getCurrentPlayerRole(): string {
+		const player:BasePlayer = this.getCurrentPlayer();
+		if (!player) return null;
+		return player.role;
+	}
+
 	isCurrentPlayer(role: string) {
 		const player:BasePlayer = this.getCurrentPlayer();
 		if (!player) return false;

@@ -1,33 +1,26 @@
 import {Component, Input, OnInit} from "angular2/core";
 import {GameService, GameUpdate} from "./game-service";
+import {GameAwareComponent} from "../game/game-aware.component";
 
 @Component({
 	selector: 'game',
-	template: `
-<button (click)="displayDebug = !displayDebug"></button>
-<div *ngIf="displayDebug" class="well">{{gameUpdate | json}}</div>
-`
+	templateUrl: 'game/game.html'
 })
-class GameComponent implements OnInit {
+class GameComponent extends GameAwareComponent implements OnInit {
 
 	@Input() roomCode: string;
 
-	gameUpdate: GameUpdate;
+	currentPlayerRole: string;
 	displayDebug= false;
 
-	constructor(private gameService: GameService) {
+	constructor(gameService: GameService) {
+		super(gameService);
 		console.log('GameComponent');
 	}
 
-	ngOnInit() {
-		console.log('GameComponent ngOnInit', this, this.roomCode);
-		this.gameUpdate = this.gameService.getLastGameUpdate();
-		this.gameService.gameUpdate.subscribe({
-			next: (gameUpdate) => this.gameUpdate = gameUpdate
-		});
+	onGameUpdate(data: GameUpdate) {
+		this.currentPlayerRole = this.gameService.getCurrentPlayerRole();
 	}
-
-
 }
 
 export {GameComponent};
