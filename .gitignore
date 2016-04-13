@@ -14,3 +14,5 @@ server/node_modules/
 
 # Nginx
 nginx/*.log
+client/app/src/**/*.js
+client/app/src/**/*.js.map
