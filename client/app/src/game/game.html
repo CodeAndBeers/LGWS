@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="well col-xs-2 text-center">Jour 1</div>
-        <div *ngIf="currentPlayerRole" class="well col-xs-8 col-xs-offset-2 text-center">{{currentPlayerRole}}</div>
+        <div *ngIf="currentTurn >= 1" class="well col-xs-3 text-center">Tour {{currentTurn}}</div>
+        <div *ngIf="currentPlayerRole != 'NONE'" class="well col-xs-7 col-xs-offset-2 text-center">{{currentPlayerRole}}</div>
     </div>
 </div>
 <button (click)="displayDebug = !displayDebug"></button>

@@ -131,7 +131,7 @@ export class GameService {
 	getLastGameUpdate() {
 		return this.currentGameUpdate;
 	}
-
+	
 	getCurrentPlayer(): BasePlayer {
 		if (!this.currentGameUpdate) return null;
 		return this.currentGameUpdate.me;
@@ -151,6 +151,12 @@ export class GameService {
 		const player:BasePlayer = this.getCurrentPlayer();
 		if (!player) return false;
 		return player.role === role;
+	}
+
+	isCurrentPlayerLover():boolean {
+		const player:Player = this.getCurrentPlayer();
+		if (!player) return false;
+		return player.lover;
 	}
 
 	isCurrentPlayerCupidon():boolean {
