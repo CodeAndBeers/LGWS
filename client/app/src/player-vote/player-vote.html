@@ -7,6 +7,7 @@
 				Voter
 			</button>
 			<span class="pull-left">{{player.pseudo}}</span>
+			<span *ngIf="isLover && player.lover" class="pull-right"><3</span>
 			<div *ngIf="isMJ">
 				<span *ngIf="player.vote" class="pull-left"> (a voté pour {{player.vote}})</span>
 				<span class="pull-right" *ngIf="!isPlayerDead(player)">
