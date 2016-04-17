@@ -3,15 +3,22 @@ import {OnInit} from "angular2/core";
 
 
 abstract class GameAwareComponent implements OnInit {
-	
+
+	gameUpdate: GameUpdate;
+
 	constructor(protected gameService: GameService) {}
 
 	ngOnInit() {
-		this.gameService.gameUpdateSub.subscribe(data => this.onGameUpdate(data));
+		this.gameService.gameUpdateSub.subscribe(data => this._onGameUpdate(data));
 	}
-	
+
 	isPlayerDead(player: Player): boolean {
 		return player && player.dead !== DeathReasons.NONE;
+	}
+
+	private _onGameUpdate(data: GameUpdate) {
+		this.gameUpdate = data;
+		this.onGameUpdate(data);
 	}
 
 	protected abstract onGameUpdate(data: GameUpdate);
