@@ -100,21 +100,8 @@ export class GameService {
 		this.socketService.emit("next");
 	}
 
-	distributeRole() {
+	distributeRole(distributionTable) {
 		if (!this.isCurrentPlayerMJ()) return;
-
-		const distributionTable = {};
-		const playersCount = this.currentGameUpdate.players.length;
-		let rolesCount = 0;
-		//dummy role distribution generation; enough for now
-		Object.keys(Roles).reverse().forEach((role) => {
-			if (role === Roles.MJ) return;
-			if (rolesCount >= playersCount) return;
-
-			distributionTable[role] = 1;
-			rolesCount++;
-		});
-
 		this.socketService.emit("next", distributionTable);
 	}
 
@@ -140,7 +127,13 @@ export class GameService {
 	getCurrentPlayerPseudo(): string {
 		return this.getCurrentPlayer().pseudo;
 	}
-	
+
+	getCurrentPlayerRole(): string {
+		const player:BasePlayer = this.getCurrentPlayer();
+		if (!player) return null;
+		return player.role;
+	}
+
 	isCurrentPlayer(role: string) {
 		const player:BasePlayer = this.getCurrentPlayer();
 		if (!player) return false;
@@ -181,7 +174,7 @@ export class GameService {
 	isCurrentPlayerLoupGarou(): boolean {
 		return this.isCurrentPlayer(Roles.LOUP_GAROU);
 	}
-	
+
 	getCurrentTurn(): number {
 		if (!this.currentGameUpdate) return null;
 		return this.currentGameUpdate.turn;
@@ -241,13 +234,13 @@ export class GameService {
 			.filter(player => player.pseudo !== this.getCurrentPlayerPseudo())
 			.sort((p1, p2) => p1.dead === DeathReasons.NONE ? -1 : 1);
  	}
-	
+
 	private onGameUpdate(data: GameUpdate) {
 		console.log('game_update', data);
 
 		this.lastGameState = this.currentGameState;
 		this.lastGameUpdate = this.currentGameUpdate;
-		
+
 		this.currentGameUpdate = data;
 		this.currentGameState = data.state.name;
 

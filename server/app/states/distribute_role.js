@@ -1,4 +1,4 @@
-let DAY_VOTE = require("./day_vote.js");
+let MORNING = require("./morning.js");
 let roles = require("../roles.js");
 
 function random(maxValue) {
@@ -44,7 +44,7 @@ let state = {
         }
       }
     });
-    return DAY_VOTE;
+    return MORNING;
   },
   actions: []
 }

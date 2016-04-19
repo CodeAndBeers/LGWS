@@ -1,5 +1,6 @@
 module.exports = {
  WAITING_PLAYERS: require("./states/waiting_players.js"),
+ MORNING: require("./states/morning.js"),
  DAY_VOTE: require("./states/day_vote.js"),
  DAY_RESULT: require("./states/day_result.js"),
  NIGHT: require("./states/night.js"),

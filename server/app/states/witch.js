@@ -1,16 +1,16 @@
-let DAY_VOTE = require("./day_vote.js");
+let MORNING = require("./morning.js");
 
 let state = {
   name: "WITCH",
   init: function(game) {
     let witch = game.players.getWitch();
-    if (!witch || !witch.isAlive()) {
+    if (!witch || (!witch.isAlive() || witch.last_dead) {
       //Skip state
-      return next();
+      return this.next();
     }
   },
   next: function(game) {
-    return DAY_VOTE;
+    return MORNING;
   },
   actions: []
 }

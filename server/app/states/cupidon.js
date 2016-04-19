@@ -2,6 +2,14 @@ const VOYANTE = require("./voyante.js");
 
 let state = {
   name: "CUPIDON",
+  init: function(game) {
+    let cupidon = game.players.getCupidon();
+    if (!cupidon || !cupidon.isAlive()) {
+      //Skip state
+      console.log("Skiping CUPIDON")
+      return this.next();
+    }
+  },
   next: function(game) {
       return VOYANTE;
   },

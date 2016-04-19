@@ -1,5 +1,7 @@
 <div id="waiting-room" class="content">
 	<div *ngIf="isMJ">
+		<div>The role distribution will be as follow</div>
+		<div>{{defaultDT | json}}</div>
 		<button (click)="next()" class="btn btn-primary">Just click this button</button>
 	</div>
 </div>
