@@ -4,7 +4,7 @@ let state = {
   name: "WITCH",
   init: function(game) {
     let witch = game.players.getWitch();
-    if (!witch || (!witch.isAlive() || witch.last_dead) {
+    if (!witch || (!witch.isAlive() || witch.last_dead)) {
       //Skip state
       return this.next();
     }
