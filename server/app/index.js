@@ -75,6 +75,7 @@ io.on('connection', function(socket){
     game.turn = -1;
     game.state = states.WAITING_PLAYERS;
     game.players = [];
+    game.deads_today = []; // stack of actions to execute in the morning
     game.players.findByPseudo = function (pseudo) {
       return game.players.find(player => player.pseudo === pseudo);
     };
