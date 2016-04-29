@@ -9,6 +9,7 @@ let state = {
       (game, winner) => {
         winner.dead = "LOUP_GAROU_VOTE";
         winner.last_dead = true;
+        game.deads_today.push(winner);
         console.log(winner.pseudo + " was savagely eaten by a warewolf!");
         return states.WITCH;
       }
