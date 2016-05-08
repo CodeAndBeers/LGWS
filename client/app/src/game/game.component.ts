@@ -11,6 +11,7 @@ class GameComponent extends GameAwareComponent implements OnInit {
 	@Input() roomCode: string;
 
 	currentPlayerRole: string;
+	currentTurn: number;
 	displayDebug= false;
 
 	constructor(gameService: GameService) {
@@ -20,6 +21,7 @@ class GameComponent extends GameAwareComponent implements OnInit {
 
 	onGameUpdate(data: GameUpdate) {
 		this.currentPlayerRole = this.gameService.getCurrentPlayerRole();
+		this.currentTurn = this.gameService.getCurrentTurn();
 	}
 }
 
