@@ -1,17 +1,31 @@
 let DAY_VOTE = require("./day_vote.js");
-const HUNTER_REVENGE = require("./hunter_revenge.js");
+let ROLES = require("../roles.js")
+let STATES = require("../states.js")
 
 let state = {
   name: "MORNING",
   init: function(game) {
-    var last_dead = game.players.find(p => p.last_dead);
-    if (last_dead) delete last_dead.last_dead;
-    game.turn++;
-    let hunter = game.players.getHunter();
-    if (hunter && hunter.dead && hunter.dead !== "NONE" && !hunter.take_revenge) {
-      game.after_hunter_revenge = this.next;
-      return HUNTER_REVENGE;
+    // reset all players last_dead variable
+    for (let player in game.players) if (player.last_dead) delete player.last_dead;
+
+    if (game.deads_today.length > 0) {
+      let dead_player = game.deads_today.pop();
+      console.log("On this beautiful morning, we discovered the body a player " + dead_player.pseudo);
+      if (dead_player.role === ROLES.HUNTER) {
+        return STATES.HUNTER_REVENGE;
+      }
+      if (dead_player.lover) {
+        for (let maybe_lover in game.players) {
+          if (!maybe_lover.dead && maybe_lover.lover && maybe_lover != dead_player) {
+            maybe_lover.dead = "LOVER";
+            game.deads_today.push(maybe_lover);
+            console.log(maybe_lover.pseudo + " died from his lover death " + maybe_lover.pseudo);
+          }
+        }
+      }
+      return STATES.MORNING;
     }
+    game.turn++;
     //Nothing to do in morning
     return game.gameOver() || this.next();
   },
