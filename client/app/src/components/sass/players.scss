@@ -7,20 +7,20 @@
 }
 
 .players {
+
 	.player {
 
-		@include make-row();
 		$height: 60px;
 		$padding: 10px;
 
 		border-radius: 3px;
-		border: 1px solid #ccc;
-		background-color: white;
+		border: 2px solid black;
+		background-image: url("/img/components/images/log_spruce.png");
 		min-height: $height;
 		vertical-align: middle;
 		line-height: $height - ($padding * 2);
 		padding: $padding;
-		font-size: 17px;
+		font-size: $default-font-size;
 		margin-bottom: 5px;
 
 		&.dead {
