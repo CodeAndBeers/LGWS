@@ -30,14 +30,15 @@ let v2 = joinTestPlayer("VILLAGEOIS_2", "VILLAGEOIS");
 let h = joinTestPlayer("HUNTER", "HUNTER");
 let c = joinTestPlayer("CUPIDON", "CUPIDON");
 let lg1 = joinTestPlayer("LOUP_GAROU_1", "LOUP_GAROU");
-
-Promise.all([v1, v2, h, c, lg1]).then(function (values) {
+let lg2 = joinTestPlayer("LOUP_GAROU_2", "LOUP_GAROU");
+Promise.all([v1, v2, h, c, lg1, lg2]).then(function (values) {
   var i = 0;
   let v1 = values[i++];
   let v2 = values[i++];
   let h = values[i++];
   let c = values[i++];
   let lg1 = values[i++];
+  let lg2 = values[i++];
 
   function p(player, action, param) {
     setTimeout(function () {
@@ -54,6 +55,8 @@ Promise.all([v1, v2, h, c, lg1]).then(function (values) {
   p(c, "vote", {player_pseudo: 'VILLAGEOIS_1'});
   p(lg1, "vote", {player_pseudo: 'VILLAGEOIS_1'});
   p(h, "vote", {player_pseudo: 'VILLAGEOIS_1'});
+  p(v2, "vote", {player_pseudo: 'VILLAGEOIS_1'});
+  p(lg2, "vote", {player_pseudo: 'VILLAGEOIS_1'});
 
   p(mj, "next")//-> DAY_RESULT
   p(mj, "next")//-> NIGHT
@@ -64,8 +67,20 @@ Promise.all([v1, v2, h, c, lg1]).then(function (values) {
   p(mj, "next")//-> LOUP_GAROU_VOTE
   p(lg1, "loup_garou_vote", {player_pseudo: 'VILLAGEOIS_1'});
   p(mj, "next")//-> LOUP_GAROU_RESULT
+  p(mj, "next")//-> CAPTAIN_DELEGATION
+  p(v1, "delegate", {player_pseudo: 'VILLAGEOIS_2'});
   p(mj, "next")//-> HUNTER_REVENGE
-  p(h, "revenge", {player_pseudo: 'CUPIDON'});
-  p(mj, "next")//-> END_GAME
+  p(h, "revenge", {player_pseudo: 'LOUP_GAROU_2'});
+  p(mj, "next")//-> DAY_VOTE
 
+  p(v2, "vote", {player_pseudo: 'LOUP_GAROU_1'});
+  p(lg1, "vote", {player_pseudo: 'VILLAGEOIS_2'});
+  p(c, "vote", {player_pseudo: 'VILLAGEOIS_2'});
+  p(mj, "next")//-> DAY_RESULT
+  p(mj, "next")//-> DRAW DAY_VOTE
+  p(v2, "vote", {player_pseudo: 'LOUP_GAROU_1'});
+  p(lg1, "vote", {player_pseudo: 'VILLAGEOIS_2'});
+  p(c, "vote", {player_pseudo: 'LOUP_GAROU_1'});
+  p(mj, "next")//-> DAY_RESULT
+  p(mj, "next")//-> GAME OVER
 });

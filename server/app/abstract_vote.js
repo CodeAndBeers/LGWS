@@ -8,6 +8,7 @@ module.exports.vote = function (game, player, param) {
       } else {
         candidate.vote_count = 1;
       }
+      if (player.captain) candidate.vote_count++;
     }
     player.vote = candidate;
     console.info(player.pseudo + " voted for " + param.player_pseudo);

@@ -1,6 +1,7 @@
 let DAY_VOTE = require("./day_vote.js");
 let ROLES = require("../roles.js");
 let HUNTER_REVENGE = require("./hunter_revenge.js");
+let CAPTAIN_DELEGATION = require("./captain_delegation.js");
 
 let state = {
   name: "RESOLVE_DEATH",
@@ -16,15 +17,21 @@ let state = {
           if (maybe_lover.isAlive() && maybe_lover.lover && maybe_lover != dead_player) {
             maybe_lover.dead = "LOVER";
             game.deads_today.push(maybe_lover);
-            console.log(maybe_lover.pseudo + " died from his lover death " + maybe_lover.pseudo);
+            console.log(maybe_lover.pseudo + " died from his lover death " + dead_player.pseudo);
           }
         });
       }
-      
+
       if (dead_player.role === ROLES.HUNTER.name) {
         console.log("RESOLVE_DEATH: On Hunter revenge");
         return HUNTER_REVENGE;
       }
+
+      if (dead_player.captain) {
+        console.log("RESOLVE_DEATH: captain delegation");
+        return CAPTAIN_DELEGATION;
+      }
+
       //On continue de dépiler
       console.log("RESOLVE_DEATH: continue");
       return game.gameOver() || this;

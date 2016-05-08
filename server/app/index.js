@@ -171,6 +171,7 @@ io.on('connection', function(socket){
         state.actions.forEach(function (action) {
           console.log("Register action: " + action.name);
           socket.on(action.name, function(param) {
+            console.log("Reveive action", action.name, "with param", param);
             try {
               if (game.state.name === state.name) {
                 action.fct(socket.game, socket.player, param);

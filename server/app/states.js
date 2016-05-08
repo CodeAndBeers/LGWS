@@ -12,7 +12,8 @@ module.exports = {
  WITCH: require("./states/witch.js"),
  DISTRIBUTE_ROLE: require("./states/distribute_role.js"),
  HUNTER_REVENGE: require("./states/hunter_revenge.js"),
- RESOLVE_DEATH: require("./states/resolve_death.js")
+ RESOLVE_DEATH: require("./states/resolve_death.js"),
+ CAPTAIN_DELEGATION: require("./states/captain_delegation.js")
 }
 //Death by grief
 //Captain delegation
