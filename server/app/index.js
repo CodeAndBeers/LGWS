@@ -123,17 +123,25 @@ io.on('connection', function(socket){
 
     //game.updatePlayers = function () {updatePlayers(this)};
     socket.on('next', function (param) {
-      socket.game.state = socket.game.state.next(game, param);
-      console.log("Moving to state '" + JSON.stringify(socket.game.state) + "' with param ["+ JSON.stringify(param) +"]");
-      let tmp_next = socket.game.state;
-      while (tmp_next && tmp_next.init) {
-        tmp_next = tmp_next.init(game);
-        if (tmp_next) {
-          socket.game.state = tmp_next;
+      try {
+        socket.game.state = socket.game.state.next(game, param);
+        console.log("Moving to state '" + JSON.stringify(socket.game.state) + "' with param ["+ JSON.stringify(param) +"]");
+        let tmp_next = socket.game.state;
+        while (tmp_next && tmp_next.init) {
+          tmp_next = tmp_next.init(game);
+          if (tmp_next) {
+            socket.game.state = tmp_next;
+          }
+        }
+        console.log("Finally moved to state '", JSON.stringify(socket.game.state));
+        updateAllPlayers(game);
+      } catch (err) {
+        if (err.stack) {
+         console.log('\nStacktrace:')
+         console.log('====================')
+         console.log(err.stack);
         }
       }
-      console.log("Finally moved to state '", JSON.stringify(socket.game.state));
-      updateAllPlayers(game);
     });
     updateAllPlayers(game);
   });
@@ -163,10 +171,18 @@ io.on('connection', function(socket){
         state.actions.forEach(function (action) {
           console.log("Register action: " + action.name);
           socket.on(action.name, function(param) {
-            if (game.state.name === state.name) {
-              action.fct(socket.game, socket.player, param);
-            } else {
-              console.log("Trying to do action '"+action.name+"' on state '"+state.name+"' while game state is '"+game.state.name+"'");
+            try {
+              if (game.state.name === state.name) {
+                action.fct(socket.game, socket.player, param);
+              } else {
+                console.log("Trying to do action '"+action.name+"' on state '"+state.name+"' while game state is '"+game.state.name+"'");
+              }
+            } catch (err) {
+              if (err.stack) {
+               console.log('\nStacktrace:')
+               console.log('====================')
+               console.log(err.stack);
+             }
             }
           });
         })

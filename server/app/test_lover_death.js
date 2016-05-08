@@ -27,13 +27,13 @@ function joinTestPlayer(name, role) {
 
 let v1 = joinTestPlayer("VILLAGEOIS_1", "VILLAGEOIS");
 let h = joinTestPlayer("HUNTER", "HUNTER");
-let v = joinTestPlayer("CUPIDON", "CUPIDON");
+let c = joinTestPlayer("CUPIDON", "CUPIDON");
 let lg1 = joinTestPlayer("LOUP_GAROU_1", "LOUP_GAROU");
 
-Promise.all([v1, v, h, lg1]).then(function (values) {
+Promise.all([v1, h, c, lg1]).then(function (values) {
   let v1 = values[0];
   let h = values[1];
-  let v = values[2];
+  let c = values[2];
   let lg1 = values[3];
 
   function p(player, action, param) {
@@ -48,21 +48,21 @@ Promise.all([v1, v, h, lg1]).then(function (values) {
 
   // player mayor election
   p(v1, "vote", {player_pseudo: 'HUNTER'});
-  p(v, "vote", {player_pseudo: 'VILLAGEOIS_1'});
+  p(c, "vote", {player_pseudo: 'VILLAGEOIS_1'});
   p(lg1, "vote", {player_pseudo: 'VILLAGEOIS_1'});
   p(h, "vote", {player_pseudo: 'VILLAGEOIS_1'});
 
   p(mj, "next")//-> DAY_RESULT
   p(mj, "next")//-> NIGHT
   p(mj, "next")//-> CUPIDON
-  p(v, "vote_cupidon", {player_pseudo: 'VILLAGEOIS_1'});
-  p(v, "vote_cupidon", {player_pseudo: 'HUNTER'});
+  p(c, "vote_cupidon", {player_pseudo: 'VILLAGEOIS_1'});
+  p(c, "vote_cupidon", {player_pseudo: 'HUNTER'});
 
-  p(mj, "next")//-> VOYANTE
-  p(v, "reveal", {player_pseudo: 'WITCH'})
   p(mj, "next")//-> LOUP_GAROU_VOTE
   p(lg1, "loup_garou_vote", {player_pseudo: 'HUNTER'});
   p(mj, "next")//-> LOUP_GAROU_RESULT
-  //p(mj, "next")//-> NEXT_DAY
+  p(mj, "next")//-> HUNTER_REVENGE
+  p(h, "revenge", {player_pseudo: 'CUPIDON'});
+  p(mj, "next")//-> END_GAME
 
 });

@@ -11,7 +11,8 @@ module.exports = {
  LOUP_GAROU_RESULT: require("./states/loup_garou_result.js"),
  WITCH: require("./states/witch.js"),
  DISTRIBUTE_ROLE: require("./states/distribute_role.js"),
- HUNTER_REVENGE: require("./states/hunter_revenge.js")
+ HUNTER_REVENGE: require("./states/hunter_revenge.js"),
+ RESOLVE_DEATH: require("./states/resolve_death.js")
 }
 //Death by grief
 //Captain delegation
