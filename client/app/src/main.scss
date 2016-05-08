@@ -3,7 +3,9 @@
 @import "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
 @import "./components/sass/mixins";
 
+@import "./components/sass/button";
 @import "./components/sass/players";
+
 @import "./components/socket-status/socket-status";
 @import "./login/login";
 @import "./waiting-room/waiting-room";
@@ -13,7 +15,8 @@
 html {
 
 	body {
-		background-color: #eee;
+		background-color: #403e3c;
+		color: white;
 
 		h1 {
 			text-align: center;
@@ -24,11 +27,16 @@ html {
 		}
 
 		.content {
-			@include make-xs-column(12);
+			@include make-xs-column(12, 0);
 			@include make-sm-column(8);
 			@include make-sm-column-offset(2);
 			@include make-md-column(6);
 			@include make-md-column-offset(3);
+
+			@media (max-width: $screen-xs-max) {
+				padding-left: 0;
+				padding-right: 0;
+			}
 		}
 	}
 

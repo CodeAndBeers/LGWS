@@ -1,0 +1,30 @@
+.btn {
+	height: 50px;
+	background-color: transparent;
+	background-image: url("/img/components/images/button-wood.png");
+	border: none;
+	border-radius: 2px;
+	font-weight: bold;
+	min-width: 200px;
+	background-size: 100% 100%;
+	font-size: 18px;
+	color: #FFFFFF;
+
+	&:hover, &:focus {
+		transform: scale(1.05, 1.1);
+		transition: all 0.1s;
+		background-image: url("/img/components/images/button-wood.png");
+	}
+
+	@include make-xs-column(12);
+}
+
+input[type=text] {
+	//background-image: url("/img/components/images/input-wood.png");
+	//background-size: 150px 100%;
+	//background-repeat: repeat-x;
+	height: 50px;
+	color: black;
+	background-color: rgb(255, 246, 186);
+	font-weight: bold;
+}
