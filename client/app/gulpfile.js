@@ -56,6 +56,10 @@ const paths = {
 	},
 	misc: [
 		{
+			src: app + '/**/*.ttf',
+			dest: dist + '/fonts'
+		},
+		{
 			src: app + '/index.html',
 			dest: dist
 		},

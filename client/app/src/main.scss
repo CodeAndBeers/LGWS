@@ -11,12 +11,30 @@
 @import "./waiting-room/waiting-room";
 @import "./player-vote/player-vote";
 
+@font-face {
+	font-family: crom;
+	src: url("/fonts/components/fonts/Crom_v1.ttf");
+}
+
+@font-face {
+	font-family: grange;
+	src: url("/fonts/components/fonts/Grange.ttf");
+}
+
+.well {
+	background-color: #696969;
+	border: 1px solid #B9B8B8;
+}
+
 
 html {
 
+
 	body {
-		background-color: #403e3c;
+		font-family: grange, "Helvetica Neue", Helvetica, Arial, sans-serif;
+		background-color: $dark;
 		color: white;
+		font-size: $default-font-size;
 
 		h1 {
 			text-align: center;
