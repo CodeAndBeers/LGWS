@@ -3,7 +3,7 @@ const states = require("../states");
 let state = {
   name: "HUNTER_REVENGE",
   next: function(game) {
-    return game.gameOver() || states.MORNING;
+    return game.gameOver() || states.RESOLVE_DEATH;
   },
   actions: []
 }

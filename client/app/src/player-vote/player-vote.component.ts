@@ -12,6 +12,7 @@ class PlayerVoteComponent extends GameAwareComponent implements OnInit {
 	hasVoted: boolean = false;
 	isMJ: boolean;
 	isCurrentPlayerDead: boolean;
+	isLover: boolean;
 	@Input('voteFn') voteFn: (playerName:string) => any;
 
 	constructor(gameService: GameService) {
@@ -37,6 +38,7 @@ class PlayerVoteComponent extends GameAwareComponent implements OnInit {
 		this.players = this.gameService.getAllPlayersSorted();
 		this.isMJ = this.gameService.isCurrentPlayerMJ();
 		this.isCurrentPlayerDead = this.gameService.isCurrentPlayerDead();
+		this.isLover = this.gameService.isCurrentPlayerLover();
 	}
 
 }

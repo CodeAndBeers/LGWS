@@ -11,16 +11,13 @@ let state = {
           winner.captain = true;
           console.log(winner.pseudo + " was elected as the new leader !");
           return states.NIGHT;
+        } else {
+          winner.dead = "DAY_VOTE";
+          game.deads_today.push(winner);
+          console.log(winner.pseudo + " was designated as the next hanged !");
+          game.after_resolve_death = states.NIGHT;
+          return game.gameOver() || states.RESOLVE_DEATH;
         }
-        winner.dead = "DAY_VOTE";
-        console.log(winner.pseudo + " was designated as the next hanged !");
-        if (winner.role === "HUNTER") {
-          game.after_hunter_revenge = function() {
-            return states.NIGHT;
-          };
-          return states.HUNTER_REVENGE;
-        }
-        return game.gameOver() || states.NIGHT;
       }
     );
   },
