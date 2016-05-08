@@ -8,6 +8,8 @@
 
 .players {
 
+	white-space: nowrap;
+
 	.player {
 
 		$height: 60px;
@@ -18,17 +20,21 @@
 		background-image: url("/img/components/images/log_spruce.png");
 		min-height: $height;
 		vertical-align: middle;
-		line-height: $height - ($padding * 2);
 		padding: $padding;
 		font-size: $default-font-size;
 		margin-bottom: 5px;
+		overflow: hidden;
 
 		&.dead {
 			background-color: #ccc;
 		}
 
-		&-name, &-result {
-			@include make-xs-column(12);
+		&-name, &-vote-for {
+			@include make-xs-column(6, 0);
+		}
+
+		&-vote-count {
+			@include make-xs-column(12, 0);
 		}
 	}
 	margin-bottom: 15px;

@@ -66,6 +66,10 @@ const paths = {
 		{
 			src: node_modules + '/systemjs/dist/system.src.js',
 			dest: dist + '/js'
+		},
+		{
+			src: node_modules + '/font-awesome/fonts/fontawesome-webfont.*',
+			dest:  dist + '/fonts/'
 		}
 	]
 };

@@ -6,13 +6,15 @@
 					class="btn btn-primary pull-left btn-vote">
 				Voter
 			</button>
-			<span class="pull-left">{{player.pseudo}}</span>
-			<span *ngIf="isLover && player.lover" class="pull-right"><3</span>
-			<div *ngIf="isMJ">
-				<span *ngIf="player.vote" class="pull-left"> (a voté pour {{player.vote}})</span>
-				<span class="pull-right" *ngIf="!isPlayerDead(player)">
-					nombre de votes: {{player.vote_count || 0}}
-				</span>
+			<div class="player-name">
+				{{player.pseudo}}
+				<i *ngIf="isLover && player.lover" class="fa fa-heart"></i>
+			</div>
+			<div *ngIf="isMJ && player.vote" class="player-vote-for">
+				<i class="fa fa-arrow-right"></i>&nbsp;{{player.vote}}
+			</div>
+			<div *ngIf="isMJ && !isPlayerDead(player)" class="player-vote-count">
+				{{player.vote_count || 0}}&nbsp;<i class="fa fa-thumbs-up"></i>
 			</div>
 		</div>
 	</div>
