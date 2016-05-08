@@ -28,6 +28,13 @@ input[type=text] {
 	font-weight: bold;
 	font-size: $default-font-size;
 
+	border-style: solid;
+	border-width: 12px;
+	-moz-border-image: url("/img/components/images/cauldron_top.png") 25% round;
+	-webkit-border-image: url("/img/components/images/cauldron_top.png") 25% round;
+	-o-border-image: url("/img/components/images/cauldron_top.png") 25% round;
+	border-image: url("/img/components/images/cauldron_top.png") 25% round;
+
 	&:focus {
 		border-color: #DDE966;
 		outline: 0;
