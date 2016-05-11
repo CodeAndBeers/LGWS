@@ -40,6 +40,11 @@
 			}
 		}
 
+		&.winner {
+			transform: scale(1.02,1.02);
+			box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.45);
+		}
+
 		&-name, &-vote-for {
 			@include make-xs-column(6, 0);
 		}
@@ -51,6 +56,13 @@
 		&-vote-actions {
 			@include make-xs-column(6, 0);
 			text-align: right;
+		}
+
+		&-winner-icon {
+			&::before {
+				@include fa-icon();
+				content: $fa-var-trophy;
+			}
 		}
 
 		&-vote-btn {

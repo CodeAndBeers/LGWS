@@ -3,7 +3,7 @@
 		<div *ngFor="#player of players" class="player" [class.dead]="isPlayerDead(player)">
 			<div class="player-name">
 				{{player.pseudo}}
-				<i *ngIf="isLover && player.lover" class="fa fa-heart"></i>
+				<i [hidden]="!isLover || !player.lover" class="fa fa-heart"></i>
 			</div>
 			<div *ngIf="isMJ && player.vote" class="player-vote-for">
 				<i class="fa fa-arrow-right"></i>&nbsp;{{player.vote}}
