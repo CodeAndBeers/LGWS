@@ -8,15 +8,16 @@
 	<div *ngIf="(isVoyante && !isVoyanteDead) || isMJ">
 		<div *ngIf="players" class="players">
 			<div *ngFor="#player of players" class="player">
-				{{player.pseudo}}
+				<div class="player-name">
+					{{player.pseudo}}
+					<i [hidden]="!isLover || !player.lover" class="fa fa-heart"></i>
 				<span *ngIf="player.revealed">
 					: {{player.role}}
 				</span>
-				<button *ngIf="canReveal(player)"
-						(click)="reveal(player.pseudo)"
-						class="btn btn-primary pull-left btn-vote">
-					Révéler l'identité
-				</button>
+				</div>
+				<div *ngIf="canReveal(player)" class="player-vote-actions">
+					<button (click)="reveal(player.pseudo)" class="btn btn-primary player-reveal-btn"></button>
+				</div>
 			</div>
 		</div>
 	</div>
