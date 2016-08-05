@@ -7,28 +7,77 @@
 }
 
 .players {
+
+	white-space: nowrap;
+
 	.player {
 
-		@include make-row();
 		$height: 60px;
 		$padding: 10px;
+		position: relative;
 
 		border-radius: 3px;
-		border: 1px solid #ccc;
-		background-color: white;
+		border: 2px solid black;
+		background-image: url("/img/components/images/log_spruce.png");
 		min-height: $height;
 		vertical-align: middle;
-		line-height: $height - ($padding * 2);
 		padding: $padding;
-		font-size: 17px;
+		font-size: $default-font-size;
 		margin-bottom: 5px;
+		overflow: hidden;
 
 		&.dead {
-			background-color: #ccc;
+			&::after {
+				content: "";
+				background-color: #B1B1B1;
+				opacity: 0.5;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				position: absolute;
+				z-index: 5;
+			}
 		}
 
-		&-name, &-result {
-			@include make-xs-column(12);
+		&.winner {
+			transform: scale(1.02,1.02);
+			box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.45);
+		}
+
+		&-name, &-vote-for {
+			@include make-xs-column(6, 0);
+		}
+
+		&-vote-count {
+			@include make-xs-column(12, 0);
+		}
+
+		&-vote-actions {
+			@include make-xs-column(6, 0);
+			text-align: right;
+		}
+
+		&-winner-icon {
+			&::before {
+				@include fa-icon();
+				content: $fa-var-trophy;
+			}
+		}
+
+		&-vote-btn {
+			&::before {
+				@include fa-icon();
+				content: $fa-var-thumbs-up;
+			}
+		}
+
+		.btn {
+			width: 50px;
+			padding: 10px 0;
+			min-width: 1px;
+			float: none;
+			display: inline-block;
 		}
 	}
 	margin-bottom: 15px;

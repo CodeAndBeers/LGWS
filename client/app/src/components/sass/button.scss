@@ -1,0 +1,44 @@
+.btn {
+	height: 50px;
+	background-color: transparent;
+	background-image: url("/img/components/images/button-wood.png");
+	border: none;
+	border-radius: 2px;
+	font-weight: bold;
+	min-width: 200px;
+	background-size: 100% 100%;
+	font-size: $default-font-size;
+	color: #FFFFFF;
+	border: 2px solid black;
+
+	&:hover, &:focus {
+		transform: scale(1.05, 1.1);
+		transition: all 0.1s;
+		background-image: url("/img/components/images/button-wood.png");
+		border-color: black;
+	}
+
+	@include make-xs-column(12);
+}
+
+input[type=text] {
+	height: 50px;
+	color: black;
+	background-color: rgb(255, 246, 186);
+	font-weight: bold;
+	font-size: $default-font-size;
+
+	border-style: solid;
+	border-width: 12px;
+	-moz-border-image: url("/img/components/images/cauldron_top.png") 25% round;
+	-webkit-border-image: url("/img/components/images/cauldron_top.png") 25% round;
+	-o-border-image: url("/img/components/images/cauldron_top.png") 25% round;
+	border-image: url("/img/components/images/cauldron_top.png") 25% round;
+
+	&:focus {
+		border-color: #DDE966;
+		outline: 0;
+		-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(255, 240, 65);
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgb(255, 240, 65);
+	}
+}

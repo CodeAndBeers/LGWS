@@ -1,0 +1,16 @@
+#voyante {
+
+	.players {
+
+		.player {
+
+			&-reveal-btn {
+
+				&::before {
+					@include fa-icon();
+					content: $fa-var-eye;
+				}
+			}
+		}
+	}
+}

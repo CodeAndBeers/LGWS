@@ -39,6 +39,10 @@ const paths = {
 	templates: {
 		src: app + '/**/*.html'
 	},
+	images: {
+		src: app + '/**/*.{png,jpg,svg,gif}',
+		dest: dist + '/img'
+	},
 	sass: {
 		src: [ 
 			app + '/main.scss'
@@ -52,12 +56,20 @@ const paths = {
 	},
 	misc: [
 		{
+			src: app + '/**/*.ttf',
+			dest: dist + '/fonts'
+		},
+		{
 			src: app + '/index.html',
 			dest: dist
 		},
 		{
 			src: node_modules + '/systemjs/dist/system.src.js',
 			dest: dist + '/js'
+		},
+		{
+			src: node_modules + '/font-awesome/fonts/fontawesome-webfont.*',
+			dest:  dist + '/fonts/'
 		}
 	]
 };
@@ -110,6 +122,11 @@ gulp.task('styles', function () {
 		.pipe(gulp.dest(paths.sass.dest));
 });
 
+gulp.task('images', [], function () {
+	return gulp.src(paths.images.src)
+	  .pipe(gulp.dest(paths.images.dest));
+});
+
 gulp.task('misc', [], function () {
 	return eventStream.merge.apply(null, paths.misc.map(function (item) {
 		return gulp.src(item.src)
@@ -132,4 +149,4 @@ gulp.task('watch', [], function () {
 	});
 });
 
-gulp.task('default', ['libs', 'scripts', 'styles', 'misc']);
+gulp.task('default', ['images', 'libs', 'scripts', 'styles', 'misc']);

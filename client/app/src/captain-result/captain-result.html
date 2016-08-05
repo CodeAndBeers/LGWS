@@ -11,16 +11,19 @@
 		<div *ngIf="winners.length < 1">
 			Oops something went wrong
 		</div>
-		<div *ngFor="#player of players" class="player" [class.dead]="isPlayerDead(player)">
+		<div *ngFor="#player of players" class="player"
+			 [class.dead]="isPlayerDead(player)" [class.winner]="isWinner(player)">
+
 			<div class="player-name">
-				<span>{{player.pseudo}}</span>
-				<span *ngIf="player.vote"> a voté pour {{player.vote}}</span>
+				{{player.pseudo}}
+				<i [hidden]="!isLover || !player.lover" class="fa fa-heart"></i>
 			</div>
-			<div class="player-result">
-				<span *ngIf="!isPlayerDead(player)">
-					nombre de votes: {{player.vote_count || 0}}
-					<span *ngIf="isWinner(player)">*Winner*</span>
-				</span>
+			<div *ngIf="player.vote" class="player-vote-for">
+				<i class="fa fa-arrow-right"></i>&nbsp;{{player.vote}}
+			</div>
+			<div *ngIf="!isPlayerDead(player)" class="player-vote-count">
+				{{player.vote_count || 0}}&nbsp;<i class="fa fa-thumbs-up"></i>
+				&nbsp;<i *ngIf="isWinner(player)" class="player-winner-icon"></i>
 			</div>
 		</div>
 		<div *ngIf="isMJ">
