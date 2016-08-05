@@ -1,23 +1,19 @@
 let DAY_VOTE = require("./day_vote.js");
-const HUNTER_REVENGE = require("./hunter_revenge.js");
+let ROLES = require("../roles.js")
+let RESOLVE_DEATH = require("./resolve_death.js")
 
 let state = {
   name: "MORNING",
   init: function(game) {
     // reset all players last_dead variable
     for (let player in game.players) if (player.last_dead) delete player.last_dead;
-
     game.turn++;
-    let hunter = game.players.getHunter();
-    if (hunter && hunter.dead && hunter.dead !== "NONE" && !hunter.take_revenge) {
-      game.after_hunter_revenge = this.next;
-      return HUNTER_REVENGE;
-    }
     //Nothing to do in morning
-    return game.gameOver() || this.next();
+    return game.gameOver() || this.next(game);
   },
   next: function(game) {
-      return DAY_VOTE;
+      game.after_resolve_death = DAY_VOTE;
+      return RESOLVE_DEATH;
   },
   actions: []
 }

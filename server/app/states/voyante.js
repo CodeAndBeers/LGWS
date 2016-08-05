@@ -6,7 +6,7 @@ let state = {
     let voyante = game.players.getVoyante();
     if (!voyante || !voyante.isAlive()) {
       //Skip state
-      return this.next();
+      return this.next(game);
     }
   },
   next: function(game) {
